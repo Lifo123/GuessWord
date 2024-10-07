@@ -1,8 +1,10 @@
-import { useRef } from 'react';
+import useValidation from '@Hooks/useValidation';
 import './Box.css';
-import { ValidationWord } from '@Utilities/Validation';
+import { useRef } from 'react';
 
-export default function Box() {
+export default function Box({ letter }) {
+    //Hooks
+    const { CompareWord } = useValidation();
 
     //Refs
     const inputRef = useRef(null);
@@ -25,8 +27,7 @@ export default function Box() {
         } else if (e.key === 'ArrowRight') {
             next?.focus();
         } else if (e.key === 'Enter' && inputRef.current.value.length > 0) {
-            !ValidationWord() ? console.log('Rellena los campos') : null;
-            ;
+            ValidationWord()
         }
 
         if (isAlphabet) {
@@ -34,8 +35,6 @@ export default function Box() {
             next?.focus();
             e.preventDefault();
         }
-
-
 
     };
 
@@ -60,6 +59,28 @@ export default function Box() {
         setTimeout(() => {
             inputRef.current.setSelectionRange(1, 1); // Establece la posición del caret al final
         }, 0);
+    }
+
+    const ValidationWord = () => {
+        const GuessWordNodes = document.querySelectorAll(`[data-row='active'] .game-in`);
+        let GuessWord = [];
+        let allFilled = true;
+
+        GuessWordNodes.forEach((item) => {
+            const letter = item.value.toUpperCase();
+            GuessWord.push(letter);
+
+            if (letter.length === 0) {
+                allFilled = false;
+            }
+        });
+
+        if (!allFilled) {
+            return;
+        }
+
+        CompareWord(GuessWord)
+
     }
 
     return (

@@ -1,0 +1,18 @@
+---
+import '@Assets/css/Global.css';
+import Layout from '@Layouts/Layout.astro';
+import Game from '@Apps/Game/Game.jsx';
+---
+
+<Layout title="GuessWord" description='wasa'>
+	<section class="Game-container f-col f-center br-8 p-3 w-max mx-auto mt-5">
+		<h1 class="mb-4 fw-800 fs-6">Guess Word Game</h1>
+		<Game client:visible/>
+	</section>
+</Layout>
+
+<style is:inline>
+	.Game-container{
+		min-height: 450px;
+	}
+</style>

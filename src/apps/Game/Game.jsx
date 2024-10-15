@@ -36,16 +36,6 @@ export default function Game() {
         if (SelectWord) {
             WordStore.set(SelectWord)
             console.log(SelectWord);
-            
-            let inputLetters = [];
-            for(let i = 0; i < Try; i++) {
-                inputLetters.push({})
-                for(let j = 0; j < SelectWord.length; j++) {
-                    inputLetters[i][j] = '';
-                }
-            }
-            setGame(inputLetters);
-            
         }
 
         window.addEventListener('keydown', handleKeyDown);
@@ -55,6 +45,7 @@ export default function Game() {
         };
 
     }, [])
+    
 
     return (
         <div className="board f-col g-2 f-center">

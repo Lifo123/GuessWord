@@ -1,0 +1,20 @@
+.btn-togle{
+    width: 34px;
+    height: 21px;
+    background-color: var(--f-placeholder);
+}
+.btn-togle.active{
+    background-color: var(--f-text-blue);
+}
+
+.btn-circle{
+    background-color: var(--f-bg-bento);
+    height: 15px;
+    aspect-ratio: 1/1;
+    left: 3px;
+    transition: left .2s;
+}
+
+.btn-circle.active{
+    left: 16px;
+}

@@ -1,7 +1,7 @@
 import ES from "@Assets/dictionary/ES_API.json"
 import useRandom from "@Hooks/useRandom";
 
-export default function GameFunct () {
+export default function GameFunct() {
     //Hooks
     const Random = useRandom()
 
@@ -11,20 +11,41 @@ export default function GameFunct () {
         return Word
     }
 
+    const Typing = (array, iRow, iLetter, input) => {
+        let updateGame = [...array];
+        let updateRow = [...updateGame[iRow]];
+        let updateLetter = { ...updateRow[iLetter] };
+
+        updateLetter.letter = input;
+        updateRow[iLetter] = updateLetter; 
+        updateGame[iRow] = updateRow;
+
+        return updateGame;
+
+    }
+
+    const Backspace = (array, iRow, iLetter, input) => {
+        let updateGame = [...array];
+        let updateRow = [...updateGame[iRow]];
+        let updateLetter = { ...updateRow[iLetter - 1] };
+
+        updateLetter.letter = '';
+        updateRow[iLetter - 1] = updateLetter; 
+        updateGame[iRow] = updateRow;
+
+        return updateGame;
+    }
+
     const ValidateWord = (guess, word, array, currentRow) => {
         let row = array[currentRow]
         console.log(row);
-        
-    }
 
-    const Typing = (letter, index, array) => {
-        let row = array[index]
-        
     }
 
     return {
         SelectWord,
         ValidateWord,
+        Backspace,
         Typing
     }
 

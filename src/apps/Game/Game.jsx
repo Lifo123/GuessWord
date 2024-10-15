@@ -14,69 +14,68 @@ export default function Game() {
 
     //States
     const [gameStatus, setGameStatus] = useState(
-        JSON.parse(localStorage.getItem("test")) ||
+        JSON.parse(localStorage.getItem("WordleGame")) ||
         Array.from({ length: TryStore.get() }, () => 
-            Array.from({ length: WordLengthStore.get() }, () => "")
+            Array.from({ length: WordLengthStore.get() }, () => ({ letter: '', state: null }))
         )
     )
     const [Word, setWord] = useState( GF.SelectWord(WordLength) || "Glass")
     const [currentRow, setCurrentRow] = useState(0)
+    const [currentLetter, setCurrentLetter] = useState(0)
     const [WordGuess, setWordGuess] = useState("")
 
     //Functions
     const handleKeyDown = (e) => {
         const letter = /^[a-zA-ZñÑ]$/;
-        let indexLetter = 0;
+
+        if (currentRow >= TryStore.get()) {
+            console.log("Número máximo de intentos alcanzado");
+            return; // Evita que continúe el código si ya alcanzaste el límite de intentos
+        }
 
         if (letter.test(e.key) && WordGuess.length < WordLength) {
             setWordGuess((prev) => prev + e.key);
+            setCurrentLetter((v) => (v < WordLength + 1 ? v + 1 : WordLength + 1));
 
-            let updateRow = gameStatus[currentRow]
-            let updateLetter = updateRow[indexLetter]
-            updateLetter = e.key
-
+            let updateGame = GF.Typing(gameStatus, currentRow, currentLetter, e.key);
+            setGameStatus(updateGame);
 
         } else if (e.key === "Backspace") {
             setWordGuess((prev) => prev.slice(0, -1));
-        } else if (e.key === "Enter") {
-            GF.ValidateWord(WordGuess, Word, gameStatus, currentRow)
-            
-        }
+                setCurrentLetter((v) => (v > 0 ? v - 1 : 0));
 
+                let updateGame = GF.Backspace(gameStatus, currentRow, currentLetter, e.key);
+                setGameStatus(updateGame);
+
+        } else if (e.key === "Enter") {
+            if(WordGuess.length !== WordLength){
+                console.log('Rellena los campos');
+                return;
+            }
+
+            GF.ValidateWord(WordGuess, Word, gameStatus, currentRow)
+
+            setCurrentRow((v) => v + 1);
+            setCurrentLetter(0);
+            setWordGuess("");
+        } 
     }
 
     //Effects
     useEffect(() => {
-        const category = ES[`d${WordLength}`]
-        let SelectWord = category[Random.Generate(category.length)];
-        if (SelectWord) {
-            WordStore.set(SelectWord)
-            console.log(SelectWord);
-            
-            let inputLetters = [];
-            for(let i = 0; i < Try; i++) {
-                inputLetters.push({})
-                for(let j = 0; j < SelectWord.length; j++) {
-                    inputLetters[i][j] = '';
-                }
-            }
-            setGame(inputLetters);
-            
-        }
-
         window.addEventListener('keydown', handleKeyDown);
 
         return () => {
             window.removeEventListener('keydown', handleKeyDown);
         };
 
-    }, [])
+    }, [WordGuess])
 
     return (
         <div className="board f-col g-2 f-center">
             {
                 gameStatus?.map((row, index) => {
-                    return <Row key={index} word={Word} id={index} />
+                    return <Row key={index} id={index} row={row} />
                 })
             }
         </div>

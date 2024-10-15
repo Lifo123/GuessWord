@@ -2,22 +2,20 @@
 import './Row.css'
 
 
-export default function Row({ word, id }) {
+export default function Row({ id, row }) {
     //GlobalStore
-
 
     return (
         <div className='game-row f-row g-2 f-center' data-id={id + 1}>
             {
-                word?.split('').map((letter, index) => (
+                row?.map((box, index) => (
                     <span
-                        className='box-letter'
+                        className={`box-letter ${box.letter ? 'active' : ''}`}
                         key={index}
-                        did={index}
-                        dltr=''
-                        eval=''
+                        dltr={box.letter}
+                        eval={box.state || ''}
                     >
-                
+                        {box.letter.toUpperCase() || ''}
                     </span>
                 ))
             }

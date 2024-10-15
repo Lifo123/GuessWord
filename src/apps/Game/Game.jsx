@@ -1,51 +1,68 @@
-import { useEffect, useState } from "react";
 import { useStore } from '@nanostores/react';
-import { DifficultyStore, WordInfoStore, WordStore } from "@Context/GlobalStore";
+import useRandom from '@Hooks/useRandom';
+import { useEffect, useState } from "react";
+import { TryStore, WordLengthStore, WordStore } from "@Context/GlobalStore";
 
 import Row from "./Row/Row";
-
+import ES from '@Assets/dictionary/ES_API.json'
 
 export default function Game() {
+    //Hooks
+    const Random = useRandom();
+
     //GlobalStore
-    const Difficult = useStore(DifficultyStore);
     const Word = useStore(WordStore);
+    const WordLength = useStore(WordLengthStore);
+    const Try = Array.from({ length: TryStore.get() });
 
-   //States
-   const [isMounted, setIsMounted] = useState(false);
-   const [isLoaded, setIsLoaded] = useState(true);
+    //States
+    const [game, setGame] = useState([]);
+    
+    //Functions
+    const handleKeyDown = (e) => {
+        const letter = /^[a-zA-ZñÑ]$/;
+        
+        if (letter.test(e.key)) {
+            
+            
+        }
 
-   //Variables
-   let testword = 'wasa';
-   let testwordinfo = [];
+    }
 
-   // Efecto para inicializar las tiendas de palabras y su información
-   useEffect(() => {
-       testword.split('').forEach((letter) => {
-           testwordinfo.push({
-               letter: letter.toUpperCase(),
-               isValid: null,
-           });
-       });
+    //Effects
+    useEffect(() => {
+        const category = ES[`d${WordLength}`]
+        let SelectWord = category[Random.Generate(category.length)];
+        if (SelectWord) {
+            WordStore.set(SelectWord)
+            console.log(SelectWord);
+            
+            let inputLetters = [];
+            for(let i = 0; i < Try; i++) {
+                inputLetters.push({})
+                for(let j = 0; j < SelectWord.length; j++) {
+                    inputLetters[i][j] = '';
+                }
+            }
+            setGame(inputLetters);
+            
+        }
 
-       setIsMounted(true);
-       if (isMounted) {
-           WordStore.set(testword.toUpperCase());
-           WordInfoStore.set(testwordinfo);
-           console.log(WordInfoStore.get());
-           
-       }
-   }, [isMounted]);
+        window.addEventListener('keydown', handleKeyDown);
+
+        return () => {
+            window.removeEventListener('keydown', handleKeyDown);
+        };
+
+    }, [])
 
     return (
-        <div className="f-col g-3 f-center">
+        <div className="board f-col g-2 f-center">
             {
-                isLoaded ? (
-                    Difficult.map((row, index) => {
-                        return <Row key={index} word={Word} />
-                    })
-                ) : <p>Loading</p>
+                Try.map((row, index) => {
+                    return <Row key={index} word={Word} id={index}/>
+                })
             }
-            <span className="btn btn-green br-4 w-100 text-center">Validate</span>
         </div>
     )
 }

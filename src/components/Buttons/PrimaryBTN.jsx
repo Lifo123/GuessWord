@@ -5,7 +5,7 @@ export default function PrimaryBTN({text = 'Enter text', }){
 
     //Functons
     const onClick = () => {
-        location.href = '/GuessWord/Guess';
+        location.href = '/GuessWord/Play';
     }
 
    return (

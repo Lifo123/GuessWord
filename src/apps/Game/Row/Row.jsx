@@ -1,15 +1,22 @@
 import './Row.css'
-import Box from '../Box/Box'
 
-export default function Row({ word }) {
+
+export default function Row({ word, id }) {
     //GlobalStore
 
-
     return (
-        <div className='f-row g-2 f-center' data-row='inactive'>
+        <div className='game-row f-row g-2 f-center' data-id={id + 1}>
             {
                 word?.split('').map((letter, index) => (
-                    <Box key={index} letter={letter} />
+                    <span
+                        className='box-letter'
+                        key={index}
+                        did={index}
+                        dltr=''
+                        eval=''
+                    >
+                
+                    </span>
                 ))
             }
         </div>

@@ -29,11 +29,15 @@
     border: solid 2px #acacac28;
     background-color: var(--f-text-green);
 }
-.box-letter[eval="error"]{
+.box-letter[eval="incorrect"]{
     border: solid 2px #acacac28;
     background-color: #69696971;
 }
 .box-letter[eval="exist"]{
     border: solid 2px #acacac28;
     background-color: var(--f-text-yellow);
+}
+
+@keyframes ValidationAnimation {
+    
 }

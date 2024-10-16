@@ -37,8 +37,37 @@ export default function GameFunct() {
     }
 
     const ValidateWord = (guess, word, array, currentRow) => {
-        let row = array[currentRow]
-        console.log(row);
+        let updateGame = array
+        let updateRow = updateGame[currentRow]
+
+        let wordA = word.split('')
+
+        let letterCount = {};
+        wordA.forEach((letter) => {
+            letterCount[letter] = (letterCount[letter] || 0) + 1;
+        });
+    
+        updateRow.forEach((box, index) => {
+            if (box.letter === wordA[index]) {
+                box.state = 'correct';
+                letterCount[box.letter] -= 1;
+            }
+        });
+    
+        updateRow.forEach((box, index) => {
+            if (box.state !== 'correct') {
+                if (wordA.includes(box.letter) && letterCount[box.letter] > 0) {
+                    box.state = 'exist';
+                    letterCount[box.letter] -= 1;
+                } else {
+                    box.state = 'incorrect';
+                }
+            }
+        });
+    
+        updateGame[currentRow] = updateRow;
+    
+        return updateGame;
 
     }
 

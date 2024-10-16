@@ -11,11 +11,12 @@ export default function Game() {
 
     //GlobalStores
     const WordLength = useStore(WordLengthStore)
+    const Try = useStore(TryStore)
 
     //States
     const [gameStatus, setGameStatus] = useState(
         JSON.parse(localStorage.getItem("WordleGame")) ||
-        Array.from({ length: TryStore.get() }, () => 
+        Array.from({ length: Try }, () => 
             Array.from({ length: WordLengthStore.get() }, () => ({ letter: '', state: null }))
         )
     )
@@ -28,12 +29,11 @@ export default function Game() {
     const handleKeyDown = (e) => {
         const letter = /^[a-zA-ZñÑ]$/;
 
-        if (currentRow >= TryStore.get()) {
-            console.log("Número máximo de intentos alcanzado");
-            return; // Evita que continúe el código si ya alcanzaste el límite de intentos
-        }
-
         if (letter.test(e.key) && WordGuess.length < WordLength) {
+            if (currentRow >= Try) {
+                return; 
+            }
+
             setWordGuess((prev) => prev + e.key);
             setCurrentLetter((v) => (v < WordLength + 1 ? v + 1 : WordLength + 1));
 
@@ -48,14 +48,23 @@ export default function Game() {
                 setGameStatus(updateGame);
 
         } else if (e.key === "Enter") {
+            if (currentRow >= Try) {
+                console.log("Número máximo de intentos alcanzado");
+                return;
+            }
             if(WordGuess.length !== WordLength){
                 console.log('Rellena los campos');
                 return;
             }
 
-            GF.ValidateWord(WordGuess, Word, gameStatus, currentRow)
 
-            setCurrentRow((v) => v + 1);
+            let updateGame = GF.ValidateWord(WordGuess, Word, gameStatus, currentRow)
+
+            let isWin = false;
+            console.log(Word);
+            
+            setGameStatus(updateGame)
+            setCurrentRow((v) => (v < Try - 1 ? v + 1 : Try));
             setCurrentLetter(0);
             setWordGuess("");
         } 

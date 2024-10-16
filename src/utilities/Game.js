@@ -1,4 +1,4 @@
-import ES from "@Assets/dictionary/ES_API.json"
+import ES from "@Assets/dictionary/ES_Game.json"
 import useRandom from "@Hooks/useRandom";
 
 export default function GameFunct() {

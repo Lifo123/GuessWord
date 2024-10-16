@@ -1,0 +1,8 @@
+.alert-box{
+    top: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--f-bg-bento);
+    padding: 13px 26px;
+    
+}   

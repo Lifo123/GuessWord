@@ -1,6 +1,6 @@
 import { useStore } from '@nanostores/react';
 import { useEffect, useState } from "react";
-import { TryStore, WordLengthStore, WordStore } from "@Context/GlobalStore";
+import { TryStore, WordLengthStore, WordStore, AlertStore } from "@Context/GlobalStore";
 import GameFunct from "@Utilities/Game";
 
 import Row from "./Row/Row";
@@ -24,6 +24,7 @@ export default function Game() {
     const [currentRow, setCurrentRow] = useState(0)
     const [currentLetter, setCurrentLetter] = useState(0)
     const [WordGuess, setWordGuess] = useState("")
+    const [gameProgress, setGameProgress] = useState('inProgress')
 
     //Functions
     const handleKeyDown = (e) => {
@@ -49,11 +50,11 @@ export default function Game() {
 
         } else if (e.key === "Enter") {
             if (currentRow >= Try) {
-                console.log("Número máximo de intentos alcanzado");
+                AlertStore.set("Número máximo de intentos alcanzado");
                 return;
             }
             if(WordGuess.length !== WordLength){
-                console.log('Rellena los campos');
+                AlertStore.set('Insofucientes letras');          
                 return;
             }
 

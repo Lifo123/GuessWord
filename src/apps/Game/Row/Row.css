@@ -9,6 +9,7 @@
     user-select: none;
     font-weight: 700;
     font-size: 30px;
+    transform-style: preserve-3d;
 }
 
 .box-letter.active{
@@ -38,6 +39,12 @@
     background-color: var(--f-text-yellow);
 }
 
+.box-letter.v{
+    animation: ValidationAnimation .7s ease;
+}
+
 @keyframes ValidationAnimation {
-    
+    50%{
+        transform: rotateX(90deg);
+    }
 }

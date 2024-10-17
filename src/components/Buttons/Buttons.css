@@ -18,3 +18,10 @@
 .btn-circle.active{
     left: 16px;
 }
+
+.play-btn{
+    opacity: 0;
+}
+.play-btn.active{
+    opacity: 1 ;
+}

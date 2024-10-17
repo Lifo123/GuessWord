@@ -1,7 +1,8 @@
 import { useStore } from '@nanostores/react';
 import { useEffect, useState } from "react";
-import { TryStore, WordLengthStore, AlertStore, currentLetterStore } from "@Context/GlobalStore";
+import { TryStore, WordLengthStore, AlertStore, isGameActiveStore } from "@Context/GlobalStore";
 import GameFunct from "@Utilities/Game";
+import PlayAgain from '@Components/Buttons/PlayAgain';
 
 import Row from "./Row/Row";
 
@@ -12,20 +13,19 @@ export default function Game() {
     //GlobalStores
     const WordLength = useStore(WordLengthStore)
     const Try = useStore(TryStore)
-    const cleter = useStore(currentLetterStore)
+    const isGameActive = useStore(isGameActiveStore)
 
     //States
     const [gameStatus, setGameStatus] = useState(
         JSON.parse(localStorage.getItem("WordleGame")) ||
-        Array.from({ length: Try }, () => 
+        Array.from({ length: Try }, () =>
             Array.from({ length: WordLengthStore.get() }, () => ({ letter: '', state: null }))
         )
     )
-    const [Word, setWord] = useState( GF.SelectWord(WordLength) || "Glass")
+    const [Word, setWord] = useState(GF.SelectWord(WordLength) || "Glass")
     const [currentRow, setCurrentRow] = useState(0)
     const [currentLetter, setCurrentLetter] = useState(0)
     const [WordGuess, setWordGuess] = useState("")
-    const [isGameActive, setIsGameActive] = useState(true)
 
     //Functions
     const handleKeyDown = (e) => {
@@ -33,7 +33,7 @@ export default function Game() {
 
         if (letter.test(e.key) && WordGuess.length < WordLength) {
             if (currentRow >= Try) {
-                return; 
+                return;
             }
 
             setWordGuess((prev) => prev + e.key);
@@ -44,25 +44,38 @@ export default function Game() {
 
         } else if (e.key === "Backspace") {
             setWordGuess((prev) => prev.slice(0, -1));
-                setCurrentLetter((v) => (v > 0 ? v - 1 : 0));
+            setCurrentLetter((v) => (v > 0 ? v - 1 : 0));
 
-                let updateGame = GF.Backspace(gameStatus, currentRow, currentLetter, e.key);
-                setGameStatus(updateGame);
+            let updateGame = GF.Backspace(gameStatus, currentRow, currentLetter, e.key);
+            setGameStatus(updateGame);
 
         } else if (e.key === "Enter") {
             if (currentRow >= Try) {
                 AlertStore.set("Número máximo de intentos alcanzado");
                 return;
             }
-            if(WordGuess.length !== WordLength){
-                AlertStore.set('Insofucientes letras');          
+            if (WordGuess.length !== WordLength) {
+                AlertStore.set('Insofucientes letras');
                 return;
             }
 
 
-            let [updateGame, isWin] = GF.ValidateWord(WordGuess, Word, gameStatus, currentRow)
+            let [updateGame, isWin, exist] = GF.ValidateWord(WordGuess, Word, gameStatus, currentRow, WordLength)
             console.log(Word);
-            
+
+            if (!exist) {
+                // Si la palabra no existe, retorna pero actualiza el estado del juego
+                AlertStore.set('La palabra no existe');
+                setGameStatus(updateGame);
+                return;
+            } else {
+                // Avanzar al siguiente intento
+                setGameStatus(updateGame);
+                setCurrentRow((v) => (v < Try - 1 ? v + 1 : Try));
+                setCurrentLetter(0);
+                setWordGuess("");
+            }
+
             if (isWin) {
                 const boxNodes = document.querySelectorAll(`[row="${currentRow}"] .box-letter`);
                 setTimeout(() => {
@@ -72,15 +85,10 @@ export default function Game() {
                         }, index * 100);
                     });
                 }, (WordLength + 1) * 260);
-                setIsGameActive(false);
+                isGameActiveStore.set(false);
                 window.removeEventListener('keydown', handleKeyDown);
             }
-            
-            setGameStatus(updateGame)
-            setCurrentRow((v) => (v < Try - 1 ? v + 1 : Try));
-            setCurrentLetter(0);
-            setWordGuess("");
-        } 
+        }
     }
 
     //Effects
@@ -94,16 +102,15 @@ export default function Game() {
         };
     }, [isGameActive, WordGuess]);
 
-    useEffect(() => {
-        setCurrentLetter(cleter);
-    }, [cleter])
-
     return (
         <div className="board f-col g-2 f-center">
             {
                 gameStatus?.map((row, index) => {
-                    return <Row key={index} id={index} row={row} currentRow={currentRow}/>
+                    return <Row key={index} id={index} row={row} currentRow={currentRow} />
                 })
+            }
+            {
+                !isGameActive ? <PlayAgain/> : null
             }
         </div>
     )

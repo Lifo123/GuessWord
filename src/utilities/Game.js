@@ -1,4 +1,5 @@
 import ES from "@Assets/dictionary/ES_Game.json"
+import ESvalid from "@Assets/dictionary/ES_API_Valid.json"
 import useRandom from "@Hooks/useRandom";
 
 export default function GameFunct() {
@@ -24,7 +25,7 @@ export default function GameFunct() {
 
     }
 
-    const Backspace = (array, iRow, iLetter, input) => {
+    const Backspace = (array, iRow, iLetter) => {
         let updateGame = [...array];
         let updateRow = [...updateGame[iRow]];
         let updateLetter = { ...updateRow[iLetter - 1] };
@@ -36,7 +37,15 @@ export default function GameFunct() {
         return updateGame;
     }
 
-    const ValidateWord = (guess, word, array, currentRow) => {
+    const ValidateWord = (guess, word, array, currentRow, id) => {
+        let exist = existWord(guess, id)
+        let isWin = false;
+
+        if(!exist){
+            return [array, isWin, exist]
+        }
+
+
         let updateGame = [...array];
         let updateRow = updateGame[currentRow];
 
@@ -66,11 +75,15 @@ export default function GameFunct() {
         });
 
         updateGame[currentRow] = updateRow;
-        const isWin = updateGame[currentRow].every((box) => box.state === 'correct');
+        isWin = updateGame[currentRow].every((box) => box.state === 'correct');
 
 
-        return [updateGame, isWin];
+        return [updateGame, isWin, true];
     };
+
+    const existWord = (word, id) => {
+        return ESvalid[`d${id}`].includes(word) 
+    }
 
     return {
         SelectWord,

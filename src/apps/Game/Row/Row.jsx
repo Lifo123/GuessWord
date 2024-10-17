@@ -1,6 +1,5 @@
 
 import './Row.css'
-import { currentLetterStore } from '@Context/GlobalStore'
 import { useEffect, useRef } from 'react'
 
 

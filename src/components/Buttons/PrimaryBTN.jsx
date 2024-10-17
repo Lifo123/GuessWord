@@ -1,11 +1,14 @@
  import { WordStore } from '@Context/GlobalStore';
+ import test from '@Utilities/Fraccions';
 import './Buttons.css';
  
 export default function PrimaryBTN({text = 'Enter text', }){
 
     //Functons
     const onClick = () => {
-        location.href = '/GuessWord/Play';
+        window.location.href = 'GuessWord/Play'
+        return
+        test()
     }
 
    return (

@@ -1,24 +1,23 @@
 
-import { useEffect, useRef } from 'react'
 import './Row.css'
+import { currentLetterStore } from '@Context/GlobalStore'
+import { useEffect, useRef } from 'react'
 
 
-export default function Row({ id, row }) {
-    //GlobalStore
-    
-
+export default function Row({ row, id }) {
     return (
-        <div className='game-row f-row g-2 f-center' data-id={id + 1}>
+        <div className='game-row f-row g-2 f-center' row={id}>
             {
                 row?.map((box, index) => (
-                    <BoxLetter key={index} data={box} id={index}/>
+                    <BoxLetter key={index} data={box} id={index} />
                 ))
             }
         </div>
     )
 }
 
-const BoxLetter = ({data, id}) => {
+const BoxLetter = ({ data, id }) => {
+
     const Box = useRef(null)
 
     useEffect(() => {
@@ -29,17 +28,17 @@ const BoxLetter = ({data, id}) => {
                 setTimeout(() => {
                     Box.current.setAttribute('eval', data.state)
                 }, 260)
-            }, id * 300)
+            }, id * 260)
         }
-    }, [data.state, data.letter])
+    }, [data.state, data.letter, id])
+
 
     return (
         <span
             className={`box-letter ${data.letter ? 'active' : ''}`}
-            dltr={data.letter}
             ref={Box}
         >
-            {data.letter.toUpperCase() || ''} 
+            {data.letter.toUpperCase() || ''}
         </span>
     )
 }

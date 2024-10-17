@@ -5,23 +5,23 @@ import { useEffect } from 'react'
 
 export default function Alert() {
     //GlobalStores
-    const Msg = useStore(AlertStore)
+    const Alert = useStore(AlertStore)
     
     useEffect(() => {
-        if (Msg) {
+        if (Alert) {
             const timer = setTimeout(() => {
                 AlertStore.set(null);
-            }, 1500);
+            }, Alert[1] * 800);
 
             return () => clearTimeout(timer);
         }
-    }, [Msg]);  
+    }, [Alert]);  
 
     return (
 
-        Msg ? (
+        Alert ? (
             <span className='alert-box fixed br-6 fs-2 fw-600'>
-                {Msg}
+                {Alert[0]}
             </span>
         ) : null
 

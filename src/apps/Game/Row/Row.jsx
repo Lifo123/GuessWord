@@ -28,6 +28,8 @@ const BoxLetter = ({ data, id }) => {
                     Box.current.setAttribute('eval', data.state)
                 }, 260)
             }, id * 260)
+        }else{
+            Box.current.setAttribute('eval', '')
         }
     }, [data.state, data.letter, id])
 

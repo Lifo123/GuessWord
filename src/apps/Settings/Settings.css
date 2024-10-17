@@ -1,0 +1,23 @@
+.setting-icon{
+   display: flex;
+}
+
+.setting-icon svg{
+    fill: var(--f-placeholder);
+}
+
+.setting-cont{
+    background-color: var(--f-bg);
+    left: 50%;
+    top: calc(50% + 105px);
+    height: calc(100vh - 64px);
+    transform: translate(-50%, calc(-50% - 64px));
+    z-index: 100;
+}
+
+.setting-cont p{
+    margin: 0;
+}
+.setting-cont > div{
+    min-width: 280px;
+}

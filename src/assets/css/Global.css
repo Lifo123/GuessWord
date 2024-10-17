@@ -1,0 +1,9 @@
+.header{
+    height: 64px;
+    border-bottom: solid 1px #ccc;
+}
+
+.header h1{
+    left: 50%;
+    transform: translateX(-50%);
+}

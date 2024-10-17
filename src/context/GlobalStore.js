@@ -6,7 +6,6 @@ export const WordLengthStore = atom(5);
 export const isGameActiveStore = atom(true)
 
 
-
-export const TryStore = atom(6)
+export const TryStore = atom(1  )
 export const AlertStore = atom(null);
 

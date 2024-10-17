@@ -20,8 +20,8 @@
 }
 
 .play-btn{
-    opacity: 0;
+    display: none;
 }
 .play-btn.active{
-    opacity: 1 ;
+    display: flex;
 }

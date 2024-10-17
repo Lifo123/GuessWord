@@ -2,7 +2,7 @@ import ES from "@Assets/dictionary/ES_Game.json"
 import ESvalid from "@Assets/dictionary/ES_API_Valid.json"
 import useRandom from "@Hooks/useRandom";
 
-export default function GameFunct() {
+export default function useGame() {
     //Hooks
     const Random = useRandom()
 
@@ -41,7 +41,7 @@ export default function GameFunct() {
         let exist = existWord(guess, id)
         let isWin = false;
 
-        if(!exist){
+        if (!exist) {
             return [array, isWin, exist]
         }
 
@@ -81,15 +81,51 @@ export default function GameFunct() {
         return [updateGame, isWin, true];
     };
 
-    const existWord = (word, id) => {
-        return ESvalid[`d${id}`].includes(word) 
+    const RestartGame = (array) => {
+        let updateGame = array
+        for (let i = 0; i < updateGame.length; i++) {
+            updateGame[i].forEach((box, index) => {
+                box.letter = ''
+                box.state = null
+            })
+        }
+
+        return updateGame
     }
+
+    const existWord = (word, id) => {
+        return true
+
+        let dictionary = ESvalid[`d${id}`];
+
+        if (word.endsWith('ces')) {
+            word = word.slice(0, -3) + 'z';
+            dictionary = ESvalid[`d${id - 2}`];
+        } else if (word.endsWith('s')) {
+            word = word.slice(0, -1);
+            dictionary = ESvalid[`d${id - 1}`];
+        } else if (word.endsWith('es')) {
+            word = word.slice(0, -2);
+            dictionary = ESvalid[`d${id - 2}`];
+        }
+        console.log(dictionary);
+        
+        console.log(dictionary.includes(word));
+
+        if (dictionary.includes(word)) {
+            return true;
+        }
+
+        return false;
+    }
+
 
     return {
         SelectWord,
         ValidateWord,
         Backspace,
-        Typing
+        Typing,
+        RestartGame
     }
 
 }

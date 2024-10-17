@@ -1,17 +1,11 @@
 import './Buttons.css'
-import { isGameActiveStore, WordLengthStore } from "@Context/GlobalStore"
+import { WordLengthStore } from "@Context/GlobalStore"
 import { useStore } from "@nanostores/react"
 import { useEffect } from "react"
 
 
-export default function PlayAgain() {
-    //GlobalStore
-    const isGameActive = useStore(isGameActiveStore)
+export default function PlayAgain({funct}) {
     const WordLength = useStore(WordLengthStore)
-
-    const handleClick = () => {
-        isGameActiveStore.set(true)
-    }
 
     useEffect(() => {
         setTimeout(() => {
@@ -24,7 +18,7 @@ export default function PlayAgain() {
 
 
     return (
-        <span className='btn btn-green br-6 mt-3 play-btn' onClick={handleClick} playagain='btn'>
+        <span className='btn btn-green br-6 mt-3 play-btn' onClick={funct} playagain='btn'>
             Jugar de nuevo
         </span>
     )

@@ -3,19 +3,22 @@ import '@Assets/css/Global.css';
 import Layout from '@Layouts/Layout.astro';
 import Game from '@Apps/Game/Game.jsx';
 import Alert from '@Components/Alert/Alert'
+import Header from '@Components/Header.astro';
 
 ---
 
 <Layout title="GuessWord" description='wasa'>
+	<Header />
 	<Alert client:only="react"/>
-	<section class="Game-container f-col f-center br-8 p-3 w-max mx-auto mt-5">
-		<h1 class="mb-4 fw-800 fs-6">Guess Word Game</h1>
+	<section class="Game-container f-col br-8 p-3 w-max mx-auto mt-5">
 		<Game client:only="react"/>
 	</section>
+	test
 </Layout>
 
 <style is:inline>
 	.Game-container{
 		min-height: 450px;
+		height: calc(100vh - 100px);
 	}
 </style>

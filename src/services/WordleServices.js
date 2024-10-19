@@ -93,16 +93,19 @@ export const ExistWord = (word, id) => {
             word = word.slice(0, -2);
         } else if (word.endsWith('lo')) {
             word = word.slice(0, -2);
-        } else if (word.endsWith('io')) {
+        } else if (word.endsWith('ron')) {
+            word = word.slice(0, -2) + 'ar';
+        }else if (word.endsWith('io')) {
             word = word.slice(0, -2);
         } else if (word.endsWith('re')) {
             word = word.slice(0, -1);
+        } else if (word.endsWith('en')) {
+            word = word.slice(0, -1) + 'r';
+        }else if (word.endsWith('ndo')) {
+            word = word.slice(0, -3) + 'r';
         }
 
-
         let exist = ESvalid[`d${word.length}`].includes(word);
-        console.log(exist);
-
         return exist
     } else {
         let exist = ESvalid[`d${id}`].includes(word);

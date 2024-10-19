@@ -16,7 +16,7 @@ export default function Row({ row, id }) {
 }
 
 const BoxLetter = ({ data, id }) => {
-
+   
     const Box = useRef(null)
 
     useEffect(() => {

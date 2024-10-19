@@ -16,10 +16,9 @@ let initialGame = [
 export const WordStore = atom('Lifos')
 export const WordGuessStore = atom('');
 export const gameStateStore = atom(isBrowser ? LocalArray('F-Wordle')?.Game?.gameState || initialGame : initialGame)
+export const gameProgressStore = atom(isBrowser ? LocalArray('F-Wordle')?.Game?.gameProgress || 'inProgress' : 'inProgress');
 export const currentRowStore = atom(isBrowser ? LocalArray('F-Wordle')?.Game?.currentRow || 0 : 0)
 export const currentLetterStore = atom(isBrowser ? LocalArray('F-Wordle')?.Game?.currentLetter || 0 : 0)
-export const isWinStore = atom(isBrowser ? LocalArray('F-Wordle')?.Game?.isWin || false : false);
-export const isGameActiveStore = atom(true)
 
 //GameSettingsStore
 export const WordLengthStore = atom(isBrowser ? LocalArray('F-Wordle')?.Settings?.wordLength || 5 : 5);

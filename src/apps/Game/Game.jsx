@@ -1,9 +1,11 @@
+import './Game.css'
+import { toast } from 'sonner';
 import { useStore } from '@nanostores/react';
 import { useEffect, useState } from "react";
+import { TryStore, WordLengthStore, isGameActiveStore } from "@Context/GlobalStore";
 import useGame from '@Hooks/useGame';
-import { TryStore, WordLengthStore, AlertStore, isGameActiveStore } from "@Context/GlobalStore";
-import PlayAgain from '@Components/Buttons/PlayAgain';
 
+import PlayAgain from '@Components/Buttons/PlayAgain';
 import Row from "./Row/Row";
 
 export default function Game() {
@@ -81,7 +83,11 @@ export default function Game() {
 
     const handleEnter = () => {
         if (WordGuess.length !== WordLength) {
-            AlertStore.set(['Insofucientes letras', 1]);
+            toast('Insofucientes letras', {
+                position: 'top-center',
+                className: 'toast-warning mx-auto br-6 fw-600',
+                
+            });
             return;
         }
 
@@ -114,7 +120,10 @@ export default function Game() {
             window.removeEventListener('keydown', handleKeyDown);
         } else if (!isWin && currentRow === Try - 1) {
             setTimeout(() => {
-                AlertStore.set([Word, 2])
+                toast(Word, {
+                    position: 'top-center',
+                    className: 'toast-warning mx-auto br-6 fw-600',
+                })
             }, (WordLength + 1) * 260)
             isGameActiveStore.set(false)
             window.removeEventListener("keydown", handleKeyDown)

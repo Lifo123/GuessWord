@@ -2,7 +2,7 @@
 import ViewTransitions from "astro/components/ViewTransitions.astro";
 
 interface Props {
-	title: string,
+	title: string;
 	description: string;
 }
 
@@ -70,4 +70,12 @@ const url = new URL(path, site).href;
 	<body>
 		<slot />
 	</body>
+	<script is:inline>
+		let isDark = localStorage.getItem("DMstate") === "true" || false;
+		if (isDark) {
+			document.body.classList.add("DarkMode");
+		} else {
+			document.body.classList.remove("DarkMode");
+		}
+	</script>
 </html>

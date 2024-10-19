@@ -1,3 +1,11 @@
+.primary-btn{
+    background-color: var(--f-text-blue);
+    color: var(--f-bg-bento);
+    padding: 12px 24px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
 .btn-togle{
     width: 34px;
     height: 21px;
@@ -12,16 +20,9 @@
     height: 15px;
     aspect-ratio: 1/1;
     left: 3px;
-    transition: left .2s;
+    transition: left .1s;
 }
 
 .btn-circle.active{
     left: 16px;
-}
-
-.play-btn{
-    display: none;
-}
-.play-btn.active{
-    display: flex;
 }

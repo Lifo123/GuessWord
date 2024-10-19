@@ -2,14 +2,14 @@
 import '@Assets/css/Global.css';
 import Layout from '@Layouts/Layout.astro';
 import Game from '@Apps/Game/Game.jsx';
-import Alert from '@Components/Alert/Alert'
 import Header from '@Components/Header.astro';
+import { Toaster } from 'sonner';
 
 ---
 
 <Layout title="GuessWord" description='wasa'>
+	<Toaster richColors client:only="react" />
 	<Header />
-	<Alert client:only="react"/>
 	<section class="Game-container f-col br-8 p-3 w-max mx-auto mt-5">
 		<Game client:only="react"/>
 	</section>

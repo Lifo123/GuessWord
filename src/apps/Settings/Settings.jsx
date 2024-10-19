@@ -1,7 +1,7 @@
-import ToggleBTN from '@Components/Buttons/ToggleBTN'
 import './Settings.css'
 import { useState } from 'react'
 import useSettings from '@Hooks/useSettings';
+import DarkModeBTN from '@Components/Buttons/DarkModeBTN';
 
 export default function Settings() {
      //Hooks
@@ -37,15 +37,15 @@ export default function Settings() {
                               <div className='f-col w-40 mx-auto mt-5 g-4'>
                                    <div className='f-row g-4 f-justify-between f-align-center'>
                                         <p>Modo Oscuro</p>
-                                        <ToggleBTN funct={ST.DarkMode}/>
+                                        <DarkModeBTN />
                                    </div>
                                    <div className='f-row g-4 f-justify-between f-align-center'>
                                         <p>Cantidad de letras</p>
-                                        <input type="range" />
+                                        <input type="range" min={3} max={7} />
                                    </div>
                                    <div className='f-row g-4 f-justify-between f-align-center'>
                                         <p>Numero de intentos</p>
-                                        <input type="range" />
+                                        <input type="range" min={3} max={10}/>
                                    </div>
                               </div>
                          </section>

@@ -57,7 +57,7 @@ export const ValidateWord = (word, array, currentRow) => {
         }
     });
 
-    updateRow.forEach((box, index) => {
+    updateRow.forEach((box) => {
         if (box.state !== 'correct') {
             if (wordA.includes(box.letter) && letterCount[box.letter] > 0) {
                 box.state = 'exist';

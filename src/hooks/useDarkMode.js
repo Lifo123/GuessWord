@@ -7,7 +7,7 @@ export default function useDarkMode() {
     };
 
 
-    const Toggle = (e) => {
+    const Toggle = () => {
         let isDark = getInitialState();
 
         localStorage.setItem("DMstate", !isDark);

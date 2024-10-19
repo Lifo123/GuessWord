@@ -3,13 +3,11 @@ import { useState } from 'react'
 import { useStore } from '@nanostores/react';
 import { TryStore, WordLengthStore } from '@Apps/context/GameStore';
 
-import useSettings from '@Hooks/useSettings';
 import DarkModeBTN from '@Components/Buttons/DarkModeBTN';
 import InputRange from '@Components/InputRange';
 
 export default function Settings() {
      //Hooks
-     const ST = useSettings();
 
      //GameSettingsStore
      const WordLength = useStore(WordLengthStore)

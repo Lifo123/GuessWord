@@ -16,7 +16,6 @@ export default function useGame() {
     const gameState = useStore(gameStateStore)
     const currentRow = useStore(currentRowStore)
     const currentLetter = useStore(currentLetterStore)
-    const gameProgress = useStore(gameProgressStore)
 
     //GameSettingsStore
     const WordLength = useStore(WordLengthStore)
@@ -100,7 +99,7 @@ export default function useGame() {
         let updateLocal = {
             ...localWordle,
             Game: { 
-                ...localWordle.Game, 
+                ...localWordle?.Game, 
                 gameState: 
                 updateGame, 
                 currentLetter: 0, 
@@ -109,7 +108,7 @@ export default function useGame() {
                 WordGuess: '',
                 gameProgress: 'inProgress'
             },
-            Settings: { ...localWordle.Settings, Tries: Tries, wordLength: WordLength }
+            Settings: { ...localWordle?.Settings, Tries: Tries, wordLength: WordLength }
         };
 
         LocalWordleSet(updateLocal);
@@ -132,7 +131,7 @@ export default function useGame() {
         let updateLocal = {
             ...localWordle,
             Game: {
-                ...localWordle.Game,
+                ...localWordle?.Game,
                 gameState: updateGame,
                 currentLetter: 0,
                 currentRow: 0,
@@ -140,7 +139,7 @@ export default function useGame() {
                 WordGuess: '',
                 gameProgress: 'inProgress',
             },
-            Settings: { ...localWordle.Settings, Tries: Tries, wordLength: WordLength }
+            Settings: { ...localWordle?.Settings, Tries: Tries, wordLength: WordLength }
         };
 
         LocalWordleSet(updateLocal)

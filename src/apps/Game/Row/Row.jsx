@@ -39,7 +39,7 @@ const BoxLetter = ({ data, id }) => {
             className={`box-letter ${data.letter ? 'active' : ''}`}
             ref={Box}
         >
-            {data.letter.toUpperCase() || ''}
+            {data?.letter?.toUpperCase() || ''}
         </span>
     )
 }

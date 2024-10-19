@@ -1,11 +1,19 @@
 import './Settings.css'
 import { useState } from 'react'
+import { useStore } from '@nanostores/react';
+import { TryStore, WordLengthStore } from '@Apps/context/GameStore';
+
 import useSettings from '@Hooks/useSettings';
 import DarkModeBTN from '@Components/Buttons/DarkModeBTN';
+import InputRange from '@Components/InputRange';
 
 export default function Settings() {
      //Hooks
      const ST = useSettings();
+
+     //GameSettingsStore
+     const WordLength = useStore(WordLengthStore)
+     const Try = useStore(TryStore)
 
      //States
      const [isActive, setIsActive] = useState(false)
@@ -41,11 +49,15 @@ export default function Settings() {
                                    </div>
                                    <div className='f-row g-4 f-justify-between f-align-center'>
                                         <p>Cantidad de letras</p>
-                                        <input type="range" min={3} max={7} />
+                                        <InputRange min={3} max={7} initialValue={WordLength} funct={(data) => {
+                                             WordLengthStore.set(Number(data))
+                                        }} />
                                    </div>
                                    <div className='f-row g-4 f-justify-between f-align-center'>
                                         <p>Numero de intentos</p>
-                                        <input type="range" min={3} max={10}/>
+                                        <InputRange min={3} max={8} initialValue={Try} funct={(data) => {
+                                             TryStore.set(Number(data))
+                                        }} />
                                    </div>
                               </div>
                          </section>

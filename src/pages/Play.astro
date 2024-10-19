@@ -1,23 +1,22 @@
 ---
-import '@Assets/css/Global.css';
-import Layout from '@Layouts/Layout.astro';
-import Game from '@Apps/Game/Game.jsx';
-import Header from '@Components/Header.astro';
-import { Toaster } from 'sonner';
-
+import "@Assets/css/Global.css";
+import Layout from "@Layouts/Layout.astro";
+import Game from "@Apps/Game/Game.jsx";
+import Header from "@Components/Header.astro";
+import { Toaster } from "sonner";
 ---
 
-<Layout title="GuessWord" description='wasa'>
-	<Toaster richColors client:only="react" />
+<Layout title="GuessWord" description="wasa">
+	<Toaster position="top-center" client:only="react" duration={1500} />
 	<Header />
 	<section class="Game-container f-col br-8 p-3 w-max mx-auto mt-5">
-		<Game client:only="react"/>
+		<Game client:only="react" />
 	</section>
 	test
 </Layout>
 
 <style is:inline>
-	.Game-container{
+	.Game-container {
 		min-height: 450px;
 		height: calc(100vh - 100px);
 	}

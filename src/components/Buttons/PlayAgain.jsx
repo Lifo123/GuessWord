@@ -1,5 +1,5 @@
 import './Buttons.css'
-import { WordLengthStore } from "@Context/GlobalStore"
+import { WordLengthStore } from "@Apps/context/GameStore"
 import { useStore } from "@nanostores/react"
 import { useEffect } from "react"
 

@@ -1,0 +1,1 @@
+import{j as a}from"./jsx-runtime.CdUEbdov.js";/* empty css                       */import"./index.YZ_XhM9s.js";function s({text:r="Button",funct:t=()=>{window.location.href="GuessWord/Play"}}){const o=()=>{t()};return a.jsx("span",{className:"primary-btn d-flex br-4 w-max mx-auto mt-5",onClick:o,children:r})}export{s as default};

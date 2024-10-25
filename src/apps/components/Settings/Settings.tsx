@@ -1,16 +1,30 @@
 import './Settings.css'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useStore } from '@nanostores/react';
+import { GameSettingsStore } from '@Apps/context/GameStore';
+import DarkModeBTN from '@Components/Buttons/DarkModeBTN';
 
 export default function Settings() {
      //Hooks
-
-
+     const SETTINGS = useStore(GameSettingsStore)
+     //Refs
+     const settingCurrent = document.getElementById('g-settings-section')
      //States
      const [isActive, setIsActive] = useState(false)
 
+
+
+     useEffect(() => {
+          if (isActive) {
+               settingCurrent?.classList.remove('d-none')
+          } else {
+               settingCurrent?.classList.add('d-none')
+          }
+     }, [isActive])
+
      return (
-          <div>
+          <div className='f-row g-2 f-center'>
+               <DarkModeBTN />
                <span className='setting-icon pointer' onClick={() => setIsActive((v) => !v)}>
                     {
                          !isActive ? (

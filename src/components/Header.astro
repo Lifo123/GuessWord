@@ -4,10 +4,25 @@ import Settings from "@Apps/components/Settings/Settings";
 
 ---
 
-<header class="header mt-2 w-100">
+<header class="header w-100 sticky">
     <nav class="f-row f-justify-between f-align-center m-auto w-70 h-100 relative">
         <span>LIFO</span>
         <h1 class="fs-5 fw-700 absolute">Wordle</h1>
         <Settings client:only="react"/>
     </nav>
 </header>
+
+<style is:inline>
+    .header{
+        height: 64px;
+        border-bottom: solid 1px #ccc;
+        background-color: var(--f-bg);
+        top: 0;
+        z-index: 1000;
+    }
+
+    .header h1{
+        left: 50%;
+        transform: translateX(-50%);
+    }
+</style>

@@ -21,3 +21,15 @@
 .setting-cont > div{
     min-width: 280px;
 }
+
+
+
+/**/
+
+.settings-container{
+    border-bottom: solid 1px #777777;
+    background-color: var(--f-bg);
+    height: calc(100vh - 64px);
+    z-index: 500;
+    top: 64px;
+}

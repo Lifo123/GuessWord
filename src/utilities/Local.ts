@@ -15,8 +15,14 @@ const remove = (key: string) => {
     localStorage.removeItem(key)
 }
 
+const inmutable = (obj: any) => {
+    return JSON.parse(JSON.stringify(obj));
+}
+
+
 export const Local = {
     set,
     get,
-    remove
+    remove,
+    inmutable
 }

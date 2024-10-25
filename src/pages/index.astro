@@ -1,21 +1,38 @@
 ---
 import "@Assets/css/Global.css";
+
 import Layout from "@Layouts/Layout.astro";
-import Game from "@Apps/components/Game/Game";
 import Header from "@Components/Header.astro";
+import Settings from "@Apps/components/Settings/Settings.astro";
+import Footer from "@Components/Footer.astro";
+
 import { Toaster } from "sonner";
+import Game from "@Apps/components/Game/Game";
 ---
 
 <Layout title="GuessWord" description="wasa">
-	<Toaster position="top-center" client:only="react" duration={1500} />
-	<Header />
-	<section class="Game-container f-col br-8 p-3 w-max mx-auto mt-5">
-		<Game client:only="react" />
-	</section>
-	test
+	<Toaster
+		position="top-center"
+		client:only="react"
+		duration={800}
+		visibleToasts={1}
+		richColors
+	/>
+	<div class="app-game">
+		<Header />
+		<Settings />
+		<section class="Game-container f-col br-8 p-3 w-max mx-auto mt-5">
+			<Game client:only="react" />
+		</section>
+		<section>More info bottom</section>
+		<Footer />
+	</div>
 </Layout>
 
 <style is:inline>
+	.app-game{
+		color: var(--f-text);
+	}
 	.Game-container {
 		min-height: 450px;
 		height: calc(100vh - 100px);

@@ -1,3 +1,5 @@
+import { GameStore } from "@Apps/context/GameStore";
+import { useStore } from "@nanostores/react";
 import { useEffect, useRef } from "react";
 
 interface BoxProps {
@@ -6,30 +8,39 @@ interface BoxProps {
 }
 
 export default function BoxLetter({ data, id }: BoxProps) {
+    //Stores
+    const GAME = useStore(GameStore)
 
-    const Box = useRef(null)
+    const Box = useRef<HTMLSpanElement>(null)
 
     useEffect(() => {
-        if (data.state) {
+        if (data.isValid !== null) {
             setTimeout(() => {
-                Box?.current?.classList.add('v')
+                Box?.current?.classList.add('validate')
                 Box?.current?.classList.remove('active')
                 setTimeout(() => {
-                    Box.current?.setAttribute('eval', data.state)
-                }, 260)
-            }, id * 260)
+                    Box.current?.setAttribute('data-valid', data.isValid)
+                    if (GAME.isWin) {
+                        setTimeout(() => {
+                            Box.current?.setAttribute('data-win', 'true');
+                        }, (GAME?.valid[0].length + 1) * 130)
+                    }
+                }, 240)
+            }, id * 190)
         } else {
-            Box.current?.setAttribute('eval', '')
+            Box.current?.classList.remove('validate');
+            Box.current?.removeAttribute('data-valid')
+            Box.current?.removeAttribute('data-win');
         }
-    }, [data.state, data.letter, id])
+    }, [data.isValid, data.char])
 
 
     return (
         <span
-            className={`box-letter ${data.letter ? 'active' : ''}`}
+            className={`box-letter ${data.char ? 'active' : ''}`}
             ref={Box}
         >
-            {data?.letter?.toUpperCase() || ''}
+            {data?.char?.toUpperCase() || ''}
         </span>
     )
 }

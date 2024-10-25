@@ -1,6 +1,11 @@
+.board{
+    color: var(--f-text);
+}
+
 .box-letter{
     border-radius: 4px;
-    border: solid 2px #cdcdcd;
+    border: solid 1px var(--w-border);
+    background-color: var(--w-box);
     height: 60px;
     aspect-ratio: 1/1;
     display: flex;
@@ -13,28 +18,28 @@
 }
 
 .box-letter.active{
-    border: solid 2px #acacac;
-    animation: BoxWithLetter .15s ease;
+    border: solid 2px var(--w-border-dark);
+    animation: BoxWithLetter .15s ease-out;
 }
 
-.box-letter[eval="correct"]{
+.box-letter[data-valid="true"]{
     border: solid 2px #acacac28;
     background-color: var(--f-text-green);
 }
-.box-letter[eval="incorrect"]{
+.box-letter[data-valid="false"]{
     border: solid 2px #acacac28;
     background-color: #69696971;
 }
-.box-letter[eval="exist"]{
+.box-letter[data-valid="exists"]{
     border: solid 2px #acacac28;
     background-color: var(--f-text-yellow);
 }
 
-.box-letter.v{
-    animation: ValidationAnimation .7s ease;
+.box-letter.validate{
+    animation: ValidationAnimation .45s ease-out;
 }
-.box-letter[win="true"]{
-    animation: WinAnimation .45s ease;
+.box-letter[data-win="true"]{
+    animation: WinAnimation .38s ease-out;
 }
 
 @keyframes ValidationAnimation {
@@ -56,8 +61,5 @@
 @keyframes WinAnimation {
     50%{
         transform: translateY(-20px);
-    }
-    80%{
-        transform: translateY(4px);
     }
 }

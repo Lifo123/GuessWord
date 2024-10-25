@@ -1,91 +1,76 @@
+import { GameSettingsStore, GameStore } from "@Apps/context/GameStore";
 import { Local } from "@Utilities/Local";
 import { node } from 'lifo-utils'
 import { toast } from "sonner";
+import { localUtil } from "./GameUtils";
 
 const typing = (input: string) => {
-    const data = null
-    const game = data.gameState
-    const curLetter = game.currentLetter
+    const data = GameStore.get()
+    const curLetter = data.currentLetter
+    const curRow = data.currentRow
 
-    if (curLetter > data.gameSettings.Length - 1) {
+    if (curLetter >= data.valid[0].length) {
         return;
     }
 
-    let updatedData = node.set(`gameState/valid/${game.currentRow}/${curLetter}/char`, {
+    let updatedData = node.set(`valid/${curRow}/${curLetter}/char`, {
         value: input,
-        data: data,
-    });
+        data: data
+    })
+    updatedData.currentLetter = curLetter + 1
 
-    // Actualizar la letra actual
-    node.set('gameState/currentLetter', {
-        value: curLetter + 1,
-        data: data,
-    });
-
-    updatedData = null;
+    GameStore.set(updatedData);
 }
 
 const backspace = () => {
-    const data = null
-    const game = data.gameState
-    const curLetter = game.currentLetter
+    const data = GameStore.get();
+    const curLetter = data.currentLetter
+    const curRow = data.currentRow
 
     if (curLetter <= 0) {
         return;
     }
 
-    let updatedData = node.set(`gameState/valid/${game.currentRow}/${curLetter - 1}/char`, {
+    let updatedData = node.set(`valid/${curRow}/${curLetter - 1}/char`, {
         value: '',
-        data: data,
-    });
+        data: data
+    })
+    updatedData.currentLetter = curLetter - 1
 
-    node.set('gameState/currentLetter', {
-        value: curLetter - 1,
-        data: data,
-    });
-
-    updatedData = null;
+    GameStore.set(updatedData);
 }
 
 const enter = () => {
-    const data = null
-    const game = data.gameState
-    const curLetter = game.currentLetter
+    let data = { ...GameStore.get() };
+    const curLetter = data.currentLetter
 
-    if (curLetter < data.gameSettings.Length) {
+    if (curLetter < data.valid[0].length) {
         toast.error('Field is not complete');
         return;
     }
+    toast.dismiss();
 
-    const curRow = game.currentRow
+    const curRow = data.currentRow
+    const guess = data.valid[curRow].map((box: any) => box.char).join('')
 
-    const guess = game.valid[curRow].map((box: any) => box.char).join('')
+    //Validation Word
+    const isValidWord: any = localUtil.compareWord(data.word, guess);
 
-    const isValidWord: any = GameUtil.verifyWord(guess);
-
-    if (!isValidWord) {
-        toast.error('Invalid word');
-        return
+    for (let i = 0; i < data.valid[curRow].length; i++) {
+        data.valid[curRow][i].isValid = isValidWord.result[i]
     }
 
-    const validVerify: any = GameUtil.comparingWord(game.word, game.swaps, guess);
-    
-    for (let i = 0; i < validVerify.result.length; i++) {
-        game.valid[curRow][i].isValid = validVerify.result[i]
-    }
-    game.currentRow = curRow + 1;
-    game.currentLetter = 0;
-    game.isWin = validVerify.isWin;
-    game.guess = guess;
+    data.currentRow = curRow + 1;
+    data.currentLetter = 0;
+    data.isWin = isValidWord?.isWin;
 
-    let updatedData = node.set(`gameState`, {
-        value: game,
-        data: data,
+    const settings = GameSettingsStore.get();
+
+    GameStore.set(data);
+    Local.set('F-Wordle', {
+        game: data,
+        settings: settings
     });
-
-    ShufleGameStore.set(updatedData);
-    Local.set('F-Shuffle', updatedData);
-
 
 }
 

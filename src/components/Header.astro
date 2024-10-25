@@ -1,24 +1,27 @@
 ---
-import Settings from "@Apps/components/Settings/Settings";
+import OpenSettingBTN from "@Apps/components/Settings/OpenSettingBTN";
 
 
 ---
 
 <header class="header w-100 sticky">
     <nav class="f-row f-justify-between f-align-center m-auto w-70 h-100 relative">
-        <span>LIFO</span>
+        <h2 class="fs-5"><a href="/GuessWord/">LIFO</a></h2>
         <h1 class="fs-5 fw-700 absolute">Wordle</h1>
-        <Settings client:only="react"/>
+        <OpenSettingBTN client:only="react"/>
     </nav>
 </header>
 
 <style is:inline>
     .header{
         height: 64px;
-        border-bottom: solid 1px #ccc;
+        border-bottom: solid 1px var(--w-border);
         background-color: var(--f-bg);
         top: 0;
         z-index: 1000;
+    }
+    .header a{
+        color: var(--f-text) !important;
     }
 
     .header h1{

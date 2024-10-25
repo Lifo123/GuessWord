@@ -18,7 +18,7 @@
 }
 
 .box-letter.active{
-    border: solid 2px var(--w-border-dark);
+    border: solid 2px var(--w-border-intense);
     animation: BoxWithLetter .15s ease-out;
 }
 

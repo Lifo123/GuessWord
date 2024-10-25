@@ -1,11 +1,10 @@
-import { GameSettingsStore, GameStore } from "@Apps/context/GameStore";
-import { Local } from "@Utilities/Local";
+import context from "@Apps/context/GameStore";
+import Util from '@Utilities/GlobalUtilities'
 import { node } from 'lifo-utils'
 import { toast } from "sonner";
-import { localUtil } from "./GameUtils";
 
 const typing = (input: string) => {
-    const data = GameStore.get()
+    const data = context.game.get()
     const curLetter = data.currentLetter
     const curRow = data.currentRow
 
@@ -19,11 +18,11 @@ const typing = (input: string) => {
     })
     updatedData.currentLetter = curLetter + 1
 
-    GameStore.set(updatedData);
+    context.game.set(updatedData);
 }
 
 const backspace = () => {
-    const data = GameStore.get();
+    const data = context.game.get();
     const curLetter = data.currentLetter
     const curRow = data.currentRow
 
@@ -37,11 +36,11 @@ const backspace = () => {
     })
     updatedData.currentLetter = curLetter - 1
 
-    GameStore.set(updatedData);
+    context.game.set(updatedData);
 }
 
 const enter = () => {
-    let data = { ...GameStore.get() };
+    let data = { ...context.game.get() };
     const curLetter = data.currentLetter
 
     if (curLetter < data.valid[0].length) {
@@ -54,7 +53,7 @@ const enter = () => {
     const guess = data.valid[curRow].map((box: any) => box.char).join('')
 
     //Validation Word
-    const isValidWord: any = localUtil.compareWord(data.word, guess);
+    const isValidWord: any = Util.utils.compareWord(data.word, guess);
 
     for (let i = 0; i < data.valid[curRow].length; i++) {
         data.valid[curRow][i].isValid = isValidWord.result[i]
@@ -64,12 +63,12 @@ const enter = () => {
     data.currentLetter = 0;
     data.isWin = isValidWord?.isWin;
 
-    const settings = GameSettingsStore.get();
 
-    GameStore.set(data);
-    Local.set('F-Wordle', {
+    context.game.set(data);
+    Util.Local.set('F-Wordle', {
         game: data,
-        settings: settings
+        settings: context.setting.get(),
+        visual: context.visual.get()
     });
 
 }

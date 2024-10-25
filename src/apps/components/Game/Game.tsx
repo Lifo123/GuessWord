@@ -1,6 +1,6 @@
 import './Game.css'
 import { useStore } from '@nanostores/react';
-import { GameStore, GameSettingsStore } from "@Apps/context/GameStore";
+import context from "@Apps/context/GameStore";
 import useGame from '@Apps/hooks/useGame';
 
 import Row from "./Row";
@@ -8,11 +8,20 @@ import PlayAgain from '@Components/Buttons/PlayAgain';
 
 export default function Game() {
     //GameStores
-    const GAME = useStore(GameStore)
-    const SETTINGS = useStore(GameSettingsStore)
+    const GAME = useStore(context.game)
+    const SETTINGS = useStore(context.setting)
 
     //Hooks
     const GF = useGame();
+
+    const handleCLick = () => {
+        GF.getWord()
+    }
+
+    const handleChange = (e: any) => {
+        // Cambia la variable globalmente desde JavaScript
+        document.documentElement.style.setProperty('--wt-multiplier', e.target.value);
+    };
 
     return (
         <div className="board f-col g-2 f-center">

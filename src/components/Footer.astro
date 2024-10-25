@@ -2,6 +2,28 @@
 
 ---
 
-<footer>
-    Testing fotter
+<footer class="w-100 d-flex f-center px-4 py-5">
+    <ul class="f-row g-3 f-center">
+        <li><a href="https://github.com/Lifo123/">{new Date().getFullYear()} - Lifo</a></li>
+        <li><a href="https://lifo123.github.io/Portfolio/">About</a></li>
+        <li><a href="https://github.com/Lifo123/GuessWord/">Repository</a></li>
+        <li><a href="https://lifo123.github.io/GuessWord/Bug/">Report a Bug</a></li>
+        <li><a href="https://lifo123.github.io/GuessWord/Help/">Help us</a></li>
+        <li><a aria-label="Boton link Outlook" title="alberto_p-@hotmail.com" href="mailto:alberto_p-@hotmail.com?subject=Contact%20me">Contact me</a></li>
+    </ul>
 </footer>
+
+<style is:inline>
+    footer{
+        height: 64px;
+    }
+    footer a {
+        font-weight: 400;
+        font-size: clamp(0.8rem, 1.5vw, 12px);
+        color: var(--f-placeholder);
+    }
+    footer a:hover{
+        color: var(--f-text-blue) !important;
+        text-decoration: underline;
+    }
+</style>

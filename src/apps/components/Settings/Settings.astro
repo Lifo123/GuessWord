@@ -1,21 +1,20 @@
 ---
 import DarkModeBTN from "@Components/Buttons/DarkModeBTN";
-
-
+import Setting from "./Settings";
 ---
 
-<section class="settings-container w-100 absolute f-row d-none" id="g-settings-section">
-    <div>
-        options
+<section
+    class="settings-container w-100 absolute f-row d-none"
+    id="g-settings-section"
+>
+    <div class="set-aside f-col g-2">
+
     </div>
-    <div>
-        opntions details
-        <DarkModeBTN client:only="react" />
-    </div>  
+    <Setting client:only="react" />
 </section>
 
 <style>
-    .d-none{
+    .d-none {
         display: none !important;
     }
 </style>

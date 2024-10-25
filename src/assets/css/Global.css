@@ -6,14 +6,15 @@
 
     --w-box: #efefef;
     --w-border: #9d9d9d;
-    --w-border-dark: #afafaf;
+    --w-border-intense: #afafaf;
 
-    
+
     --w-bg-true: #1c274c;
     --w-bg-hint: #696969;
     --w-bg-false: #777777;
 
-    --wt-size: 0.5rem;
+    --wt-multiplier: 1.5;
+    --wt-size: calc(var(--wt-multiplier) * 12px);
     --wt-spacing: 0.5rem;
 
 }

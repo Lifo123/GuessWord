@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import './Buttons.css'
 import { useStore } from '@nanostores/react';
-import { GameSettingsStore } from '@Apps/context/GameStore';
+import context from '@Apps/context/GameStore';
 
 export default function PlayAgain({ funct = () => {
     console.log('Sin funcion');
@@ -9,7 +9,7 @@ export default function PlayAgain({ funct = () => {
     //States
     const [isActive, setIsActive] = useState(false)
 
-    const SETTINGS = useStore(GameSettingsStore);
+    const SETTINGS = useStore(context.setting);
 
     useEffect(() => {
         setTimeout(() => {

@@ -20,9 +20,11 @@ const inmutable = (obj: any) => {
 }
 
 
-export const Local = {
+const Local = {
     set,
     get,
     remove,
     inmutable
 }
+
+export default Local

@@ -33,3 +33,11 @@
     z-index: 500;
     top: 64px;
 }
+
+.set-aside{
+    min-width: 420px;
+}
+
+.setting-preview{
+    flex-grow: 1;
+}

@@ -1,4 +1,4 @@
-import { GameStore } from "@Apps/context/GameStore";
+import context from "@Apps/context/GameStore";
 import { useStore } from "@nanostores/react";
 import { useEffect, useRef } from "react";
 
@@ -9,7 +9,7 @@ interface BoxProps {
 
 export default function BoxLetter({ data, id }: BoxProps) {
     //Stores
-    const GAME = useStore(GameStore)
+    const GAME = useStore(context.game)
 
     const Box = useRef<HTMLSpanElement>(null)
 
@@ -26,7 +26,7 @@ export default function BoxLetter({ data, id }: BoxProps) {
                         }, (GAME?.valid[0].length + 1) * 130)
                     }
                 }, 240)
-            }, id * 190)
+            }, id * 210)
         } else {
             Box.current?.classList.remove('validate');
             Box.current?.removeAttribute('data-valid')

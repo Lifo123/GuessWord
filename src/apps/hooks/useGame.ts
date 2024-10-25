@@ -1,34 +1,35 @@
 import { useEffect } from "react";
 import { useStore } from "@nanostores/react";
-import { GameStore, GameSettingsStore, initialGame, GameVisualStore } from "@Apps/context/GameStore";
+import context from "@Apps/context/GameStore";
+import global from "@Context/GlobalStore";
 import { getWord } from "@Services/WordleServices";
 import { toast } from "sonner";
 import { control } from "@Apps/utilities/GameControl";
-import { Local } from "@Utilities/Local";
+import Util from "@Utilities/GlobalUtilities";
 
 export default function useGame() {
     //GameStore
-    const GAME = useStore(GameStore)
-    const SETTINGS = useStore(GameSettingsStore)
-    const VISUAL = useStore(GameVisualStore)
+    const GAME = useStore(context.game)
+    const SETTINGS = useStore(context.setting)
+    const VISUAL = useStore(context.visual)
+    const PARAMS = useStore(global.Params)
 
 
     //Functions
     const getWord = async () => {
-        try {
-
-
-            return true;
-        } catch (e) {
-            console.log(e);
-            return false
+        if (PARAMS) {
+            let updateData = Util.utils.setParams(PARAMS, context.initialData)
+            context.game.set(updateData.game)
+            context.setting.set(updateData.settings)
+            Util.Local.set('F-Wordle', updateData)
+            return
         }
     }
 
     const restartGame = () => {
-        let data = Local.inmutable(initialGame.game)
-        GameStore.set(data);
-        Local.set('F-Wordle', {
+        let data = Util.Local.inmutable(context.initialData.game)
+        context.game.set(data);
+        Util.Local.set('F-Wordle', {
             game: data,
             settings: SETTINGS,
             visual: VISUAL

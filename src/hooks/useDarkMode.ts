@@ -1,15 +1,16 @@
-import { ConfigStore } from "@Context/GlobalStore";
+import global from "@Context/GlobalStore";
+import { useStore } from "@nanostores/react";
 
 export default function useDarkMode() {
     //Store
-    const Config = ConfigStore.get();
+    const CONFIG = useStore(global.Config);
 
 
     const Toggle = () => {
         let config = JSON.parse(localStorage.getItem("F-Config") || '{}');
 
-        config.DarkMode = !Config.DarkMode;
-        ConfigStore.set(config);
+        config.DarkMode = !CONFIG.DarkMode;
+        global.Config.set(config);
         localStorage.setItem('F-Config', JSON.stringify(config));
     }
 

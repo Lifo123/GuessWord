@@ -4,7 +4,7 @@ const isBrowser = typeof window !== "undefined";
 
 
 //Game Stores
-export const initialGame = {
+const initialData = {
     game: {
         word: "lifos",
         guess: "",
@@ -58,7 +58,8 @@ export const initialGame = {
     settings: {
         tries: 6,
         length: 5,
-        lang: 'ES'
+        lang: 'ES',
+        dictionary: 'gameDefault'
     },
     visual: {
         fontSize: 50,
@@ -66,6 +67,16 @@ export const initialGame = {
     }
 }
 
-export const GameStore = atom(isBrowser ? JSON.parse(localStorage.getItem('F-Wordle') || JSON.stringify(initialGame))?.game : initialGame.game)
-export const GameSettingsStore = atom(isBrowser ? JSON.parse(localStorage.getItem('F-Wordle') || JSON.stringify(initialGame))?.settings : initialGame.settings)
-export const GameVisualStore = atom(isBrowser ? JSON.parse(localStorage.getItem('F-Wordle') || JSON.stringify(initialGame))?.visual : initialGame.visual)
+const game = atom(isBrowser ? JSON.parse(localStorage.getItem('F-Wordle') || JSON.stringify(initialData))?.game : initialData.game)
+const setting = atom(isBrowser ? JSON.parse(localStorage.getItem('F-Wordle') || JSON.stringify(initialData))?.settings : initialData.settings)
+const visual = atom(isBrowser ? JSON.parse(localStorage.getItem('F-Wordle') || JSON.stringify(initialData))?.visual : initialData.visual)
+
+
+export const GAMESTORE = {
+    game,
+    setting,
+    visual,
+    initialData
+}
+
+export default GAMESTORE;

@@ -1,3 +1,6 @@
+import Local from "@Utilities/Local";
+
+
 const generateRandom = (max: number) => {
     return Math.floor(Math.random() * ((max || 100) + 1));
 }
@@ -20,7 +23,7 @@ const compareWord = (word: string, guess: string) => {
             resultArray.push('exists');
             letterCount[key] -= 1;
         } else {
-            resultArray.push('false'); 
+            resultArray.push('false');
         }
     }
 
@@ -31,8 +34,31 @@ const compareWord = (word: string, guess: string) => {
 
 }
 
+const setParams = (params: string, data: object) => {
+    const PARAMS = params.split(':')
+    const DATA = Local.inmutable(data)
+    console.log(PARAMS)
 
-export const localUtil = {
-    generateRandom,
-    compareWord
+    const newValid = Array.from({ length: parseInt(PARAMS[1]) }, () =>
+        Array.from({ length: parseInt(PARAMS[2]) }, () => ({ char: '', isValid: null }))
+    );
+
+    DATA.game.word = PARAMS[0]
+    DATA.game.valid = newValid
+    DATA.settings.tries = parseInt(PARAMS[1])
+    DATA.settings.length = parseInt(PARAMS[2])
+    DATA.settings.lang = PARAMS[3]
+    DATA.settings.dictionary = PARAMS[4]
+    return DATA
+
 }
+
+
+const UTILITY = {
+    generateRandom,
+    compareWord,
+    setParams
+}
+
+
+export default UTILITY

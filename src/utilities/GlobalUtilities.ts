@@ -1,7 +1,9 @@
-import { localUtil } from "@Apps/utilities/GameUtils"
-import { Local } from "./Local"
+import utils from "@Apps/utilities/GameUtils"
+import Local from "./Local"
 
-const utility = {
+const UTILITY = {
     Local,
-    localUtil
+    utils
 }
+
+export default UTILITY

@@ -67,6 +67,10 @@ export default function useGame() {
         }
     }, [GAME?.isWin])
 
+    useEffect(() => {
+        getWord()
+    }, [])
+
     return {
         getWord,
         restartGame,

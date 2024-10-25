@@ -6,7 +6,7 @@ const generateRandom = (max: number) => {
 }
 
 const compareWord = (word: string, guess: string) => {
-    let resultArray = [];
+    let resultArray = Array(word.length).fill('false');
     let letterCount: Record<string, number> = {};
 
     word.split('').forEach((letter: any) => {
@@ -15,22 +15,26 @@ const compareWord = (word: string, guess: string) => {
 
 
     for (let i = 0; i < word.length; i++) {
-        const key = guess[i];
-        if (key === word[i]) {
-            resultArray.push('true');
-            letterCount[key] -= 1;
-        } else if (letterCount[key] > 0) {
-            resultArray.push('exists');
-            letterCount[key] -= 1;
-        } else {
-            resultArray.push('false');
+        if (guess[i] === word[i]) {
+            resultArray[i] = 'true';
+            letterCount[guess[i]] -= 1;
         }
     }
 
+    // Segunda pasada: Identificar los "exists"
+    for (let i = 0; i < word.length; i++) {
+        if (resultArray[i] === 'false' && letterCount[guess[i]] > 0) {
+            resultArray[i] = 'exists';
+            letterCount[guess[i]] -= 1;  
+        }
+    }
+
+    const isWin = resultArray.every((box) => box === 'true');
+
     return {
         result: resultArray,
-        isWin: resultArray.every((box: any) => box === 'true')
-    }
+        isWin:isWin
+    };
 
 }
 

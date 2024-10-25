@@ -15,9 +15,11 @@ export default function BoxLetter({ data, id }: BoxProps) {
 
     useEffect(() => {
         if (data.isValid !== null) {
+            Box?.current?.removeAttribute('data-valid')
+            Box?.current?.removeAttribute('data-win');
+            Box?.current?.classList.remove('active')
             setTimeout(() => {
                 Box?.current?.classList.add('validate')
-                Box?.current?.classList.remove('active')
                 setTimeout(() => {
                     Box.current?.setAttribute('data-valid', data.isValid)
                     if (GAME.isWin) {
@@ -33,7 +35,6 @@ export default function BoxLetter({ data, id }: BoxProps) {
             Box.current?.removeAttribute('data-win');
         }
     }, [data.isValid, data.char])
-
 
     return (
         <span

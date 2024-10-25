@@ -7,24 +7,21 @@ import DarkModeBTN from '@Components/Buttons/DarkModeBTN';
 export default function OpenSettingBTN() {
      //Hooks
      const SETTINGS = useStore(context.setting)
-     //Refs
-     const settingCurrent = document.getElementById('g-settings-section')
+     const NAVIGATION = useStore(context.navigation)
+
      //States
      const [isActive, setIsActive] = useState(false)
 
-
-
      useEffect(() => {
-          if (isActive) {
-               settingCurrent?.classList.remove('d-none')
-          } else {
-               settingCurrent?.classList.add('d-none')
+          if(isActive){
+               context.navigation.set('setting')
+          }else{
+               context.navigation.set('game')
           }
      }, [isActive])
 
      return (
-          <div className='f-row g-2 f-center'>
-               <DarkModeBTN />
+          <div className='f-row g-3 f-center'>
                <span className='setting-icon pointer' onClick={() => setIsActive((v) => !v)}>
                     {
                          !isActive ? (
@@ -44,6 +41,7 @@ export default function OpenSettingBTN() {
                          )
                     }
                </span>
+               <DarkModeBTN />
           </div >
      )
 }

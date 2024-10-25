@@ -70,13 +70,15 @@ const initialData = {
 const game = atom(isBrowser ? JSON.parse(localStorage.getItem('F-Wordle') || JSON.stringify(initialData))?.game : initialData.game)
 const setting = atom(isBrowser ? JSON.parse(localStorage.getItem('F-Wordle') || JSON.stringify(initialData))?.settings : initialData.settings)
 const visual = atom(isBrowser ? JSON.parse(localStorage.getItem('F-Wordle') || JSON.stringify(initialData))?.visual : initialData.visual)
+const navigation = atom('game');
 
 
 export const GAMESTORE = {
     game,
     setting,
     visual,
-    initialData
+    initialData,
+    navigation
 }
 
 export default GAMESTORE;

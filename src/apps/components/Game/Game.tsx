@@ -24,7 +24,7 @@ export default function Game() {
     };
 
     return (
-        <div className="board f-col g-2 f-center">
+        <div className="board f-col g-2 f-center mt-5">
             {
                 GAME?.valid?.map((row: any, i: number) => (
                     <Row key={i} id={i} row={row} />

@@ -27,3 +27,7 @@
     --w-bg-hint: #696969;
     --w-bg-false: #777777;
 }
+
+.wrapper-continer {
+    height: calc(100vh - 64px);
+}

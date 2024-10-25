@@ -8,6 +8,7 @@ import Footer from "@Components/Footer.astro";
 
 import { Toaster } from "sonner";
 import Game from "@Apps/components/Game/Game";
+import Wrapper from "@Apps/components/Wrapper";
 ---
 
 <Layout title="GuessWord" description="wasa">
@@ -19,18 +20,24 @@ import Game from "@Apps/components/Game/Game";
 		richColors
 	/>
 	<div class="app-game">
-		<Header />
-		<Settings />
-		<section class="Game-container f-col br-8 p-3 w-max mx-auto mt-5">
-			<Game client:only="react" />
-		</section>
+		<div class="hero f-col">
+			<Header />
+			<Wrapper client:only="react" />
+		</div>
 		<section>More info bottom</section>
 		<Footer />
 	</div>
 </Layout>
 
 <style is:inline>
-	.app-game{
+	.hero{
+		min-height: 100vh;
+	}
+	.hero:nth-child(2){
+		flex-grow: 1;
+	}
+
+	.app-game {
 		color: var(--f-text);
 	}
 	.Game-container {

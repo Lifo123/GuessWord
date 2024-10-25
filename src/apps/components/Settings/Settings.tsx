@@ -1,17 +1,10 @@
 import './Settings.css'
 import { useState } from 'react'
 import { useStore } from '@nanostores/react';
-import { TryStore, WordLengthStore } from '@Apps/context/GameStore';
-
-import DarkModeBTN from '@Components/Buttons/DarkModeBTN';
-import InputRange from '@Components/InputRange';
 
 export default function Settings() {
      //Hooks
 
-     //GameSettingsStore
-     const WordLength = useStore(WordLengthStore)
-     const Try = useStore(TryStore)
 
      //States
      const [isActive, setIsActive] = useState(false)
@@ -37,30 +30,6 @@ export default function Settings() {
                          )
                     }
                </span>
-               {
-                    isActive ? (
-                         <section className='setting-cont f-col fixed w-100 d-flex'>
-                              <div className='f-col w-40 mx-auto mt-5 g-4'>
-                                   <div className='f-row g-4 f-justify-between f-align-center'>
-                                        <p>Modo Oscuro</p>
-                                        <DarkModeBTN />
-                                   </div>
-                                   <div className='f-row g-4 f-justify-between f-align-center'>
-                                        <p>Cantidad de letras</p>
-                                        <InputRange min={3} max={7} initialValue={WordLength} funct={(data) => {
-                                             WordLengthStore.set(Number(data))
-                                        }} />
-                                   </div>
-                                   <div className='f-row g-4 f-justify-between f-align-center'>
-                                        <p>Numero de intentos</p>
-                                        <InputRange min={3} max={8} initialValue={Try} funct={(data) => {
-                                             TryStore.set(Number(data))
-                                        }} />
-                                   </div>
-                              </div>
-                         </section>
-                    ) : null
-               }
           </div >
      )
 }

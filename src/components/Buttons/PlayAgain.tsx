@@ -5,7 +5,7 @@ export default function PlayAgain({funct = () => {
 }}) {
 
     return (
-        <span className='btn btn-green br-6 mt-3 play-btn' onClick={funct} playagain='btn'>
+        <span className='btn btn-green br-6 mt-3 play-btn' onClick={funct}>
             Jugar de nuevo
         </span>
     )

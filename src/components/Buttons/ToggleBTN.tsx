@@ -1,7 +1,14 @@
 import { useEffect, useState } from 'react';
 import './Buttons.css'
 
-export default function ToggleBTN({ funct, initial }) {
+export default function ToggleBTN({
+    funct = () => {
+        console.log('Without function');
+    },
+    initial }:
+    { funct: () => void, initial: boolean }) {
+
+        
     //States
     const [isActive, setIsActive] = useState(initial || false);
 

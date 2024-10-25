@@ -11,10 +11,10 @@ export default function InputRange({
     //States
     const [value, setValue] = useState(initialValue);
 
-    const handleInputChange = (e) => {
+    const handleInputChange = (e : any) => {
         const newValue = e.target.value;
         setValue(newValue);
-        funct(newValue);  
+        funct();  
     };
 
     return (

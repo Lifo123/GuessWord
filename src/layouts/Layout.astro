@@ -7,9 +7,10 @@ interface Props {
 }
 
 const { title, description } = Astro.props;
-const site = new URL(Astro.site);
-const path = Astro.url.pathname;
-const url = new URL(path, site).href;
+const site = Astro.site ? new URL(Astro.site) : null;
+const path = Astro.url?.pathname || "/";
+
+const url = site ? new URL(path, site).href : null;
 ---
 
 <!doctype html>
@@ -69,10 +70,9 @@ const url = new URL(path, site).href;
 	</head>
 	<body>
 		<slot />
-	</body>
-	<script is:inline>
-		let isDark = localStorage.getItem("DMstate") === "true" || false;
-		if (isDark) {
+	</body><script is:inline>
+		let config = JSON.parse(localStorage.getItem("F-Config") || "{}");
+		if (config?.DarkMode) {
 			document.body.classList.add("DarkMode");
 		} else {
 			document.body.classList.remove("DarkMode");

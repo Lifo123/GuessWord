@@ -1,0 +1,8 @@
+body {
+    background-color: var(--w-bg);
+}
+
+
+.wrapper-continer {
+    height: calc(100vh - 64px);
+}

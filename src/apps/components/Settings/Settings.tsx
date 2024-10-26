@@ -1,3 +1,4 @@
+
 import context from "@Apps/context/GameStore";
 import { useStore } from "@nanostores/react";
 import { useEffect, useState } from "react";
@@ -17,7 +18,16 @@ export default function Settings() {
     }, [])
 
     return (
-        <div className="setting-preview f-col g-2 f-center">
+        <div className="setting-container f-row g-2 f-center">
+            <aside className="set-aside f-col g-2">
+                <h3>Settings</h3>
+                <p>Appearance</p>
+                <p>Language</p>
+            </aside>
+
+            <main className="set-main f-col">
+
+            </main>
             <div className="preview-board f-col g-2 f-center">
                 {
                     board?.map((row: any, i: number) => (

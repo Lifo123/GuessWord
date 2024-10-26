@@ -13,7 +13,12 @@ const path = Astro.url?.pathname || "/";
 const url = site ? new URL(path, site).href : null;
 ---
 
-<!doctype html>
+<script is:inline>
+	const theme = localStorage.getItem('F-Theme') || window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+	document.documentElement.classList[theme === 'dark' ? 'add' : 'remove']('dark');
+	document.documentElement.style.colorScheme = theme;
+</script>
+
 <html lang="en">
 	<head>
 		<title>{title}</title>
@@ -22,6 +27,7 @@ const url = site ? new URL(path, site).href : null;
 
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width" />
+		<meta name="color-scheme" content="light dark" />
 		<!--                                                                                                                                                   
             |***********************************************************************************|
             |                                                                                   |
@@ -70,12 +76,5 @@ const url = site ? new URL(path, site).href : null;
 	</head>
 	<body>
 		<slot />
-	</body><script is:inline>
-		let config = JSON.parse(localStorage.getItem("F-Config") || "{}");
-		if (config?.DarkMode) {
-			document.body.classList.add("DarkMode");
-		} else {
-			document.body.classList.remove("DarkMode");
-		}
-	</script>
+	</body>
 </html>

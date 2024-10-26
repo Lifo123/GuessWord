@@ -14,12 +14,13 @@ export default function ToggleBTN({
 
     //Functions
     const handleFunct = () => {
-        funct();  // Llamamos a la función pasada por props
-    }
+        funct();
+        setIsActive((prev) => !prev);
+    };
 
     useEffect(() => {
         setIsActive(initial);
-    }, [initial])
+    }, [initial]);
 
     return (
         <span

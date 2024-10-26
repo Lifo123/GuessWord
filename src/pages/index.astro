@@ -3,11 +3,9 @@ import "@Assets/css/Global.css";
 
 import Layout from "@Layouts/Layout.astro";
 import Header from "@Components/Header.astro";
-import Settings from "@Apps/components/Settings/Settings.astro";
 import Footer from "@Components/Footer.astro";
 
 import { Toaster } from "sonner";
-import Game from "@Apps/components/Game/Game";
 import Wrapper from "@Apps/components/Wrapper";
 ---
 
@@ -35,13 +33,5 @@ import Wrapper from "@Apps/components/Wrapper";
 	}
 	.hero:nth-child(2){
 		flex-grow: 1;
-	}
-
-	.app-game {
-		color: var(--f-text);
-	}
-	.Game-container {
-		min-height: 450px;
-		height: calc(100vh - 100px);
 	}
 </style>

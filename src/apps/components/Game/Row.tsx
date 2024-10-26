@@ -7,7 +7,7 @@ export default function Row({ row = [], id }: { row: any[], id: number }) {
         <div className='game-row f-row g-2 f-center' data-row={id}>
             {
                 row?.map((box: any, i: number) => (
-                    <BoxLetter key={i} data={box} id={i} />
+                    <BoxLetter key={`${box.char}-${i}`} data={box} id={i} />
                 ))
             }
         </div>

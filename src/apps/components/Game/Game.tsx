@@ -5,6 +5,7 @@ import useGame from '@Apps/hooks/useGame';
 
 import Row from "./Row";
 import PlayAgain from '@Components/Buttons/PlayAgain';
+import { useEffect } from 'react';
 
 export default function Game() {
     //GameStores

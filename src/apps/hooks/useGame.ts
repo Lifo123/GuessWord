@@ -17,22 +17,38 @@ export default function useGame() {
 
     //Functions
     const getWord = async () => {
+        let local = Util.Local.get('F-Wordle')
+        let data = context.initialData
+
         if (PARAMS) {
-            let updateData = Util.utils.setParams(PARAMS, context.initialData)
-            context.game.set(updateData.game)
-            context.setting.set(updateData.settings)
-            Util.Local.set('F-Wordle', updateData)
+            data = Util.utils.setParams(PARAMS, data)
+            context.game.set(data.game)
+            context.setting.set(data.settings)
+            Util.Local.set('F-Wordle', data)
             return
         }
+        
+        if (local?.game?.word) {
+            return
+        }
+
+        restartGame()
     }
 
     const restartGame = () => {
-        let data = Util.Local.inmutable(context.initialData.game)
-        context.game.set(data);
-        Util.Local.set('F-Wordle', {
-            game: data,
-            settings: SETTINGS,
-            visual: VISUAL
+        let data = Util.Local.inmutable(context.initialData)
+
+        const fetchWord = fetch(`https://app-eqlfk354ea-uc.a.run.app/word/`)
+            .then(res => res.json())
+            .then(word => {
+                data.game.word = word;
+                context.game.set(data.game);
+                Util.Local.set('F-Wordle', data);
+            });
+
+        toast.promise(fetchWord, {
+            loading: 'Cargando...',
+            error: 'Error al cargar la palabra',
         });
     }
 

@@ -1,26 +1,42 @@
 import './Buttons.css'
-import useDarkMode from '@Hooks/useDarkMode';
 import ToggleBTN from './ToggleBTN.jsx'
-import { useStore } from '@nanostores/react';
-import global from '@Context/GlobalStore';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 export default function DarkModeBTN() {
-    //DarkMode Store
-    const CONFIG = useStore(global.Config);
+    //States
+    const [theme, setThemeState] = useState(() => {
+        const savedTheme = localStorage.getItem('F-Theme');
+        if (savedTheme) return savedTheme === 'dark';
+        return window.matchMedia('(prefers-color-scheme: dark)').matches;
+    });
 
-    //Hooks
-    const DM = useDarkMode();
+    //Functions
+    const Toggle = () => {
+        setThemeState(v => !v)
+    }
+
+    const setDark = () => {
+        setThemeState(true)
+    }
+
+    const setLight = () => {
+        setThemeState(false)
+    }
+
+    const setSystem = () => {
+        setThemeState(window.matchMedia('(prefers-color-scheme: dark)').matches)
+    }
+
+
 
     useEffect(() => {
-        if (CONFIG?.DarkMode) {
-            document.body.classList.add("DarkMode");
-        } else {
-            document.body.classList.remove("DarkMode");
-        }
-    }, [CONFIG?.DarkMode])
+        localStorage.setItem('F-Theme', theme ? 'dark' : 'light')
+        document.documentElement.classList[theme ? 'add' : 'remove']('dark')
+        document.documentElement.style.colorScheme = theme ? 'dark' : 'light'
+    }, [theme])
+
 
     return (
-        <ToggleBTN funct={DM.Toggle} initial={CONFIG?.DarkMode} />
+        <ToggleBTN funct={Toggle} initial={theme} />
     )
 }

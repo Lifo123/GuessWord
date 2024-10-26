@@ -41,7 +41,6 @@ const compareWord = (word: string, guess: string) => {
 const setParams = (params: string, data: object) => {
     const PARAMS = params.split(':')
     const DATA = Local.inmutable(data)
-    console.log(PARAMS)
 
     const newValid = Array.from({ length: parseInt(PARAMS[1]) }, () =>
         Array.from({ length: parseInt(PARAMS[2]) }, () => ({ char: '', isValid: null }))

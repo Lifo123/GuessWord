@@ -32,7 +32,15 @@ export default function Game() {
                 ))
             }
             {
-                GAME?.isWin ? <PlayAgain funct={GF.restartGame} /> : null
+                GAME?.isWin || GAME.currentRow === GAME?.valid.length ? <PlayAgain funct={GF.restartGame} /> : null
+            }
+            {
+                GAME?.restart ? (
+                    <>
+                        <p className='my-2'>Sorry! for now only support for 5 word length</p>
+                        <span className='btn btn-green br-6' onClick={GF.restartGame}>Restart Game</span>
+                    </>
+                ) : null
             }
         </div>
     )

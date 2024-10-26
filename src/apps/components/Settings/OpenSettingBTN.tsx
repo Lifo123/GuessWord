@@ -1,4 +1,3 @@
-import './Settings.css'
 import { useEffect, useState } from 'react'
 import { useStore } from '@nanostores/react';
 import context from '@Apps/context/GameStore';

@@ -1,0 +1,10 @@
+.game-set{
+
+}
+
+.game-set p{
+    font-size: 14px;
+    font-weight: 300;
+    font-family: Inter Tight, sans-serif;
+    line-height: 1.5;
+}

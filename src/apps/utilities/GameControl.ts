@@ -63,6 +63,15 @@ const enter = () => {
     data.currentLetter = 0;
     data.isWin = isValidWord?.isWin;
 
+    if (data.currentRow === data.valid.length) {
+        data.isWin = false;
+        setTimeout(() => {
+            toast(data.word, {
+                duration: 1500,
+                
+            });
+        }, data.valid.length * 150);
+    }
 
     context.game.set(data);
     Util.Local.set('F-Wordle', {

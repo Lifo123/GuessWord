@@ -13,11 +13,9 @@ export default function Wrapper() {
     }
 
     return (
-        <section className="wrapper-continer f-col w-100">
+        <section className="wrapper-continer f-col w-100 o-hidden">
             {
-                NAVIGATION === 'setting' ? (
-                    <Settings />
-                ) : <Game />
+                NAVIGATION === 'setting' ? <Settings /> : <Game />
             }
         </section>
     )

@@ -1,46 +1,41 @@
-
-import context from "@Apps/context/GameStore";
-import { useStore } from "@nanostores/react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import Appearance from "./Appearance/Appearance";
+import Language from "./Language/Language";
+import Game from "./GameSet/Game";
 
 export default function Settings() {
     //States
-    const [isActive, setIsActive] = useState(false)
-    const [board, setBoard]: any = useState([])
-
-    //Stores
-    const SETTINGS = useStore(context.setting)
+    const [select, setSelect] = useState('Game')
 
 
-
-    useEffect(() => {
-        setBoard(Array.from({ length: SETTINGS.tries }, () => Array.from({ length: SETTINGS.length }, () => ({ char: '', isValid: null }))))
-    }, [])
+    const handleSelect = (e: any) => {
+        const options = document.querySelectorAll('.set-options')
+        options.forEach((option: any) => {
+            option.classList.remove('active')
+        })
+        e.target.classList.add('active')
+        setSelect(e.target.innerText)
+    }
 
     return (
-        <div className="setting-container f-row g-2 f-center">
-            <aside className="set-aside f-col g-2">
-                <h3>Settings</h3>
-                <p>Appearance</p>
-                <p>Language</p>
+        <div className="setting-container f-row g-2 pt-4 h-100 mx-auto">
+            <aside className="set-aside d-flex g-1 f-justify-end">
+                <div className="f-col g-1 h-100 pr-3 w-100">
+                    <h3 className="py-2 fs-4 fw-600 mb-1">Settings</h3>
+                    <p className="set-options m-0 ml-1 pointer active" onClick={handleSelect}>Game</p>
+                    <p className="set-options m-0 ml-1 pointer" onClick={handleSelect}>Appearance</p>
+                    <p className="set-options m-0 ml-1 pointer" onClick={handleSelect}>Language</p>
+                </div>
             </aside>
 
-            <main className="set-main f-col">
-
-            </main>
-            <div className="preview-board f-col g-2 f-center">
+            <main className="set-main f-col p-3">
+                <h3 className="fw-500 fs-4 mb-3 p-2">{select} Preferences</h3>
                 {
-                    board?.map((row: any, i: number) => (
-                        <span className="f-row g-2 f-center" key={i}>
-                            {
-                                row?.map((box: any, j: number) => (
-                                    <span className="box-letter d-flex br-6" key={j}></span>
-                                ))
-                            }
-                        </span>
-                    ))
+                    select === 'Appearance' ? <Appearance /> :
+                        select === 'Language' ? <Language /> :
+                            select === 'Game' ? <Game /> : null
                 }
-            </div>
+            </main>
         </div>
     )
 }

@@ -42,6 +42,8 @@ export default function useGame() {
             .then(res => res.json())
             .then(word => {
                 data.game.word = word;
+                data.game.restart = false;
+                data.game.isWin = false;
                 context.game.set(data.game);
                 Util.Local.set('F-Wordle', data);
             });
@@ -72,7 +74,7 @@ export default function useGame() {
 
     //Effects
     useEffect(() => {
-        if (GAME?.isWin) {
+        if (GAME?.isWin || GAME?.restart || GAME?.currentRow === GAME?.valid.length) {
             window?.removeEventListener('keydown', handleKeyDown);
         } else {
             window?.addEventListener('keydown', handleKeyDown);

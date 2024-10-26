@@ -1,5 +1,5 @@
 .board{
-    color: var(--f-text);
+    color: var(--w-subtitle);
 }
 
 .box-letter{
@@ -18,21 +18,21 @@
 }
 
 .box-letter.active{
-    border: solid 2px var(--w-border-intense);
+    border: solid 2px var(--w-box-border-intense);
     animation: BoxWithLetter .15s ease-out;
 }
 
 .box-letter[data-valid="true"]{
     border: solid 2px #acacac28;
-    background-color: var(--f-text-green);
+    background-color: var(--w-bg-true);
 }
 .box-letter[data-valid="false"]{
     border: solid 2px #acacac28;
-    background-color: #69696971;
+    background-color: var(--w-bg-false);
 }
 .box-letter[data-valid="exists"]{
     border: solid 2px #acacac28;
-    background-color: var(--f-text-yellow);
+    background-color: var(--w-bg-hint);
 }
 
 .box-letter.validate{

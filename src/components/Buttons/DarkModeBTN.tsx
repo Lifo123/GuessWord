@@ -1,42 +1,58 @@
-import './Buttons.css'
-import ToggleBTN from './ToggleBTN.jsx'
+import './Buttons.css';
+import ToggleBTN from './ToggleBTN.jsx';
 import { useEffect, useState } from 'react';
 
 export default function DarkModeBTN() {
-    //States
+    // States
     const [theme, setThemeState] = useState(() => {
         const savedTheme = localStorage.getItem('F-Theme');
-        if (savedTheme) return savedTheme === 'dark';
-        return window.matchMedia('(prefers-color-scheme: dark)').matches;
+        return savedTheme ? savedTheme === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches;
     });
 
-    //Functions
+    // Functions
     const Toggle = () => {
-        setThemeState(v => !v)
-    }
+        const newTheme = !theme;
+        setThemeState(newTheme);
+        localStorage.setItem('F-Theme', newTheme ? 'dark' : 'light');
+    };
 
     const setDark = () => {
-        setThemeState(true)
-    }
+        setThemeState(true);
+        localStorage.setItem('F-Theme', 'dark');
+    };
 
     const setLight = () => {
-        setThemeState(false)
-    }
+        setThemeState(false);
+        localStorage.setItem('F-Theme', 'light');
+    };
 
     const setSystem = () => {
-        setThemeState(window.matchMedia('(prefers-color-scheme: dark)').matches)
-    }
-
-
+        const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        setThemeState(systemPrefersDark);
+        localStorage.removeItem('F-Theme');
+    };
 
     useEffect(() => {
-        localStorage.setItem('F-Theme', theme ? 'dark' : 'light')
-        document.documentElement.classList[theme ? 'add' : 'remove']('dark')
-        document.documentElement.style.colorScheme = theme ? 'dark' : 'light'
-    }, [theme])
+        document.documentElement.classList[theme ? 'add' : 'remove']('dark');
+        document.documentElement.style.colorScheme = theme ? 'dark' : 'light';
+    }, [theme]);
+
+    useEffect(() => {
+        const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+
+        const handleChange = (e : MediaQueryListEvent) => {
+            if (!localStorage.getItem('F-Theme')) {
+                setThemeState(e.matches);
+            }
+        };
+
+        mediaQuery.addEventListener('change', handleChange);
+
+        return () => {
+            mediaQuery.removeEventListener('change', handleChange);
+        };
+    }, []);
 
 
-    return (
-        <ToggleBTN funct={Toggle} initial={theme} />
-    )
+    return <ToggleBTN funct={Toggle} initial={theme} />;
 }

@@ -27,7 +27,7 @@ export default function useGame() {
             Util.Local.set('F-Wordle', data)
             return
         }
-        
+
         if (local?.game?.word) {
             return
         }
@@ -43,7 +43,7 @@ export default function useGame() {
             .then(word => {
                 data.game.word = word;
                 data.game.restart = false;
-                data.game.isWin = false;
+                data.game.isWin = null;
                 context.game.set(data.game);
                 Util.Local.set('F-Wordle', data);
             });
@@ -52,10 +52,6 @@ export default function useGame() {
             loading: 'Cargando...',
             error: 'Error al cargar la palabra',
         });
-    }
-
-    const restartSettings = () => {
-
     }
 
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -74,7 +70,7 @@ export default function useGame() {
 
     //Effects
     useEffect(() => {
-        if (GAME?.isWin || GAME?.restart || GAME?.currentRow === GAME?.valid.length) {
+        if (GAME?.isWin || GAME?.currentRow === GAME?.valid.length || GAME?.restart) {
             window?.removeEventListener('keydown', handleKeyDown);
         } else {
             window?.addEventListener('keydown', handleKeyDown);
@@ -83,7 +79,7 @@ export default function useGame() {
         return () => {
             window?.removeEventListener('keydown', handleKeyDown)
         }
-    }, [GAME?.isWin])
+    }, [GAME?.isWin, GAME?.restart])
 
     useEffect(() => {
         getWord()
@@ -91,8 +87,7 @@ export default function useGame() {
 
     return {
         getWord,
-        restartGame,
-        restartSettings
+        restartGame
     }
 
 

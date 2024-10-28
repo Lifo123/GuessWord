@@ -10,7 +10,7 @@
     "preview": "astro preview --host",
     "astro": "astro",
     "deploy": "gh-pages -d Build --dotfiles",
-    "predeploy": "npm run build"
+    "predeploy": "pnpm run build"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.4",

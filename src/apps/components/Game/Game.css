@@ -1,6 +1,11 @@
 .board{
     color: var(--w-subtitle);
 }
+.board-cont{
+    height: 418px;
+    padding: 14px 4px 0px 4px;
+    overflow-y: auto;
+}
 
 .box-letter{
     border-radius: 4px;
@@ -18,7 +23,7 @@
 }
 
 .box-letter.active{
-    border: solid 2px var(--w-box-border-intense);
+    border: solid 1px var(--w-box-border-intense);
     animation: BoxWithLetter .15s ease-out;
 }
 
@@ -27,7 +32,7 @@
     background-color: var(--w-bg-true);
 }
 .box-letter[data-valid="false"]{
-    border: solid 2px #acacac28;
+    border: solid 2px #40404028;
     background-color: var(--w-bg-false);
 }
 .box-letter[data-valid="exists"]{
@@ -65,7 +70,8 @@
 }
 
 .keyboard-box{
-    background-color: var(--w-border);
+    background-color: var(--w-keyboard-bg);
+    border-bottom: solid 1px #514d4d66;
     width: 10%;
     min-width: 20px;
     height: 45px;
@@ -74,7 +80,19 @@
     font-weight: 600;
     font-size: 15px;
     flex-grow: 1;
+    color: var(--w-title);
 }
+.keyboard-box[data-valid="true"]{
+    background-color: var(--w-bg-true);
+}
+.keyboard-box[data-valid="false"]{
+    background-color: var(--w-bg-false-key);
+    border-bottom: solid 1px #4e4d4d54;
+}
+.keyboard-box[data-valid="exists"]{
+    background-color: var(--w-bg-hint);
+}
+ 
 
 @media(520px > width){
     .keyboard-container{

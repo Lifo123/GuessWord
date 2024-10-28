@@ -1,8 +1,29 @@
 import BackIcon from "@Assets/icons/BackIcon"
 import { control } from "@Apps/utilities/GameControl";
 import { useStore } from "@nanostores/react";
+import context from "@Apps/context/GameStore";
+import { useEffect, useState } from "react";
 
 export default function Teclado() {
+    const [validatedKeys, setValidatedKeys] = useState(new Map());
+
+    const GAME = useStore(context.game)
+
+    useEffect(() => {
+        if (GAME.currentRow > 0 && GAME.currentRow <= GAME.valid.length) {
+            setTimeout(() => {
+                for (let i = 0; i < GAME.currentRow; i++) {
+                    const row = GAME.valid[i];
+                    row.forEach((letter: any, j: number) => {
+                        const KEYCHAR = document.querySelector(`[data-char="${letter.char.toUpperCase()}"]`)
+                        if (KEYCHAR?.getAttribute('data-valid') === 'true') return;
+                        KEYCHAR?.setAttribute('data-valid', letter.isValid);
+
+                    })
+                }
+            }, (GAME.valid[0].length) * 260)
+        }
+    }, [GAME.currentRow, GAME.valid]);
 
 
 
@@ -36,9 +57,12 @@ export default function Teclado() {
 }
 
 const Boxes = (props: any) => {
-
     return (
-        <span className={`keyboard-box pointer d-flex f-center br-4 ${props.className || ''}`} style={props.style} onClick={props.funct}>
+        <span className={`keyboard-box pointer d-flex f-center br-4 ${props.className || ''}`}
+            style={props.style}
+            onClick={props.funct}
+            data-char={props.char}
+        >
             {props.char}
         </span>
     )

@@ -12,10 +12,16 @@ export default function OpenSettingBTN() {
      const [isActive, setIsActive] = useState(false)
 
      useEffect(() => {
-          if(isActive){
+          if (isActive) {
                context.navigation.set('setting')
-          }else{
+               document.body.style.overflow = 'hidden'
+               const scrollingElement = document.scrollingElement;
+               if (scrollingElement) {
+                    scrollingElement.scrollTop = 0;
+               }
+          } else {
                context.navigation.set('game')
+               document.body.style.overflow = 'auto'
           }
      }, [isActive])
 
@@ -40,7 +46,6 @@ export default function OpenSettingBTN() {
                          )
                     }
                </span>
-               <DarkModeBTN />
           </div >
      )
 }

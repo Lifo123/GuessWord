@@ -1,0 +1,9 @@
+.play-again-container{
+    top: 45%;
+    transform: translateY(-50%);
+    height: 80%;
+    width: 440px;
+    border: solid 1px var(--w-border);
+    background-color: var(--w-bg);
+    z-index: 400;
+}

@@ -52,7 +52,7 @@ const initialData = {
                 { char: '', isValid: null }
             ]
         ],
-        isWin: false,
+        isWin: null,
         restart: false,
     },
     settings: {
@@ -62,8 +62,18 @@ const initialData = {
         dictionary: 'gameDefault'
     },
     visual: {
-        fontSize: 50,
-        fontColor: 'var(--w-text)',
+        light: {
+            bg: '#ffffff',
+        },
+        dark: {
+            bg: '#161616',
+        },
+        main: {
+            primary: '#007bff',
+            secondary: '#6c757d',
+            tertiary: '#ffc107',
+            multiplier: '1'
+        }
     }
 }
 

@@ -4,5 +4,6 @@ body {
 
 
 .wrapper-continer {
-    height: calc(100vh - 64px);
+    height: max-content;
+    min-height: calc(100vh - 64px);
 }

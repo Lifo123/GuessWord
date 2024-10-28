@@ -13,9 +13,12 @@ import Wrapper from "@Apps/components/Wrapper";
 	<Toaster
 		position="top-center"
 		client:only="react"
-		duration={800}
+		duration={1000}
 		visibleToasts={1}
-		richColors
+		toastOptions={{
+			className: 'alert'
+		}}
+		
 	/>
 	<div class="app-game">
 		<div class="hero f-col">

@@ -9,33 +9,26 @@
 /**/
 
 .setting-container {
-    background-color: var(--w-bg);
+    background-color: var(--w-bg);  
     height: calc(100vh - 64px);
-    width: 80%;
+    min-width: 500px;
+    width: 100%;
     z-index: 500;   
-    top: 0px;
+    top: 64px;
     left: 50%;
     transform: translateX(-50%);
-}
-.setting-container h3{
-    border-bottom: solid 1px var(--w-border);
+    overflow-y: auto;
 }
 
-.setting-container h4{
-    font-size: 14px;
-    font-weight: 500;
+.setting-container > div{
+    min-width: 500px;;
 
 }
-
-.setting-container p{
-    margin: 0;
-}
-
 
 
 .set-aside {
     min-width: 250px;
-    width: 30%;
+    width: 260px;
     color: var(--w-text);
 }
 

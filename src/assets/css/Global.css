@@ -1,24 +1,36 @@
 :root {
     --w-bg: #ffffff;
-    --w-border: #323538;
-    --w-primary: 248, 186, 0;
-    --w-secondary: #696969;
-    --w-title: #1c274c;
-    --w-subtitle: #696969;
-    --w-text: #1c274c;
+    --w-border: #8c9297;
+    --w-title: #27272c;
+    --w-subtitle: #262930;
+    --w-text: #36373d;
     --w-low-text: #ebedf3;
     --w-box: #e8e8e8;
     --w-box-border: #666666;
-    --w-box-border-intense: #888888;
+    --w-box-border-intense: #777171;
+    --w-keyboard-bg: #eaeaea;
+    --w-alert-bg: #ececec;
 
-    --w-bg-true: #6bbf59;
-    --w-bg-hint: #e6c35c;
-    --w-bg-false: #db6d6d;
+    --w-bg-true: #59c641;
+    --w-bg-hint: #ebbc30;
+    --w-bg-false: #dadada;
+    --w-bg-false-key: #dfdede;
+
+    --w-primary: 248, 186, 0;
+    --w-secondary: #696969;
+    --w-tertiary: #ffc107;
 
     /* Tipografía */
-    --wt-multiplier: 1.5;
-    --wt-size: calc(var(--wt-multiplier) * 12px), 16px;
-    --wt-spacing: 0.5rem;
+    --w-multiplier: 1;
+
+    --w-font-size-xsmall: calc(var(--w-multiplier) * 0.85em);
+    --w-font-size-small: calc(var(--w-multiplier) * 0.95em);
+    --w-font-size-normal: calc(var(--w-multiplier) * 1em);
+    --w-font-size-xnormal: calc(var(--w-multiplier) * 1.2em);
+    --w-font-size-large: calc(var(--w-multiplier) * 1.5em);
+    --w-font-size-xlarge: calc(var(--w-multiplier) * 1.8em);
+    --w-font-size-xxlarge: calc(var(--w-multiplier) * 2rem);
+    --w-font-size-extralarge: calc(var(--w-multiplier) * 2.3rem);
 
     /* Opacity*/
     --w-opacity-0: 0;
@@ -37,8 +49,6 @@
 .dark {
     --w-bg: #161616;
     --w-border: #323538;
-    --w-primary: 31, 111, 235;
-    --w-secondary: 41, 41, 43;
     --w-title: #ebedf3;
     --w-subtitle: #e6eaef;
     --w-text: #ebedf1;
@@ -46,24 +56,47 @@
     --w-box: #202021;
     --w-box-border: #414447;
     --w-box-border-intense: #424449;
+    --w-keyboard-bg: #27282a;
+    --w-alert-bg: #27282a;
+
+    --w-primary: 31, 111, 235;
+    --w-secondary: 41, 41, 43;
+    --w-tertiary: #ffc107;
 
     --w-bg-true: #439f2e;
     --w-bg-hint: #cc9f1a;
     --w-bg-false: #2d2e30;
+    --w-bg-false-key: #121313;
 }
 
 
-*{
+* {
     font-family: "Inter";
     line-height: 1.5;
 }
 
-h3{
+h3 {
     color: var(--w-subtitle);
 }
 
-.icon{
+.icon {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.alert {
+    border: solid 1px var(--w-keyboard-bg) !important;
+    background-color: var(--w-alert-bg) !important;
+    color: var(--w-lowtext) !important;
+}
+
+/*To add in my SCSS file*/
+.f-grow-1 {
+    flex-grow: 1;
+}
+
+.f-stretch {
+    align-items: stretch;
+    justify-items: stretch;
 }

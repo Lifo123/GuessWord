@@ -1,10 +1,15 @@
 import context from "@Apps/context/GameStore";
 import Util from '@Utilities/GlobalUtilities'
+import Local from "@Utilities/Local";
 import { node } from 'lifo-utils'
 import { toast } from "sonner";
 
 const typing = (input: string) => {
     const data = context.game.get()
+    if (data?.restart) {
+        return;
+    }
+
     const curLetter = data.currentLetter
     const curRow = data.currentRow
 
@@ -23,6 +28,10 @@ const typing = (input: string) => {
 
 const backspace = () => {
     const data = context.game.get();
+    if (data?.restart) {
+        return;
+    }
+
     const curLetter = data.currentLetter
     const curRow = data.currentRow
 
@@ -40,7 +49,11 @@ const backspace = () => {
 }
 
 const enter = () => {
-    let data = { ...context.game.get() };
+    let data = Local.inmutable(context.game.get());
+    if (data?.restart) {
+        return;
+    }
+
     const curLetter = data.currentLetter
 
     if (curLetter < data.valid[0].length) {
@@ -59,20 +72,23 @@ const enter = () => {
         data.valid[curRow][i].isValid = isValidWord.result[i]
     }
 
+
     data.currentRow = curRow + 1;
     data.currentLetter = 0;
-    data.isWin = isValidWord?.isWin;
+    data.isWin = !isValidWord?.isWin ? null : isValidWord?.isWin;
 
-    if (data.currentRow === data.valid.length) {
-        data.isWin = false;
+    //Perdio
+    if (data.currentRow === data.valid.length && data.isWin === null) {
+        data.isWin = false
         setTimeout(() => {
             toast(data.word, {
                 duration: 1500,
-                
+
             });
         }, data.valid.length * 150);
     }
 
+    //Guardar y actualizar
     context.game.set(data);
     Util.Local.set('F-Wordle', {
         game: data,

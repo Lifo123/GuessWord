@@ -1,20 +1,39 @@
 ---
-
+import { getCollection } from "astro:content";
+const lists = await getCollection("Help");
 ---
 
 <footer class="w-100 d-flex f-center px-4 py-5">
     <ul class="f-row g-3 f-center">
-        <li><a href="https://lifo123.github.io/Portfolio/" target="_blank">About</a></li>
-        <li><a href="https://github.com/Lifo123/GuessWord/" target="_blank">Repository</a></li>
-        <li><a href="https://lifo123.github.io/GuessWord/Bug/" target="_blank">Report a Bug</a></li>
-        <li><a href="https://lifo123.github.io/GuessWord/Help/" target="_blank">Help us</a></li>
-        <li><a aria-label="Boton link Outlook" title="alberto_p-@hotmail.com" href="mailto:alberto_p-@hotmail.com?subject=Contact%20me">Contact me</a></li>
-        <li><a href="https://github.com/Lifo123/" target="_blank">{new Date().getFullYear()} - Lifo</a></li>
+        {
+            lists.map((list: any) => (
+                <li>
+                    <a href={`/GuessWord/blog/${list.slug}/`}>
+                        {list.data.title}
+                    </a>
+                </li>
+            ))
+        }
+        <li>
+            <a href="https://github.com/Lifo123/GuessWord/" target="_blank"
+                >Repository</a>
+        </li>
+        <li>
+            <a
+                aria-label="Boton link Outlook"
+                title="alberto_p-@hotmail.com"
+                href="mailto:alberto_p-@hotmail.com?subject=Contact%20me"
+                >Contact me</a>
+        </li>
+        <li>
+            <a href="https://github.com/Lifo123/" target="_blank"
+                >{new Date().getFullYear()} - Lifo</a>
+        </li>
     </ul>
 </footer>
 
 <style is:inline>
-    footer{
+    footer {
         height: 64px;
     }
     footer a {
@@ -22,7 +41,7 @@
         font-size: clamp(0.8rem, 1.5vw, 12px);
         color: var(--w-low-text);
     }
-    footer a:hover{
+    footer a:hover {
         color: var(--f-text-blue) !important;
         text-decoration: underline;
     }

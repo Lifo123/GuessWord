@@ -7,6 +7,7 @@ import Footer from "@Components/Footer.astro";
 
 import { Toaster } from "sonner";
 import Wrapper from "@Apps/components/Wrapper";
+import WordleDescription from "@Content/index/WordleDescription.md";
 ---
 
 <Layout title="GuessWord" description="wasa">
@@ -16,25 +17,26 @@ import Wrapper from "@Apps/components/Wrapper";
 		duration={1000}
 		visibleToasts={1}
 		toastOptions={{
-			className: 'alert'
+			className: "alert",
 		}}
-		
 	/>
 	<div class="app-game">
 		<div class="hero f-col">
 			<Header />
 			<Wrapper client:only="react" />
 		</div>
-		<section>More info bottom</section>
+		<div class="f-markdown w-70 mx-auto mt-2">
+			<WordleDescription />
+		</div>
 		<Footer />
 	</div>
 </Layout>
 
 <style is:inline>
-	.hero{
+	.hero {
 		min-height: 100vh;
 	}
-	.hero:nth-child(2){
+	.hero:nth-child(2) {
 		flex-grow: 1;
 	}
 </style>

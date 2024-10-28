@@ -5,7 +5,7 @@ import { node } from 'lifo-utils'
 import { toast } from "sonner";
 
 const typing = (input: string) => {
-    const data = context.game.get()
+    const data = Local.inmutable(context.game.get())
     if (data?.restart) {
         return;
     }
@@ -27,7 +27,7 @@ const typing = (input: string) => {
 }
 
 const backspace = () => {
-    const data = context.game.get();
+    const data = Local.inmutable(context.game.get());
     if (data?.restart) {
         return;
     }
@@ -55,14 +55,19 @@ const enter = () => {
     }
 
     const curLetter = data.currentLetter
+    const curRow = data.currentRow
 
     if (curLetter < data.valid[0].length) {
+        const DIV = document.querySelector(`[data-row="${curRow}"]`)
+        DIV?.classList.add('error')
         toast.error('Field is not complete');
+        setTimeout(() => {
+            DIV?.classList.remove('error')
+        }, 400)
         return;
     }
     toast.dismiss();
 
-    const curRow = data.currentRow
     const guess = data.valid[curRow].map((box: any) => box.char).join('')
 
     //Validation Word

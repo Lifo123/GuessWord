@@ -44,6 +44,8 @@ export default function useGame() {
                 data.game.word = word;
                 data.game.restart = false;
                 data.game.isWin = null;
+                data.game.valid = Array(SETTINGS.tries).fill(Array(SETTINGS.length).fill({char: '', isValid: null}));
+                data.settings.tries = SETTINGS.tries;
                 context.game.set(data.game);
                 Util.Local.set('F-Wordle', data);
             });

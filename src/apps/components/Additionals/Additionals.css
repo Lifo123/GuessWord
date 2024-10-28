@@ -1,9 +1,29 @@
+.obscure{
+    background-color: #3939390d;
+    z-index: 490;
+    top: 0;
+    pointer-events: none;
+}
+.wrapper-play-again{
+    height: calc(100vh - 64px);
+    width: 100%;
+    top: 64px;
+    pointer-events: visible;
+}
+
 .play-again-container{
-    top: 45%;
-    transform: translateY(-50%);
-    height: 80%;
+    margin-top: 20vh;
+    height: max-content;
     width: 440px;
     border: solid 1px var(--w-border);
     background-color: var(--w-bg);
     z-index: 400;
+    animation: Entry .35s;
+}
+
+@keyframes Entry {
+    0%{
+        margin-top: 23vh;
+        opacity: .6;
+    }
 }

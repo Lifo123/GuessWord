@@ -23,10 +23,11 @@ export default function OpenSettingBTN() {
                context.navigation.set('game')
                document.body.style.overflow = 'auto'
           }
+          
      }, [isActive])
 
      return (
-          <div className='f-row g-3 f-center'>
+          <div className='f-row g-3 f-center' title='Settings'>
                <span className='setting-icon pointer' onClick={() => setIsActive((v) => !v)}>
                     {
                          !isActive ? (

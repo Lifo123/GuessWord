@@ -5,8 +5,6 @@ import context from "@Apps/context/GameStore";
 import { useEffect, useState } from "react";
 
 export default function Teclado() {
-    const [validatedKeys, setValidatedKeys] = useState(new Map());
-
     const GAME = useStore(context.game)
 
     useEffect(() => {
@@ -23,6 +21,13 @@ export default function Teclado() {
                 }
             }, (GAME.valid[0].length) * 260)
         }
+        if (GAME.isWin === null && GAME.restart === false) {
+            const KEYS = document.querySelectorAll('[data-char]')
+            KEYS.forEach((KEY: any) => {
+                KEY.removeAttribute('data-valid')
+            })
+        }
+
     }, [GAME.currentRow, GAME.valid]);
 
 

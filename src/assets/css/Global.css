@@ -1,11 +1,11 @@
 :root {
     --w-bg: #ffffff;
-    --w-border: #8c9297;
+    --w-border: #a2a5a7;
     --w-title: #27272c;
     --w-subtitle: #262930;
     --w-text: #36373d;
-    --w-low-text: #ebedf3;
-    --w-box: #e8e8e8;
+    --w-low-text: #4f5053;
+    --w-box: #f8f8f8;
     --w-box-border: #666666;
     --w-box-border-intense: #777171;
     --w-keyboard-bg: #eaeaea;

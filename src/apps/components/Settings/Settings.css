@@ -13,7 +13,9 @@
     height: calc(100vh - 64px);
     width: 80%;
     z-index: 500;   
-    top: 64px;
+    top: 0px;
+    left: 50%;
+    transform: translateX(-50%);
 }
 .setting-container h3{
     border-bottom: solid 1px var(--w-border);

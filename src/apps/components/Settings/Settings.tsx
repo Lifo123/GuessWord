@@ -1,7 +1,7 @@
 import { useState } from "react";
-import Appearance from "./Appearance/Appearance";
-import Language from "./Language/Language";
-import Game from "./GameSet/Game";
+import Appearance from "./Contents/Appearance";
+import Language from "./Contents/Language";
+import Game from "./Contents/Game";
 
 export default function Settings() {
     //States
@@ -18,7 +18,7 @@ export default function Settings() {
     }
 
     return (
-        <div className="setting-container f-row g-2 pt-4 h-100 mx-auto">
+        <div className="setting-container f-row g-2 pt-4 h-100 mx-auto absolute">
             <aside className="set-aside d-flex g-1 f-justify-end">
                 <div className="f-col g-1 h-100 pr-3 w-100">
                     <h3 className="py-2 fs-4 fw-600 mb-1">Settings</h3>

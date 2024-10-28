@@ -6,6 +6,7 @@ import useGame from '@Apps/hooks/useGame';
 import Row from "./Row";
 import PlayAgain from '@Components/Buttons/PlayAgain';
 import { useEffect } from 'react';
+import Teclado from './Teclado';
 
 export default function Game() {
     //GameStores
@@ -31,17 +32,7 @@ export default function Game() {
                     <Row key={i} id={i} row={row} />
                 ))
             }
-            {
-                GAME?.isWin || GAME.currentRow === GAME?.valid.length ? <PlayAgain funct={GF.restartGame} /> : null
-            }
-            {
-                GAME?.restart ? (
-                    <>
-                        <p className='my-2'>Sorry! for now only support for 5 word length</p>
-                        <span className='btn btn-green br-6' onClick={GF.restartGame}>Restart Game</span>
-                    </>
-                ) : null
-            }
+            <Teclado />
         </div>
     )
 }

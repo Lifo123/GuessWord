@@ -1,5 +1,3 @@
-import './GameSet.css'
-
 import context from "@Apps/context/GameStore";
 import { useStore } from "@nanostores/react";
 import setting from "@Apps/utilities/GameSettings";

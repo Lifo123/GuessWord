@@ -13,7 +13,7 @@
     align-items: center;
     user-select: none;
     font-weight: 700;
-    font-size: 30px;
+    font-size: 26px;
     transform-style: preserve-3d;
 }
 
@@ -61,5 +61,34 @@
 @keyframes WinAnimation {
     50%{
         transform: translateY(-20px);
+    }
+}
+
+.keyboard-box{
+    background-color: var(--w-border);
+    width: 10%;
+    min-width: 20px;
+    height: 45px;
+    aspect-ratio: 1/1.3;
+    user-select: none;
+    font-weight: 600;
+    font-size: 15px;
+    flex-grow: 1;
+}
+
+@media(520px > width){
+    .keyboard-container{
+        width: 100%;
+        padding-inline: 14px;
+        gap: 6px;
+    }
+    .keyboard-box{
+        font-size: 13px;
+    }
+    .keyboard-container .g-2{
+        gap: 6px;
+    }
+    .box-letter{
+        height: 52px;
     }
 }

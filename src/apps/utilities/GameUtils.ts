@@ -1,4 +1,5 @@
 import Local from "@Utilities/Local";
+import { PAGEUTILS } from "@Context/GlobalStore";
 
 
 const generateRandom = (max: number) => {
@@ -25,7 +26,7 @@ const compareWord = (word: string, guess: string) => {
     for (let i = 0; i < word.length; i++) {
         if (resultArray[i] === 'false' && letterCount[guess[i]] > 0) {
             resultArray[i] = 'exists';
-            letterCount[guess[i]] -= 1;  
+            letterCount[guess[i]] -= 1;
         }
     }
 
@@ -33,7 +34,7 @@ const compareWord = (word: string, guess: string) => {
 
     return {
         result: resultArray,
-        isWin:isWin
+        isWin: isWin
     };
 
 }
@@ -56,11 +57,30 @@ const setParams = (params: string, data: object) => {
 
 }
 
+const popup = (type: string, delay: number) => {
+    setTimeout(() => {
+        if (type === 'res') {
+            PAGEUTILS.set({
+                popup: {
+                    type: null,
+                    delay: 0,
+                },
+            })
+            return
+        }
+
+        const POPUP = Local.inmutable(PAGEUTILS.value)
+        POPUP.popup.type = type
+        POPUP.popup.delay = delay
+        PAGEUTILS.set(POPUP)
+    }, (delay || 0) * 360)
+}
 
 const UTILITY = {
     generateRandom,
     compareWord,
-    setParams
+    setParams,
+    popup
 }
 
 

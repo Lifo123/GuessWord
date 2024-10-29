@@ -25,9 +25,9 @@ export default function BoxLetter({ data, id }: BoxProps) {
                     if (GAME.isWin) {
                         setTimeout(() => {
                             Box.current?.setAttribute('data-win', 'true');
-                        }, (GAME?.valid[0].length + 1) * 130)
+                        }, (GAME?.valid[0].length + 1) * 60)
                     }
-                }, 240)
+                }, 180)
             }, id * 210)
         } else {
             Box.current?.classList.remove('validate');

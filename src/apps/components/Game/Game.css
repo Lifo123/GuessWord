@@ -61,8 +61,8 @@
     animation: ValidationAnimation .45s ease-out;
 }
 
-.box-letter[data-win="true"] {
-    animation: WinAnimation 1s;
+.box-letter[data-valid="true"][data-win="true"] {
+    animation: WinAnimation 1.1s;
 }
 
 @keyframes ValidationAnimation {
@@ -177,7 +177,4 @@
         gap: 6px;
     }
 
-    .box-letter {
-        height: 52px;
-    }
 }

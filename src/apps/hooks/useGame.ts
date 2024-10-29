@@ -2,9 +2,9 @@ import { useEffect } from "react";
 import { useStore } from "@nanostores/react";
 import context from "@Apps/context/GameStore";
 import global from "@Context/GlobalStore";
-import { getWord } from "@Services/WordleServices";
 import { toast } from "sonner";
 import { control } from "@Apps/utilities/GameControl";
+import popup from "@Apps/utilities/GameUtils";
 import Util from "@Utilities/GlobalUtilities";
 
 export default function useGame() {
@@ -44,8 +44,10 @@ export default function useGame() {
                 data.game.word = word;
                 data.game.restart = false;
                 data.game.isWin = null;
-                data.game.valid = Array(SETTINGS.tries).fill(Array(SETTINGS.length).fill({char: '', isValid: null}));
+                data.game.valid = Array(SETTINGS.tries).fill(Array(SETTINGS.length).fill({ char: '', isValid: null }));
                 data.settings.tries = SETTINGS.tries;
+                popup.popup('res');
+
                 context.game.set(data.game);
                 Util.Local.set('F-Wordle', data);
             });
@@ -54,6 +56,10 @@ export default function useGame() {
             loading: 'Cargando...',
             error: 'Error al cargar la palabra',
         });
+        const KEYS = document.querySelectorAll('[data-char]')
+        KEYS.forEach((KEY: any) => {
+            KEY.removeAttribute('data-valid')
+        })
     }
 
     const handleKeyDown = (e: KeyboardEvent) => {

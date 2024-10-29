@@ -4,14 +4,15 @@ import context from "@Apps/context/GameStore";
 import useGame from '@Apps/hooks/useGame';
 
 import Row from "./Row";
-import PlayAgain from '@Apps/components/Additionals/PlayAgain';
-import { useEffect } from 'react';
+import PopupAppear from '@Apps/components/Additionals/PopupAppear';
 import Teclado from './Teclado';
+import { PAGEUTILS } from '@Context/GlobalStore';
 
 export default function Game() {
     //GameStores
     const GAME = useStore(context.game)
     const SETTINGS = useStore(context.setting)
+    const pageUtils = useStore(PAGEUTILS)
 
     //Hooks
     const GF = useGame();
@@ -19,8 +20,7 @@ export default function Game() {
     return (
         <div className="board f-col g-2 f-center h-100 w-100 relative pb-5">
             {
-                GAME?.restart ? <PlayAgain delay={0} funct={GF.restartGame} /> :
-                    GAME?.isWin !== null ? <PlayAgain delay={SETTINGS.length + 2} funct={GF.restartGame} /> : null
+                GAME?.isWin !== null ? <PopupAppear funct={GF.restartGame} /> : null
             }
             <div className='board-cont f-col g-2'>
                 {

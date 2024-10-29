@@ -1,13 +1,19 @@
 :root {
     --w-bg: #ffffff;
     --w-border: #a2a5a7;
+    --w-obscure: #30303012;
+
+    --w-popups-bg: #eeeeee;
+
     --w-title: #27272c;
     --w-subtitle: #262930;
     --w-text: #36373d;
     --w-low-text: #4f5053;
+
     --w-box: #f8f8f8;
     --w-box-border: #666666;
     --w-box-border-intense: #777171;
+
     --w-keyboard-bg: #eaeaea;
     --w-alert-bg: #ececec;
 
@@ -49,10 +55,15 @@
 .dark {
     --w-bg: #161616;
     --w-border: #323538;
+
+    --w-obscure: #0e0e0e1e;
+    --w-popups-bg: #1a1b1b;
+
     --w-title: #ebedf3;
     --w-subtitle: #e6eaef;
     --w-text: #ebedf1;
     --w-low-text: #798088;
+    
     --w-box: #202021;
     --w-box-border: #414447;
     --w-box-border-intense: #424449;

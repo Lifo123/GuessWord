@@ -1,12 +1,13 @@
 .obscure{
-    background-color: #3939390d;
-    z-index: 490;
+    background-color: var(--w-obscure);
+    z-index: 1001;
     top: 0;
     pointer-events: none;
 }
 .wrapper-play-again{
     height: calc(100vh - 64px);
     width: 100%;
+    backdrop-filter: blur(1.5px);
     top: 64px;
     pointer-events: visible;
 }
@@ -14,9 +15,9 @@
 .play-again-container{
     margin-top: 20vh;
     height: max-content;
-    width: 440px;
+    width: 350px;
     border: solid 1px var(--w-border);
-    background-color: var(--w-bg);
+    background-color: var(--w-popups-bg);
     z-index: 400;
     animation: Entry .35s;
 }
@@ -26,4 +27,8 @@
         margin-top: 23vh;
         opacity: .6;
     }
+}
+
+.stadistic-container{
+    height: 120px;
 }

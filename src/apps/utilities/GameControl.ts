@@ -1,4 +1,5 @@
 import context from "@Apps/context/GameStore";
+import gameUtils from '@Apps/utilities/GameUtils';
 import Util from '@Utilities/GlobalUtilities'
 import Local from "@Utilities/Local";
 import { node } from 'lifo-utils'
@@ -85,13 +86,16 @@ const enter = () => {
     //Perdio
     if (data.currentRow === data.valid.length && data.isWin === null) {
         data.isWin = false
+        gameUtils.popup('lose', data.valid.length)
         setTimeout(() => {
             toast(data.word, {
                 duration: 1500,
-
+                
             });
         }, data.valid.length * 150);
     }
+
+    data.isWin ? gameUtils.popup('win', data.valid.length + 1) : null
 
     //Guardar y actualizar
     context.game.set(data);
@@ -102,6 +106,7 @@ const enter = () => {
     });
 
 }
+
 
 
 export const control = {

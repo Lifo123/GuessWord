@@ -15,26 +15,27 @@ export default function BoxLetter({ data, id }: BoxProps) {
 
     useEffect(() => {
         if (data.isValid !== null) {
-            Box?.current?.removeAttribute('data-valid')
+            Box?.current?.removeAttribute('data-valid');
             Box?.current?.removeAttribute('data-win');
-            Box?.current?.classList.remove('active')
+            Box?.current?.classList.remove('active');
             setTimeout(() => {
-                Box?.current?.classList.add('validate')
+                Box?.current?.classList.add('validate');
                 setTimeout(() => {
-                    Box.current?.setAttribute('data-valid', data.isValid)
+                    Box.current?.setAttribute('data-valid', data.isValid);
                     if (GAME.isWin) {
                         setTimeout(() => {
                             Box.current?.setAttribute('data-win', 'true');
-                        }, (GAME?.valid[0].length + 1) * 60)
+                        }, (GAME?.valid[0].length + 1) * 60);
                     }
-                }, 180)
-            }, id * 210)
+                }, 180);
+            }, id * 210);
         } else {
             Box.current?.classList.remove('validate');
-            Box.current?.removeAttribute('data-valid')
+            Box.current?.removeAttribute('data-valid');
             Box.current?.removeAttribute('data-win');
         }
-    }, [data.isValid, data.char])
+    }, [data.isValid, data.char]);
+    
 
     return (
         <span

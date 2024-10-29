@@ -43,7 +43,7 @@
 }
 
 .box-letter[data-valid="true"] {
-    border: solid 2px #acacac28;
+    border: solid 2px #40404028;
     background-color: var(--w-bg-true);
 }
 

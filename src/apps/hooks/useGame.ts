@@ -1,61 +1,40 @@
 import { useEffect } from "react";
 import { useStore } from "@nanostores/react";
 import context from "@Apps/context/GameStore";
-import global from "@Context/GlobalStore";
 import { toast } from "sonner";
 import { control } from "@Apps/utilities/GameControl";
 import popup from "@Apps/utilities/GameUtils";
 import Util from "@Utilities/GlobalUtilities";
+import wordService from "@Services/WordleServices";
 
 export default function useGame() {
     //GameStore
     const GAME = useStore(context.game)
     const SETTINGS = useStore(context.setting)
-    const VISUAL = useStore(context.visual)
-    const PARAMS = useStore(global.Params)
-
 
     //Functions
-    const getWord = async () => {
-        let local = Util.Local.get('F-Wordle')
-        let data = context.initialData
-
-        if (PARAMS) {
-            data = Util.utils.setParams(PARAMS, data)
-            context.game.set(data.game)
-            context.setting.set(data.settings)
-            Util.Local.set('F-Wordle', data)
-            return
-        }
-
-        if (local?.game?.word) {
-            return
-        }
-
-        restartGame()
-    }
-
-    const restartGame = () => {
+    const restartGame = async () => {
         let data = Util.Local.inmutable(context.initialData)
+        let stadistic = context.stadistic.get();
 
-        const fetchWord = fetch(`https://app-eqlfk354ea-uc.a.run.app/word/`)
-            .then(res => res.json())
-            .then(word => {
-                data.game.word = word;
-                data.game.restart = false;
-                data.game.isWin = null;
-                data.game.valid = Array(SETTINGS.tries).fill(Array(SETTINGS.length).fill({ char: '', isValid: null }));
-                data.settings.tries = SETTINGS.tries;
-                popup.popup('res');
-
-                context.game.set(data.game);
-                Util.Local.set('F-Wordle', data);
-            });
-
-        toast.promise(fetchWord, {
+        const fetchWordPromise = wordService.getWord();
+        await toast.promise(fetchWordPromise, {
             loading: 'Cargando...',
             error: 'Error al cargar la palabra',
         });
+
+        const fetchWord = await fetchWordPromise;
+        data.game.word = fetchWord;
+        data.game.restart = false;
+        data.game.isWin = null;
+        data.game.valid = Array(SETTINGS.tries).fill(Array(SETTINGS.length).fill({ char: '', isValid: null }));
+        data.settings.tries = SETTINGS.tries;
+        data.stadistic = stadistic;
+
+        context.game.set(data.game);
+        Util.Local.set('F-Wordle', data);
+        popup.popup('res', 0);
+
         const KEYS = document.querySelectorAll('[data-char]')
         KEYS.forEach((KEY: any) => {
             KEY.removeAttribute('data-valid')
@@ -90,11 +69,13 @@ export default function useGame() {
     }, [GAME?.isWin, GAME?.restart])
 
     useEffect(() => {
-        getWord()
+        let local = Util.Local.get('F-Wordle')
+        if (!local?.game?.word) {
+            wordService.getWord()
+        }
     }, [])
 
     return {
-        getWord,
         restartGame
     }
 

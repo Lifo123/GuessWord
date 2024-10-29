@@ -7,7 +7,7 @@ import { toast } from "sonner";
 
 const typing = (input: string) => {
     const data = Local.inmutable(context.game.get())
-    if (data?.restart) {
+    if (data?.restart || data?.isWin !== null) {
         return;
     }
 
@@ -29,7 +29,7 @@ const typing = (input: string) => {
 
 const backspace = () => {
     const data = Local.inmutable(context.game.get());
-    if (data?.restart) {
+    if (data?.restart || data?.isWin !== null) {
         return;
     }
 
@@ -90,20 +90,29 @@ const enter = () => {
         setTimeout(() => {
             toast(data.word, {
                 duration: 1500,
-                
+
             });
         }, data.valid.length * 150);
     }
 
     data.isWin ? gameUtils.popup('win', data.valid.length + 1) : null
 
+    if (data.isWin) {
+        gameUtils.stadistic(true, data.currentRow - 1)
+    } else if (data.isWin === false) {
+        gameUtils.stadistic(false, data.currentRow - 1)
+    }
+
+
     //Guardar y actualizar
     context.game.set(data);
     Util.Local.set('F-Wordle', {
         game: data,
         settings: context.setting.get(),
-        visual: context.visual.get()
+        visual: context.visual.get(),
+        stadistic: context.stadistic.get()
     });
+
 
 }
 

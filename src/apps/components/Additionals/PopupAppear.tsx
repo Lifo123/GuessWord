@@ -23,23 +23,23 @@ export default function PlayAgain({ funct = () => console.log('Sin funcion') }) 
     };
 
     useEffect(() => {
-        if (isWin || !isWin) { // Puedes usar esto para manejar ambos estados
+        if (isWin || !isWin) {
             const timer = setTimeout(() => {
                 setIsActive(true);
             }, info.delay);
 
-            return () => clearTimeout(timer); // Limpiar el timer al desmontar
+            return () => clearTimeout(timer);
         }
-    }, [isWin, info.delay]); // Dependencias: se ejecuta al cambiar isWin o delay
+    }, [isWin, info.delay]);
 
     return isActive ? (
         <div className='obscure absolute h-100 w-100 d-flex fixed'>
             <div className='wrapper-play-again absolute d-flex f-justify-center'>
-                <div className='play-again-container f-col g-2 br-10 px-3 py-4 f-align-center'>
+                <div className='play-again-container f-col g-2 br-10 px-3 py-4 f-align-center' style={{ marginTop: isWin ? '14vh' : '16vh' }}>
                     <h1>{info.title}</h1>
                     <p>{info.desc}</p>
                     {info.cont && <div className='f-col g-2 w-100 f-center'>{info.cont}</div>}
-                    <div className='f-row g-2 w-100 f-center'>
+                    <div className='f-row g-2 w-100 f-center mt-3'>
                         <span className='btn btn-green br-6 d-flex f-center' onClick={funct}>
                             {info.btntext}
                         </span>

@@ -1,5 +1,6 @@
 import Local from "@Utilities/Local";
 import { PAGEUTILS } from "@Context/GlobalStore";
+import context from "@Apps/context/GameStore"
 
 
 const generateRandom = (max: number) => {
@@ -76,11 +77,34 @@ const popup = (type: string, delay: number) => {
     }, (delay || 0) * 360)
 }
 
+const restartGame = () => {
+    
+}
+
+const stadistic = (type: boolean, cur: number) => {
+    let data = context.stadistic.get()
+
+    if(type){
+        data.streak++
+        data.win++
+        data.rows[cur]++
+    }else{
+        data.streak = 0
+    }
+    
+    data.total++
+    
+    console.log(data);
+    
+
+}
+
 const UTILITY = {
     generateRandom,
     compareWord,
     setParams,
-    popup
+    popup,
+    stadistic
 }
 
 

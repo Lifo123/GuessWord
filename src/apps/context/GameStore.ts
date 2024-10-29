@@ -74,12 +74,21 @@ const initialData = {
             tertiary: '#ffc107',
             multiplier: '1'
         }
+    },
+    stadistic: {
+        total: 0,
+        win: 0,
+        streak: 0,
+        rows: [
+            0,0,0,0,0,0,0,0,0,0
+        ],
     }
 }
 
 const game = atom(isBrowser ? JSON.parse(localStorage.getItem('F-Wordle') || JSON.stringify(initialData))?.game : initialData.game)
 const setting = atom(isBrowser ? JSON.parse(localStorage.getItem('F-Wordle') || JSON.stringify(initialData))?.settings : initialData.settings)
 const visual = atom(isBrowser ? JSON.parse(localStorage.getItem('F-Wordle') || JSON.stringify(initialData))?.visual : initialData.visual)
+const stadistic = atom(isBrowser ? JSON.parse(localStorage.getItem('F-Wordle') || JSON.stringify(initialData))?.stadistic : initialData.stadistic)
 const navigation = atom('game');
 
 
@@ -88,7 +97,8 @@ export const GAMESTORE = {
     setting,
     visual,
     initialData,
-    navigation
+    navigation,
+    stadistic
 }
 
 export default GAMESTORE;

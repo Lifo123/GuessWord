@@ -72,17 +72,16 @@ const enter = () => {
     const guess = data.valid[curRow].map((box: any) => box.char).join('')
 
     //Validation Word
-    const isValidWord: any = Util.utils.compareWord(data.word, guess);
+    const isValidWord: any = Util.utils.compareWord(data.word.toUpperCase(), guess.toUpperCase());
 
     for (let i = 0; i < data.valid[curRow].length; i++) {
         data.valid[curRow][i].isValid = isValidWord.result[i]
     }
-
-
+    
+    
     data.currentRow = curRow + 1;
     data.currentLetter = 0;
     data.isWin = !isValidWord?.isWin ? null : isValidWord?.isWin;
-
     //Perdio
     if (data.currentRow === data.valid.length && data.isWin === null) {
         data.isWin = false
@@ -90,20 +89,11 @@ const enter = () => {
         setTimeout(() => {
             toast(data.word, {
                 duration: 1500,
-
+                
             });
         }, data.valid.length * 150);
     }
-
-    data.isWin ? gameUtils.popup('win', data.valid.length + 1) : null
-
-    if (data.isWin) {
-        gameUtils.stadistic(true, data.currentRow - 1)
-    } else if (data.isWin === false) {
-        gameUtils.stadistic(false, data.currentRow - 1)
-    }
-
-
+    
     //Guardar y actualizar
     context.game.set(data);
     Util.Local.set('F-Wordle', {
@@ -112,7 +102,13 @@ const enter = () => {
         visual: context.visual.get(),
         stadistic: context.stadistic.get()
     });
-
+    
+    data.isWin ? gameUtils.popup('win', data.valid.length + 1) : null
+    if (data.isWin) {
+        gameUtils.stadistic(true, data.currentRow - 1)
+    } else if (data.isWin === false) {
+        gameUtils.stadistic(false, data.currentRow - 1)
+    }
 
 }
 

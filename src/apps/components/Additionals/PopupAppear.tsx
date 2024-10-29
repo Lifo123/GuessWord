@@ -32,10 +32,18 @@ export default function PlayAgain({ funct = () => console.log('Sin funcion') }) 
         }
     }, [isWin, info.delay]);
 
+    useEffect(() => {
+        if (isActive) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = 'auto';
+        }
+    }, [isActive]);
+
     return isActive ? (
         <div className='obscure absolute h-100 w-100 d-flex fixed'>
             <div className='wrapper-play-again absolute d-flex f-justify-center'>
-                <div className='play-again-container f-col g-2 br-10 px-3 py-4 f-align-center' style={{ marginTop: isWin ? '14vh' : '16vh' }}>
+                <div className='play-again-container f-col g-2 br-10 px-3 py-4 f-align-center' style={{ marginTop: isWin ? '12vh' : '16vh' }}>
                     <h1>{info.title}</h1>
                     <p>{info.desc}</p>
                     {info.cont && <div className='f-col g-2 w-100 f-center'>{info.cont}</div>}

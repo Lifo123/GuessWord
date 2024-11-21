@@ -1,9 +1,0 @@
-body {
-    background-color: var(--w-bg);
-}
-
-
-.wrapper-continer {
-    height: max-content;
-    min-height: calc(100vh - 64px);
-}

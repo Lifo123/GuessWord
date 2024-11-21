@@ -7,6 +7,7 @@
     "jsxImportSource": "react",
     "baseUrl": ".",
     "paths": {
+      "@/*": ["src/*"],
       "@Components/*": ["src/components/*"],
       "@Hooks/*": ["src/hooks/*"],
       "@Apps/*": ["src/apps/*"],
@@ -14,9 +15,11 @@
       "@Utilities/*": ["src/utilities/*"],
       "@Layouts/*": ["src/layouts/*"],
       "@Assets/*": ["src/assets/*"],
-      "@Context/*": ["src/context/*"],
+      "@Context/*": ["src/Stores/*"],
       "@Pages/*": ["src/pages/*"],
-      "@Content/*": ["src/content/*"]
+      "@Content/*": ["src/content/*"],
+      "@Types/*": ["src/types/*"],
+      "@Styles/*": ["src/styles/*"]
     },
     "skipLibCheck": true,
     "strict": true,

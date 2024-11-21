@@ -1,36 +1,22 @@
 ---
-import "../apps/components/Settings/Settings.css";
-import OpenSettingBTN from "@Apps/components/Settings/OpenSettingBTN";
-
-interface Props {
-    isButton?: boolean;
-}
-
-const props = Astro.props as Props;
+import { DarkmodeIcon } from "@lifo123/library";
 ---
 
-<header class="header w-100 sticky">
-    <nav
-        class="f-row f-justify-between f-align-center m-auto w-70 h-100 relative"
-    >
-        <h2 class="fs-5"><a href="/GuessWord/">LIFO</a></h2>
-        <h1 class="fs-5 fw-700 absolute">Wordle</h1>
-        {
-            props.isButton === false ? (
-                <a class="btn-green br-6 px-4 py-2 pointer" href="/GuessWord/" color="white">Play</a>
-            ) : (
-                <OpenSettingBTN client:only="react" />
-            )
-        }
+<header class="header w-100">
+    <nav class="f-row f-justify-between f-align-center m-auto h-100 relative">
+        <span>
+            
+        </span>
+        <h1 class="fs-5 fw-700 absolute">Guess Word</h1>
+        <DarkmodeIcon storage="darkmode" client:only="react" />
     </nav>
 </header>
 
 <style is:inline>
     .header {
-        height: 64px;
+        height: 50px;
         border-bottom: solid 1px var(--w-border);
         background-color: var(--w-bg);
-        top: 0;
         z-index: 1000;
     }
     .header h2 a {

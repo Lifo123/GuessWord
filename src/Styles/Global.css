@@ -1,0 +1,42 @@
+@import url('./Animations.css');
+@import url('./Game.css');
+
+@font-face {
+    font-family: Inter;
+    src: url('./Inter.ttf');
+}
+
+:root {
+    --g-bg: #f1f1f1;
+    --g-box-bg: #ededed;
+    --g-keyboard-bg: #e4e4e4;
+    --g-keyboard-bg-false: #d9d9d9;
+    
+    --box-true: #5bbe47;
+    --box-false: #dddddd;
+    --box-hint: #d6b247;
+}
+
+.dark {
+    --g-bg: #161616;
+    --g-box-bg: #202021;
+    --g-keyboard-bg: #27282a;
+    --g-keyboard-bg-false: #1e1f20;
+    
+    --box-true: #4ba138;
+    --box-false: #2d2e30;
+    --box-hint: #be9a23;
+}
+
+* {
+    -webkit-tap-highlight-color: transparent;
+}
+
+
+body {
+    background-color: var(--g-bg);
+}
+
+.toast-item {
+    background-color: var(--g-bg) !important;
+}

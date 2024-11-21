@@ -1,42 +1,21 @@
 ---
-import "@Assets/css/Global.css";
-
+import Game from "@/apps/Game";
+import Keyboard from "@/apps/Keyboard";
+import AddSection from "@/components/AddSection.astro";
 import Layout from "@Layouts/Layout.astro";
-import Header from "@Components/Header.astro";
-import Footer from "@Components/Footer.astro";
-
-import { Toaster } from "sonner";
-import Wrapper from "@Apps/components/Wrapper";
-import WordleDescription from "@Content/index/WordleDescription.md";
+import { AlertDialoger } from "@lifo123/library";
+import { Toaster } from "@lifo123/library/Toast";
 ---
 
-<Layout title="GuessWord" description="wasa">
-	<Toaster
-		position="top-center"
-		client:only="react"
-		duration={1000}
-		visibleToasts={1}
-		toastOptions={{
-			className: "alert",
-		}}
-	/>
-	<div class="app-game">
-		<div class="hero f-col">
-			<Header />
-			<Wrapper client:only="react" />
-		</div>
-		<div class="f-markdown w-70 mx-auto mt-2">
-			<WordleDescription />
-		</div>
-		<Footer />
-	</div>
+<Layout
+	title="Play - Guessword"
+	description="Guess the word and play unlimited games"
+>
+	<Toaster duration={2000} client:only="react" />
+	<AlertDialoger dialogerID="game-popup" client:only="react" />
+	<main class="app-game f-col g-2 o-hidden f-center" style="height: 100vh;">
+		<AddSection className="mt-2 br-8 w-80" height="90px"/>
+		<Game client:only="react" />
+		<AddSection className="mt-4 br-8 w-80" height="90px"/>
+	</main>
 </Layout>
-
-<style is:inline>
-	.hero {
-		min-height: 100vh;
-	}
-	.hero:nth-child(2) {
-		flex-grow: 1;
-	}
-</style>

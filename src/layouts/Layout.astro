@@ -1,4 +1,8 @@
 ---
+import "@Styles/Global.css";
+import Header from "@Components/Header.astro";
+import Footer from "@Components/Footer.astro";
+
 import ViewTransitions from "astro/components/ViewTransitions.astro";
 
 interface Props {
@@ -9,33 +13,36 @@ interface Props {
 const { title, description } = Astro.props;
 const site = Astro.site ? new URL(Astro.site) : null;
 const path = Astro.url?.pathname || "/";
-
 const url = site ? new URL(path, site).href : null;
 ---
 
-<script is:inline>
-	(function () {
-		try {
-			const d = document.documentElement;
-			const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+<script>
+	const setDarkMode = (document: Document) => {
+		const isDark = window.matchMedia(
+			"(prefers-color-scheme: dark)",
+		).matches;
+		const theme =
+			localStorage.getItem("F-Theme") || (isDark ? "dark" : "light");
 
-			const applyTheme = () => {
-				const theme =
-					localStorage.getItem("F-Theme") || (mediaQuery.matches ? "dark" : "light");
+		const applyTheme = (mode: any) => {
+			document.documentElement.classList.toggle("dark", mode === "dark");
+			document.documentElement.style.colorScheme = mode;
+		};
 
-				d.classList.toggle("dark", theme === "dark");
-				d.classList.toggle("light", theme === "light");
-				d.style.colorScheme = theme;
-			};
+		theme === "system"
+			? applyTheme(isDark ? "dark" : "light")
+			: applyTheme(theme);
+	};
 
-			applyTheme();
-
-			mediaQuery.addEventListener("change", applyTheme);
-		} catch (e) {
-			console.error("Error applying theme:", e);
-		}
-	})();
+	setDarkMode(document);
+	document.addEventListener("astro:before-swap", (e) =>
+		setDarkMode(e.newDocument),
+	);
+	window
+		.matchMedia("(prefers-color-scheme: dark)")
+		.addEventListener("change", () => setDarkMode(document));
 </script>
+
 <html lang="en">
 	<head>
 		<title>{title}</title>
@@ -43,24 +50,7 @@ const url = site ? new URL(path, site).href : null;
 		<meta name="description" content={description} />
 
 		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="color-scheme" content="light dark" />
-		<!--                                                                                                                                                   
-            |***********************************************************************************|
-            |                                                                                   |
-            |  ██       ██   ███████    ████████         ████████     ████████    ███      ███  |
-            |  ██       ██   ██        ██      ██       ██      ██   ██      ██   ████    ████  |
-            |  ██       ██   ███████   ██      ██       ██           ██      ██   ██ ██  ██ ██  |
-            |  ██       ██   ██        ██      ██       ██      ██   ██      ██   ██  ████  ██  |
-            |  ███████  ██   ██         ████████   ██    ████████     ████████    ██        ██  |
-            |                                                                                   |
-            |***********************************************************************************|
-        -->
-
-		<!--Fonts -->
-		<link rel="preconnect" href="https://fonts.googleapis.com" />
-		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-		<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,100..900;1,100..900&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
 		<!-- OpenGraph Tags -->
 		<meta property="og:title" content={title} />
@@ -81,14 +71,25 @@ const url = site ? new URL(path, site).href : null;
 		<meta name="twitter:description" content={description} />
 		<meta name="twitter:image" content="" />
 		<meta name="twitter:image:alt" content="GuessWord Image" />
+		<meta
+			name="google-site-verification"
+			content="QAGlLlv_gtS49AYu1kBdgNivwvrHyZ8bMfWGo5DgfhY"
+		/>
 		<ViewTransitions />
 		<!-- Styles -->
 		<link
 			rel="stylesheet"
 			href="https://cdn.jsdelivr.net/gh/Lifo123/FlifoCSS@main/src/output/Flifo.css"
 		/>
+		<meta name="google-adsense-account" content="ca-pub-5536301055460484" />
+		<script
+			async
+			src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5536301055460484"
+			crossorigin="anonymous"></script>
 	</head>
-	<body>
+	<body class="f-col w-100 mx-auto" style="max-width: 700px;">
+		<Header />
 		<slot />
+		<Footer />
 	</body>
 </html>

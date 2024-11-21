@@ -1,2 +1,0 @@
-## GuessWord
-A playable wordle game with a twist. The game is a word guessing game where the player has to guess a five-letter word within a given time limit. The player can also choose to play again if they fail to guess the word in time.

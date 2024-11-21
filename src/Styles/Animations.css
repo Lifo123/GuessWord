@@ -1,0 +1,94 @@
+[data-valid='true']{
+    background-color: green;
+}
+[data-valid='false']{
+    background-color: gray;
+}
+[data-valid='exists']{
+    background-color: yellow;
+}
+
+.validate{
+    animation: ValidationAnimation .45s ease;
+}
+
+.error{
+    animation: ErrorAnimation .6s;
+}
+[data-win="true"]{
+    animation: WinAnimation .85s ease;
+}
+
+
+@keyframes rotate {
+    to{
+        transform: rotate(720deg);
+    }
+}
+
+@keyframes BoxActive {
+    25% {
+        transform: scale(1.13);
+    }
+
+    50% {
+        transform: scale(1.06);
+    }
+}
+
+@keyframes ValidationAnimation {
+    50% {
+        transform: rotateX(90deg);
+    }
+}
+
+@keyframes WinAnimation {
+
+    0%,
+    20% {
+        transform: translateY(0);
+    }
+
+    40% {
+        transform: translateY(-14px);
+    }
+
+    50% {
+        transform: translateY(2px);
+    }
+
+    60% {
+        transform: translateY(-6px);
+    }
+
+    80% {
+        transform: translateY(2px);
+    }
+
+    100% {
+        transform: translateY(0);
+    }
+}
+
+@keyframes ErrorAnimation {
+    10%,
+    90% {
+      transform: translateX(-1px);
+    }
+
+    20%,
+    80% {
+      transform: translateX(2px);
+    }
+
+    30%,
+    50%,
+    70% {
+      transform: translateX(-4px);
+    }
+
+    40%,
+    60% {
+      transform: translateX(4px);
+    }
+  }

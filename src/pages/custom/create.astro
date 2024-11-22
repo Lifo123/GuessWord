@@ -1,0 +1,10 @@
+---
+import NavigationLayout from "@/layouts/NavigationLayout.astro";
+import Create from "@/apps/Modes/Custom/Create";
+---
+
+<NavigationLayout title="Create - Custom Word Guess" description="Innovate wordguess with customs words">
+    <main class="f-row g-2">
+       <Create client:only="react" />
+    </main>
+</NavigationLayout>

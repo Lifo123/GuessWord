@@ -1,3 +1,9 @@
+import { GameServices } from "@/services/Game.Services";
+import { _game, initialData } from "@/Stores/Game.Store";
+import { _setting } from "@/Stores/Settings.Store";
+import type { LanguageTypes, ModeTypes } from "@/Types/Settings.Types";
+import { Local } from "@lifo123/library/utils";
+
 const compareWord = (word: string, guess: string) => {
     let resultArray = Array(word.length).fill('false');
     let letterCount: Record<string, number> = {};
@@ -29,6 +35,29 @@ const compareWord = (word: string, guess: string) => {
 
 }
 
+const validatePrevData = async (path: ModeTypes, lang: LanguageTypes, length: number) => {
+    const GAME = Local.get(`wordguess-${path}`).game || initialData;
+    if (GAME?.word === '') {
+        try {
+            const word = await GameServices.getWord(lang, length);
+            GAME.word = word;
+        } catch (error) {
+            console.error("Error fetching word:", error);
+            GAME.isWin = false;
+        }
+    }
+
+    _game.set(GAME);
+    saveLocal(path);
+}
+
+const saveLocal = (path: ModeTypes) => {
+    Local.set(`wordguess-${path}`, {
+        game: _game.get(),
+        setting: _setting.get()
+    })
+}
+
 export const GameUtils = {
-    compareWord
+    compareWord, saveLocal, validatePrevData
 }

@@ -1,0 +1,13 @@
+---
+import NavigationLayout from "@/layouts/NavigationLayout.astro";
+import CustomPlay from "@/apps/Modes/Custom/CustomPlay";
+---
+
+<NavigationLayout
+    title="Play - Custom Word Guess"
+    description="Innovate wordguess with customs words"
+>
+    <main class="f-row g-2">
+        <CustomPlay client:only="react" />
+    </main>
+</NavigationLayout>

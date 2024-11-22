@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://www.lifo123.site/sitemap-index.xml

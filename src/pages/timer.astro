@@ -1,0 +1,10 @@
+---
+import Timer from "@/apps/Modes/Timer/Timer";
+import NavigationLayout from "@/layouts/NavigationLayout.astro";
+---
+
+<NavigationLayout title="Play - Guessword Timer" description="">
+    <main class="f-row g-2 w-100 mx-auto" style="max-width: 800px;">
+        <Timer client:only="react"/>
+    </main>
+</NavigationLayout>

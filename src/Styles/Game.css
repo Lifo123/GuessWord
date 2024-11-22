@@ -21,9 +21,10 @@
     font-size: 24px;
     transform-style: preserve-3d;
 }
+
 .game-box.active{
     border: solid 1px rgb(var(--lb-br), .4);
-    animation: BoxActive .15s ease;
+    animation: BoxActive .2s ease;
 }
 .game-box.target{
     border: solid 1px #6fafebc5;
@@ -71,6 +72,7 @@
     opacity: .8;
     border: solid 1px transparent;
     background-color: var(--g-keyboard-bg-false);
+    color: rgb(var(--lb-text));
 }
 
 .key-box[data-valid="exist"] {

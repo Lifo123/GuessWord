@@ -6,9 +6,7 @@ import { toast } from '@lifo123/library/Toast';
 import { GameUtils } from '@/utils/Game.Utils';
 import { GameServices } from '@/services/Game.Services';
 
-const isBrowser = typeof window !== 'undefined';
-
-const initialData: GuessWordStore = {
+export const initialData: GuessWordStore = {
     word: '',
     guess: '',
     valid: Array.from({ length: 6 }, () => Array.from({ length: 5 }, () => ({ letter: '', state: undefined }))),
@@ -18,32 +16,21 @@ const initialData: GuessWordStore = {
     restart: false,
 }
 
-export const _game = deepMap<GuessWordStore>(isBrowser ? Local.get('guessword').game || initialData : initialData);
-const SETTING = _setting.get();
-
-onMount(_game, () => {
-    const data = _game.get()
-    if (data.word === '') {
-        GameServices.getWord()
-    }
-
-})
+export const _game = deepMap<GuessWordStore>(initialData);
 
 const typing = (value: string) => {
     const DATA = _game.get();
+    const SETTING = _setting.get();
 
-    if (DATA.currentLetter >= DATA.word.length || DATA.isWin || DATA.currentRow >= DATA.valid.length) {
+    if (DATA.currentLetter >= SETTING.length || DATA.isWin || DATA.currentRow >= SETTING.tries) {
         return;
     }
 
-    const updatedValid = [...DATA.valid];
-    updatedValid[DATA.currentRow][DATA.currentLetter] = { letter: value, state: undefined };
+    const updatedLetter = DATA.valid[DATA.currentRow][DATA.currentLetter];
+    updatedLetter.letter = value;
+    updatedLetter.state = undefined;
 
-    _game.set({
-        ...DATA,
-        currentLetter: DATA.currentLetter + 1,
-        valid: updatedValid
-    });
+    _game.setKey('currentLetter', DATA.currentLetter + 1);
 };
 
 const backspace = () => {
@@ -72,52 +59,61 @@ const backspace = () => {
 
 const enter = async () => {
     const DATA = { ..._game.get() };
+    const SETTING = _setting.get();
 
     if (DATA.isWin || DATA.currentRow > DATA.valid.length - 1) {
         return;
     }
 
     const isComplete = DATA.valid[DATA.currentRow].every(letter => letter.letter);
+    const DIV = document.querySelector(`[data-row="${DATA.currentRow}"]`)
 
-    if (!isComplete) {
-        const DIV = document.querySelector(`[data-row="${DATA.currentRow}"]`)
+    const handleError = (msg: string) => {
         DIV?.classList.add('error')
-        toast.error('Field is not complete');
+        toast.error(msg);
         setTimeout(() => {
             DIV?.classList.remove('error')
         }, 400)
+    }
+
+    if (!isComplete) {
+        handleError('Field is not complete')
         return;
     }
     toast.dismiss();
 
     const guess = DATA.valid[DATA.currentRow].map((box: any) => box.letter).join('')
+    const isValidWord = await GameServices.existWord(guess, SETTING.lang, SETTING.length);
+
+    if (!isValidWord) {
+        handleError('Invalid word')
+        return;
+    }
+
     const validCompare = GameUtils.compareWord(DATA.word.toUpperCase(), guess.toUpperCase());
 
-    for (let i = 0; i < DATA.valid[DATA.currentRow].length; i++) {
-        DATA.valid[DATA.currentRow][i].state = validCompare.result[i]
-    }
+    validCompare.result.forEach((state, i) => {
+        DATA.valid[DATA.currentRow][i].state = state;
+    });
 
 
     if (validCompare.isWin) {
-        DATA.isWin = true;
-        _game.set(DATA);
+        _game.setKey('isWin', true);
         Local.set('guessword', {
-            game: DATA,
+            game: _game.get(),
+            setting: SETTING
+        });
+        return;
+    } else if (DATA.currentRow === DATA.valid.length - 1) {
+        _game.setKey('isWin', false);
+        toast.show(DATA.word);
+        Local.set('guessword', {
+            game: _game.get(),
             setting: SETTING
         });
         return;
     }
 
-    if (DATA.currentRow === DATA.valid.length - 1) {
-        DATA.isWin = false;
-        _game.set(DATA);
-        Local.set('guessword', {
-            game: DATA,
-            setting: SETTING
-        });
-        toast.show(DATA.word);
-        return;
-    }
 
     DATA.currentLetter = 0;
     DATA.currentRow = DATA.currentRow + 1;
@@ -131,6 +127,7 @@ const enter = async () => {
 }
 
 const restart = () => {
+    const SETTING = _setting.get();
     const resetData = {
         ...initialData,
         valid: Array.from({ length: SETTING.tries }, () =>
@@ -138,6 +135,14 @@ const restart = () => {
         )
     };
     _game.set(resetData);
+    Local.set('guessword', {
+        game: resetData,
+        setting: SETTING
+    });
+    // window.location.reload();
+    // return;
+    const KEYS = document.querySelectorAll('.key-box');
+    KEYS.forEach(KEY => KEY.removeAttribute('data-valid'));
 };
 
 

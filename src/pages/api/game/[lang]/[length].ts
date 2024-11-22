@@ -1,3 +1,4 @@
+'use client';
 import type { APIRoute } from 'astro';
 import fs from 'fs/promises';
 import path from 'path';

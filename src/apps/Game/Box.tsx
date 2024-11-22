@@ -12,6 +12,15 @@ export default function Box({
     const GAME = useStore(_game)
     const Box = React.useRef<HTMLSpanElement>(null)
 
+    const boxClasses = [
+        'game-box d-flex br-4 f-center',
+        currentLetter === index && 'target',
+        data.letter && 'active'
+    ]
+        .filter(Boolean)
+        .join(' ');
+    
+
     React.useEffect(() => {
         if (data.state !== undefined) {
             Box?.current?.removeAttribute('data-valid');
@@ -21,7 +30,7 @@ export default function Box({
                 Box?.current?.classList.add('validate');
                 setTimeout(() => {
                     Box.current?.setAttribute('data-valid', `${data.state}`);
-                    if (GAME.isWin && GAME.currentRow === currentRow) {    
+                    if (GAME.isWin && GAME.currentRow === currentRow) {
                         setTimeout(() => {
                             Box.current?.setAttribute('data-win', 'true');
                         }, (GAME?.valid[0].length + 1) * 120);
@@ -33,12 +42,17 @@ export default function Box({
             Box.current?.removeAttribute('data-valid');
             Box.current?.removeAttribute('data-win');
         }
-    }, [data.state, data.state]);
+    }, [data.state]);
 
     return (
-        <span className={`game-box d-flex br-4 f-center ${currentLetter === index ? 'target' : ''} ${data.letter ? 'active' : ''} ${GAME.isWin === undefined ? currentRow === GAME.currentRow ? 'pointer' : 'no-select' : ''}`} data-valid={data.state}
+        <span className={`game-box d-flex br-4 f-center ${currentLetter === index ? 'target' : ''} ${data.letter ? 'active' : ''}`} data-valid={data.state}
+            style={{
+                 pointerEvents: GAME.isWin !== undefined ? 'none' : 'visible',
+                 cursor: GAME.currentRow === currentRow ? 'pointer' : 'default'
+            }}
             onClick={() => {
                 if (GAME.isWin !== undefined) return;
+                if (GAME.currentRow !== currentRow) return;
                 _game.setKey('currentLetter', index);
             }}
             ref={Box}

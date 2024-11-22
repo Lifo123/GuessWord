@@ -8,7 +8,7 @@ Build/
 
 # dependencies
 node_modules/
-services
+0.txt
 
 # logs
 npm-debug.log*

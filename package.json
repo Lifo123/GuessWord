@@ -1,6 +1,6 @@
 {
-  "homepage": "https://lifo123.github.io/GuessWord",
-  "name": "guessword",
+  "homepage": "https://wordguess.site",
+  "name": "wordguess",
   "type": "module",
   "version": "0.0.1",
   "scripts": {

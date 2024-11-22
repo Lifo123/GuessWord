@@ -2,8 +2,8 @@
 import "@Styles/Global.css";
 import Header from "@Components/Header.astro";
 import Footer from "@Components/Footer.astro";
-
-import ViewTransitions from "astro/components/ViewTransitions.astro";
+import { Toaster } from "@lifo123/library/Toast";
+import { AlertDialoger } from "@lifo123/library";
 
 interface Props {
 	title: string;
@@ -48,9 +48,19 @@ const url = site ? new URL(path, site).href : null;
 		<title>{title}</title>
 		<meta name="Author" content="Lifo123" />
 		<meta name="description" content={description} />
-
+		<meta
+			name="keywords"
+			content="Guess Word, guessword, Word Guess, Word Game, Word Games, Games, Game, Guess, Guess Game, Guess Games, Word, game, fun, wordle, daily, dailygame"
+		/>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link
+			rel="icon"
+			href="/Flifo.svg"
+			type="image/svg+xml"
+			class="logo-icon"
+		/>
+		<link rel="apple-touch-icon" href="/Flifo.svg" />
 
 		<!-- OpenGraph Tags -->
 		<meta property="og:title" content={title} />
@@ -58,38 +68,30 @@ const url = site ? new URL(path, site).href : null;
 		<meta property="og:url" content={url} />
 		<meta property="og:locale" content="en" />
 		<meta property="og:description" content={description} />
-		<meta property="og:site_name" content="GuessWord" />
+		<meta property="og:site_name" content="WordGuess" />
 		<meta property="og:image" content="" />
-		<meta property="og:image:alt" content="GuessWord Image" />
+		<meta property="og:image:alt" content="WordGuess Image" />
 
 		<!-- Twitter Tags -->
 		<meta name="twitter:card" content="summary_large_image" />
-		<meta name="twitter:site" content="@GuessWord" />
+		<meta name="twitter:site" content="@WordGuess" />
 		<meta name="twitter:creator" content="@Lifo123" />
 		<meta name="twitter:title" content={title} />
 		<meta name="twitter:url" content={url} />
 		<meta name="twitter:description" content={description} />
 		<meta name="twitter:image" content="" />
-		<meta name="twitter:image:alt" content="GuessWord Image" />
-		<meta
-			name="google-site-verification"
-			content="QAGlLlv_gtS49AYu1kBdgNivwvrHyZ8bMfWGo5DgfhY"
-		/>
-		<ViewTransitions />
-		<!-- Styles -->
-		<link
-			rel="stylesheet"
-			href="https://cdn.jsdelivr.net/gh/Lifo123/FlifoCSS@main/src/output/Flifo.css"
-		/>
+		<meta name="twitter:image:alt" content="WordGuess Image" />
+
+		<link rel="preconnect" href="//wordguess.site">
 		<meta name="google-adsense-account" content="ca-pub-5536301055460484" />
 		<script
 			async
 			src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5536301055460484"
 			crossorigin="anonymous"></script>
 	</head>
-	<body class="f-col w-100 mx-auto" style="max-width: 700px;">
-		<Header />
+	<body class="f-col w-100 mx-auto">
 		<slot />
-		<Footer />
 	</body>
 </html>
+
+<style></style>

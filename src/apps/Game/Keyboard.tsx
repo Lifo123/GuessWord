@@ -1,6 +1,7 @@
 import GameIcons from "@/components/GameIcons";
 import { GameServices } from "@/services/Game.Services";
 import { _game, ManageGame } from "@/Stores/Game.Store";
+import { _setting } from "@/Stores/Settings.Store";
 import { ButtonPromise } from "@lifo123/library";
 import { toast } from "@lifo123/library/Toast";
 import { useStore } from "@nanostores/react";
@@ -17,6 +18,7 @@ export default function Keyboard() {
             setTimeout(() => {
                 setIsVisibleRestart(true)
             }, GAME.valid[0].length * 250)
+
         }
     }, [GAME.isWin])
 
@@ -56,7 +58,7 @@ export default function Keyboard() {
                 </div>
                 <div className="f-row g-2">
                     {
-                        'ZXCVBNM'.split('').map((letter, i) => (
+                        `${_setting.get().lang === 'es' ? 'Ñ' : ''}ZXCVBNM`.split('').map((letter, i) => (
                             <KeyboardBox key={i} content={letter} onPointer={() => ManageGame.typing(letter)} />
                         ))
                     }
@@ -65,6 +67,7 @@ export default function Keyboard() {
             </div>
             <div className={`play-again absolute d-flex f-center h-100 w-100 ${isVisibleRestart ? 'active' : ''}`}>
                 <ButtonPromise className="btn btn-primary br-6" text="Play Again" onClick={async () => {
+                    //await new Promise(resolve => setTimeout(resolve, 450));
                     GameServices.getWord()
                     ManageGame.restart()
                 }} />

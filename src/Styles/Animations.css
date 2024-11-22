@@ -27,12 +27,8 @@
 }
 
 @keyframes BoxActive {
-    25% {
-        transform: scale(1.13);
-    }
-
-    50% {
-        transform: scale(1.06);
+    50%{
+        transform: scale(1.14);
     }
 }
 

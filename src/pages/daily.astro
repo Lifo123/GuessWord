@@ -1,0 +1,13 @@
+---
+import NavigationLayout from "@/layouts/NavigationLayout.astro";
+import DailyGame from "@/apps/Modes/Daily/DailyGame";
+---
+
+<NavigationLayout
+    title="Play - Daily Word Guess"
+    description="Daily word guess games"
+>
+    <main class="f-col g-2">
+        <DailyGame client:only="react" />
+    </main>
+</NavigationLayout>

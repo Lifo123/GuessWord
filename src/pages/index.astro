@@ -1,21 +1,17 @@
 ---
-import Game from "@/apps/Game";
-import Keyboard from "@/apps/Keyboard";
-import AddSection from "@/components/AddSection.astro";
-import Layout from "@Layouts/Layout.astro";
 import { AlertDialoger } from "@lifo123/library";
 import { Toaster } from "@lifo123/library/Toast";
+import NavigationLayout from "@/layouts/NavigationLayout.astro";
+import DefaultGame from "@/apps/Modes/Unlimited/DefaultGame";
 ---
 
-<Layout
+<NavigationLayout
 	title="Play - Guessword"
 	description="Guess the word and play unlimited games"
 >
-	<Toaster duration={2000} client:only="react" />
-	<AlertDialoger dialogerID="game-popup" client:only="react" />
-	<main class="app-game f-col g-2 o-hidden f-center" style="height: 100vh;">
-		<AddSection className="mt-2 br-8 w-80" height="90px"/>
-		<Game client:only="react" />
-		<AddSection className="mt-4 br-8 w-80" height="90px"/>
+	<Toaster client:idle />
+	<AlertDialoger client:visible />
+	<main class="app-game f-col g-2 o-hidden f-center mt-5">
+		<DefaultGame client:only="react"/>
 	</main>
-</Layout>
+</NavigationLayout>

@@ -1,5 +1,6 @@
 @import url('./Animations.css');
 @import url('./Game.css');
+@import url('./Flifo.css');
 
 @font-face {
     font-family: Inter;
@@ -10,7 +11,7 @@
     --g-bg: #f1f1f1;
     --g-box-bg: #ededed;
     --g-keyboard-bg: #e4e4e4;
-    --g-keyboard-bg-false: #d9d9d9;
+    --g-keyboard-bg-false: #e8e8e8;
     
     --box-true: #5bbe47;
     --box-false: #dddddd;
@@ -35,8 +36,4 @@
 
 body {
     background-color: var(--g-bg);
-}
-
-.toast-item {
-    background-color: var(--g-bg) !important;
 }

@@ -1,0 +1,1 @@
+import{j as s}from"./jsx-runtime.CRkqtJS5.js";import"./index.B52nOzfP.js";function t(){return s.jsxs("div",{className:"f-row g-2 f-center",id:"head-status",children:[s.jsx("span",{className:"btn btn-third br-6",children:"Sign In"}),s.jsx("span",{className:"btn btn-primary br-6",children:"Sign Up"})]})}export{t as default};

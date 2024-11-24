@@ -1,0 +1,1 @@
+import{j as r}from"./jsx-runtime.CRkqtJS5.js";import"./SocialIcon.BguoIGj3.js";import"./index.B52nOzfP.js";import"./Loading.Store.sVdA6XqR.js";import t from"./AsideBtn.BOOW-z9A.js";import"./index.DcIy302Z.js";function n(){return r.jsx("div",{children:r.jsx(t,{})})}export{n as default};

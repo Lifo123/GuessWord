@@ -13,12 +13,12 @@ import { Flifo } from "@lifo123/library/utils";
 import { GameServices } from "@/services/Game.Services";
 import { _user } from "@/Stores/User.Store";
 import { GameUtils } from "@/utils/Game.Utils";
-const SETTING = _setting.get();
 
-export default function Game({ path }: { path: ModeTypes }) {
+export default function Game({ path, isDaily }: { path: ModeTypes, isDaily?: boolean }) {
     const USER = useStore(_user)
     const GAME = useStore(_game)
-    let validData = GAME.valid
+    const SETTING = useStore(_setting)
+    let validData = GAME.valid;
 
     const onKeydown = async (e: any) => {
         const letterRegex = /^[a-zA-ZñÑ]$/;
@@ -38,7 +38,6 @@ export default function Game({ path }: { path: ModeTypes }) {
         }
     }
 
-
     React.useEffect(() => {
         if (GAME.isWin === undefined && USER.remainingGames > 0) {
             GameServices.preloadData(SETTING.lang, SETTING.length);
@@ -51,8 +50,11 @@ export default function Game({ path }: { path: ModeTypes }) {
                 }
             };
         }
+        if (isDaily) {
+            _game.setKey('isDaily', true)
+            console.log(_game.get());
+        }
     }, [])
-
 
     React.useEffect(() => {
         if (GAME.isWin !== undefined) {
@@ -65,6 +67,23 @@ export default function Game({ path }: { path: ModeTypes }) {
             })
         }
     }, [GAME.waiting])
+
+
+    React.useEffect(() => {
+        validData = Array.from({
+            length: SETTING.tries
+        },
+            () => Array.from({
+                length: SETTING.length
+            },
+                () => ({
+                    letter: '', state: undefined
+                }
+                )
+            )
+        )
+        _game.setKey('valid', validData)
+    }, [SETTING.tries, SETTING.length])
 
     return (
         <div className="game-board f-col f-align-between mx-auto mt-3"

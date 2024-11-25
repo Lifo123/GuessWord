@@ -7,7 +7,7 @@ const LogReg = lazy(() => import("@/apps/User/LogReg"));
 export default function HeaderRight() {
     return (
         <div className="f-row g-3 f-center">
-            <span className="d-flex f-center iconBtns pointer" onClick={async () => {
+            {/* <span className="d-flex f-center iconBtns pointer" onClick={async () => {
                 Alert.custom(<Suspense>
                     <LogReg />
                 </Suspense>,
@@ -25,7 +25,7 @@ export default function HeaderRight() {
                     className="icon no-select"
                     size={22}
                 />
-            </span>
+            </span> */}
             <span className="d-flex f-center iconBtns pointer" onClick={async () => {
                 Alert.custom(<Suspense>
                     <Configuration />

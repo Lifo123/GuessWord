@@ -38,7 +38,6 @@ const compareWord = (word: string, guess: string) => {
 
 const validatePrevData = async (path: ModeTypes, lang: LanguageTypes, length: number) => {
     const GAME = Local.get(`wordguess-${path}`)?.game || initialData;
-
     if (GAME?.word === '') {
         try {
             const word = await GameServices.getWord(lang, length);
@@ -53,17 +52,15 @@ const validatePrevData = async (path: ModeTypes, lang: LanguageTypes, length: nu
 }
 
 const saveLocal = (path: ModeTypes) => {
-    Local.set(`wordguess-${path}`, {
-        game: _game.get(),
-        setting: _setting.get()
-    })
+    Local.set(`wordguess-${path}`, _game.get())
+    Local.set('wordguess-setting', _setting.get())
     Local.set('wordguess-user', _user.get())
 }
 
 
 
 export const GameUtils = {
-    compareWord, 
-    saveLocal, 
+    compareWord,
+    saveLocal,
     validatePrevData,
 }

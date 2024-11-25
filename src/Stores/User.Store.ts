@@ -5,8 +5,8 @@ import { map } from 'nanostores'
 const initialData: UserStoreProps = {
     user: '',
     token: '',
-    isLogin: false,
-    isPremium: false,
+    isLogin: true,
+    isPremium: true,
     remainingGames: 1
 }
 

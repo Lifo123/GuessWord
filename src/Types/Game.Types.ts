@@ -12,6 +12,7 @@ export interface Params {
     currentRow: number;
     currentLetter: number;
     isWin: boolean | undefined;
+    isDaily?: boolean;
     waiting: boolean;
     lastPlayed?: number;
 }
@@ -22,6 +23,10 @@ export interface GuessWordStore extends Params {
 }
 
 
-export interface GameDaily {
-    
+export interface GameDaily extends Params {
+    isDaily?: boolean;
+}
+
+export interface GameTimer extends Params {
+    Timer?: number; 
 }

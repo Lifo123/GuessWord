@@ -1,5 +1,6 @@
 import { map } from 'nanostores'
 import type { SettingInterface } from '@/Types/Settings.Types'
+import { Local } from '@lifo123/library/utils'
 
 const initialData: SettingInterface = {
     tries: 6,
@@ -7,5 +8,6 @@ const initialData: SettingInterface = {
     lang: 'en'
 }
 
+const isBrowser = typeof window !== 'undefined'
 
-export const _setting = map<SettingInterface>(initialData)
+export const _setting = map<SettingInterface>(isBrowser? Local.get('wordguess-setting') : initialData)

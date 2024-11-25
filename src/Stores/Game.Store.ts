@@ -11,10 +11,11 @@ import { _user, ManageUser } from './User.Store';
 export const initialData: GuessWordStore = {
     word: '',
     guess: '',
-    valid: Array.from({ length: 6 }, () => Array.from({ length: 5 }, () => ({ letter: '', state: undefined }))),
+    valid: Array.from({ length: _setting.get().tries }, () => Array.from({ length: _setting.get().length }, () => ({ letter: '', state: undefined }))), 
     currentRow: 0,
     currentLetter: 0,
     isWin: undefined,
+    isDaily: false,
     waiting: false
 }
 
@@ -134,7 +135,6 @@ const restart = async (path: ModeTypes) => {
     if (!USER.isPremium) {
         ManageUser.decrementGames();
     }
-
 
     const GAME = Local.inmutable(_game.get())
     const SETTING = _setting.get();

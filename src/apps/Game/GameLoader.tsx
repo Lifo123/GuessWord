@@ -1,4 +1,5 @@
 import UpgradeBtn from "@/components/premium/UpgradeBtn";
+import { _game } from "@/Stores/Game.Store";
 import { _setting } from "@/Stores/Settings.Store";
 import { _user } from "@/Stores/User.Store";
 import type { ModeTypes } from "@/Types/Settings.Types";
@@ -11,19 +12,6 @@ const Game = React.lazy(() => import("@/apps/Game/Game"));
 export default function GameLoader({ path }: { path: ModeTypes }) {
     const USER = useStore(_user);
 
-    React.useEffect(() => {
-        const SETTING = Local.get(`wordguess-${path}`)?.setting
-        const USER = Local.get('wordguess-user')
-
-        if (SETTING) {
-            _setting.set(SETTING)
-        }
-
-        if (USER) {
-            _user.set(USER)
-        }
-    }, [])
-
     return (
         <>
             <Suspense fallback={
@@ -35,7 +23,7 @@ export default function GameLoader({ path }: { path: ModeTypes }) {
                 </>
             }>
                 {
-                    USER.remainingGames > 0 ? <Game path={path} /> :
+                    USER.remainingGames > 0 ? <Game path={path}/> :
                         <div className="f-col g-2 f-justify-center f-align-center mx-auto">
                             <h2 className="fs-7 fw-500">You have reached the limit of free games</h2>
                             <p className="fs-custom-15 m-0">{USER.isLogin ? 'Upgrade to premium to continue playing' : 'Login for more free games'}</p>

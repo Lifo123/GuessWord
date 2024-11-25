@@ -1,0 +1,21 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import { InputText } from "@lifo123/library";
+---
+
+<Layout title="Sign in - WordGuess" description="Login to your account for Word Guess.">
+    <main class="f-col f-justify-center o-hidden mt-13 mb-14 mx-auto" style="min-height: 42dvh; max-width: 320px;">
+        <div class="f-col g-2" >
+            <h2 class="fs-7">Login</h2>
+            <p class="mb-2 fs-3">Please login to access the admin page</p>
+            <InputText placeholder="Username" type="text" name="username" className="mb-1" client:only="react"/>
+            <InputText placeholder="Password" type="password" name="password" client:only="react"/>
+        </div>
+        <span class="btn btn-primary br-6 mt-2">Sign in</span>
+    </main>
+</Layout>
+<style>
+    body{
+        background-color: rgb(var(--lb-bg));
+    }
+</style>

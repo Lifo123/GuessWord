@@ -12,10 +12,16 @@ export interface Params {
     currentRow: number;
     currentLetter: number;
     isWin: boolean | undefined;
-    restart: boolean;
+    waiting: boolean;
+    lastPlayed?: number;
 }
 
 
 export interface GuessWordStore extends Params {
     [key: string]: any;
+}
+
+
+export interface GameDaily {
+    
 }

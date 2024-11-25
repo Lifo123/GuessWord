@@ -1,0 +1,35 @@
+---
+import { Icon } from "@lifo123/library";
+import HeaderLeft from "./HeaderLeft";
+import HeaderRight from "./HeaderRight";
+---
+
+<header class="header mt-3 mx-auto f-align-center f-row" style="max-width: 700px;">
+    <nav class="f-row f-justify-between f-align-center relative w-100">
+        <HeaderLeft client:only="react" />
+        <h1
+            class="fs-4 fw-600 absolute"
+        >
+            WordGuess
+        </h1>
+        <HeaderRight client:visible />
+    </nav>
+</header>
+
+<style is:inline>
+    .header {
+        height: 50px;
+        width: 92%;
+        border-bottom: solid 1px var(--w-border);
+        background-color: var(--w-bg);
+        z-index: 400;
+    }
+    .header h1 {
+        left: 50%;
+        color: var(--w-title) !important;
+        transform: translateX(-50%);
+    }
+    .header h2 a {
+        color: var(--w-title) !important;
+    }
+</style>

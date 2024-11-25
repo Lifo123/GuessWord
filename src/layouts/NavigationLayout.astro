@@ -1,7 +1,10 @@
 ---
-import Header from "@/components/Header.astro";
+import Header from "@Components/header/Header.astro";
 import Layout from "./Layout.astro";
 import Footer from "@/components/Footer.astro";
+import { Toaster } from "@lifo123/library/Toast";
+import { AlertDialoger } from "@lifo123/library";
+import Aside from "@/components/aside/Aside.astro";
 
 interface Props {
     title: string;
@@ -11,7 +14,10 @@ const { title, description } = Astro.props;
 ---
 
 <Layout title={title} description={description}>
+    <Toaster client:only="react" />
+    <AlertDialoger client:only="react" />
     <Header />
+    <Aside/>
     <slot />
     <Footer />
 </Layout>

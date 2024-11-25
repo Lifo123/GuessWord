@@ -1,0 +1,92 @@
+---
+import AsideBtn from "./AsideBtn";
+import UpgradePremium from "./UpgradePremium";
+---
+
+<aside
+    class={`aside f-col f-justify-between o-hidden fixed h-100`}
+    id="aside-app"
+>
+    <div class="f-col g-2">
+        <header class="f-row f-justify-between f-align-center px-2 py-3 mt-2">
+            logo brand
+            <AsideBtn client:only="react" />
+        </header>
+        <ul class="f-col mt-3 g-1">
+            <li class="fs-1 px-2 mb-1" style="font-weight: 475;">Game Modes</li>
+            <li class="aside-item br-6 f-row f-justify-between fs-2 pointer">
+                <a href="/">Normal mode</a>
+            </li>
+            <li class="aside-item br-6 f-row f-justify-between fs-2 pointer">
+                <a href="/daily">Daily challenge</a>
+            </li>
+            <li class="aside-item br-6 f-row f-justify-between fs-2 pointer">
+                <a href="/timer">Daily Timer</a>
+            </li>
+        </ul>
+        <ul class="f-col mt-3">
+            <li class="fs-1 px-2 mb-1" style="font-weight: 475;">Premium</li>
+            <li class="aside-item br-6 f-row f-justify-between fs-2 pointer">
+                <a href="/challenge">Play Challenges</a>
+            </li>
+            <li class="aside-item br-6 f-row f-justify-between fs-2 pointer">
+                <a href="/custom">Play Custom</a>
+            </li>
+            <li class="aside-item br-6 f-row f-justify-between fs-2 pointer">
+                <a href="/custom/create">Create</a>
+            </li>
+        </ul>
+        <ul class="f-col mt-3">
+            <li class="fs-1 px-2 mb-1" style="font-weight: 475;">
+                Addiotionals
+            </li>
+            <li class="aside-item br-6 f-row f-justify-between fs-2 pointer">
+                <a href="/how-to-play">How to play</a>
+            </li>
+            <li class="aside-item br-6 f-row f-justify-between fs-2 pointer">
+                <a href="/blog/">Blog</a>
+            </li>
+            <li class="aside-item br-6 f-row f-justify-between fs-2 pointer">
+                <a href="/about">About</a>
+            </li>
+        </ul>
+    </div>
+    <footer class="mb-2">
+        <UpgradePremium client:visible />
+    </footer>
+</aside>
+
+<style>
+    .aside {
+        background-color: rgba(var(--lb-bg-2));
+        line-height: 1.2;
+        padding-inline: 0.75rem;
+        width: 100%;
+        max-width: 280px;
+        left: -700px;
+        z-index: 500;
+        transition: left 0.26s ease;
+    }
+
+    .aside.active {
+        left: 0;
+    }
+    .aside .aside-item {
+        width: 100%;
+    }
+    .aside .aside-item a {
+        width: 100%;
+        font-weight: 375;
+        padding: 0.625rem 0.5rem;
+        color: rgb(var(--lb-title));
+    }
+    .aside .aside-item:hover {
+        background-color: rgba(var(--lb-bg-4), 0.9);
+    }
+
+    @media (width < 560px) {
+        .aside {
+            max-width: 100%;
+        }
+    }
+</style>

@@ -9,7 +9,7 @@
 }
 
 .validate{
-    animation: ValidationAnimation .45s ease;
+    animation: ValidationAnimation .4s ease;
 }
 
 .error{

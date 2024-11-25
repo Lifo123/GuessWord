@@ -1,0 +1,31 @@
+---
+import NavigationLayout from "./NavigationLayout.astro";
+
+interface Props {
+    title: string;
+    description: string;
+}
+const { title, description } = Astro.props;
+---
+
+
+<script>
+    const USER = localStorage.getItem('wordguess-user')
+
+    if (!USER) {
+        window.location.href = '/acc/register'
+    }else{
+        const user = JSON.parse(USER)
+        if(!user.isLogin){
+            window.location.href = '/acc/login'
+        }
+        if(!user.isPremium && user.isLogin){
+            window.location.href = '/premium/'
+        }
+    }
+
+</script>
+
+<NavigationLayout title={title} description={description}>
+    <slot />
+</NavigationLayout>

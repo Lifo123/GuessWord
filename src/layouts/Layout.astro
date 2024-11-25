@@ -1,9 +1,5 @@
 ---
 import "@Styles/Global.css";
-import Header from "@Components/Header.astro";
-import Footer from "@Components/Footer.astro";
-import { Toaster } from "@lifo123/library/Toast";
-import { AlertDialoger } from "@lifo123/library";
 
 interface Props {
 	title: string;
@@ -22,7 +18,7 @@ const url = site ? new URL(path, site).href : null;
 			"(prefers-color-scheme: dark)",
 		).matches;
 		const theme =
-			localStorage.getItem("F-Theme") || (isDark ? "dark" : "light");
+			localStorage.getItem("darkmode") || (isDark ? "dark" : "light");
 
 		const applyTheme = (mode: any) => {
 			document.documentElement.classList.toggle("dark", mode === "dark");

@@ -1,14 +1,9 @@
 ---
-import AsideMenu from "@/components/AsideMenu";
+import Aside from "@/components/aside/Aside.astro";
 import Layout from "@/layouts/Layout.astro";
-
-
 ---
 
 <Layout title="Home - WordGuess.site" description="">
-    header
-    <main class="f-row g-2">
-        <AsideMenu />
-        content
-    </main>
+    <Aside state={true} />
+    <main class="f-row g-2">content</main>
 </Layout>

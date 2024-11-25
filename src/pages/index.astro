@@ -1,17 +1,13 @@
 ---
-import { AlertDialoger } from "@lifo123/library";
-import { Toaster } from "@lifo123/library/Toast";
 import NavigationLayout from "@/layouts/NavigationLayout.astro";
-import DefaultGame from "@/apps/Modes/Unlimited/DefaultGame";
+import DefaultGame from "@/apps/Modes/Normal/DefaultGame";
 ---
 
 <NavigationLayout
-	title="Play - Guessword"
+	title="Play - WordGuess"
 	description="Guess the word and play unlimited games"
 >
-	<Toaster client:idle />
-	<AlertDialoger client:visible />
-	<main class="app-game f-col g-2 o-hidden f-center mt-5">
+	<main class="app-game f-col g-2 o-hidden f-center mt-5" style="min-height: 500px;">
 		<DefaultGame client:only="react"/>
 	</main>
 </NavigationLayout>

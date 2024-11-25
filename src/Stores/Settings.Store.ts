@@ -1,8 +1,11 @@
-import type { SettingInterface } from '@/Types/Settings.Types'
 import { map } from 'nanostores'
+import type { SettingInterface } from '@/Types/Settings.Types'
 
-export const _setting = map<SettingInterface>({
+const initialData: SettingInterface = {
     tries: 6,
     length: 5,
     lang: 'en'
-})
+}
+
+
+export const _setting = map<SettingInterface>(initialData)

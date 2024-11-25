@@ -1,6 +1,7 @@
 import { GameServices } from "@/services/Game.Services";
 import { _game, initialData } from "@/Stores/Game.Store";
 import { _setting } from "@/Stores/Settings.Store";
+import { _user } from "@/Stores/User.Store";
 import type { LanguageTypes, ModeTypes } from "@/Types/Settings.Types";
 import { Local } from "@lifo123/library/utils";
 
@@ -36,7 +37,8 @@ const compareWord = (word: string, guess: string) => {
 }
 
 const validatePrevData = async (path: ModeTypes, lang: LanguageTypes, length: number) => {
-    const GAME = Local.get(`wordguess-${path}`).game || initialData;
+    const GAME = Local.get(`wordguess-${path}`)?.game || initialData;
+
     if (GAME?.word === '') {
         try {
             const word = await GameServices.getWord(lang, length);
@@ -46,7 +48,6 @@ const validatePrevData = async (path: ModeTypes, lang: LanguageTypes, length: nu
             GAME.isWin = false;
         }
     }
-
     _game.set(GAME);
     saveLocal(path);
 }
@@ -56,8 +57,13 @@ const saveLocal = (path: ModeTypes) => {
         game: _game.get(),
         setting: _setting.get()
     })
+    Local.set('wordguess-user', _user.get())
 }
 
+
+
 export const GameUtils = {
-    compareWord, saveLocal, validatePrevData
+    compareWord, 
+    saveLocal, 
+    validatePrevData,
 }

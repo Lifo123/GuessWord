@@ -1,18 +1,30 @@
-.play-again{
-    background-color: #161616af;
+.play-again {
+    background-color: rgba(var(--g-bg), .4);
     opacity: 0;
     pointer-events: none;
     transition: opacity .2s ease;
 }
-.play-again.active{
+
+.play-again.active {
     opacity: 1;
     pointer-events: visible;
 }
 
-.game-box{
+.game-board {
+    width: 90%;
+    max-width: 520px;
+    gap: .36rem;
+}
+
+.game-board>div {
+    gap: .36rem;
+}
+
+.game-box {
     background-color: var(--g-box-bg);
     border: solid 1px rgb(var(--lb-br), .6);
-    height: 58px;
+    width: 100%;
+    max-width: 55px;
     aspect-ratio: 1/1;
     text-transform: uppercase;
     border-radius: 4px;
@@ -22,11 +34,12 @@
     transform-style: preserve-3d;
 }
 
-.game-box.active{
+.game-box.active {
     border: solid 1px rgb(var(--lb-br), .4);
     animation: BoxActive .2s ease;
 }
-.game-box.target{
+
+.game-box.target {
     border: solid 1px #6fafebc5;
     outline: solid 1px #6fafebc5;
 
@@ -49,21 +62,32 @@
 
 
 
-.key-box{
+.keyboard-container {
+    gap: 0.36rem;
+}
+
+.keyboard-container>div {
+    gap: 0.36rem;
+}
+
+.key-box {
     background-color: var(--g-keyboard-bg);
     border-bottom: solid 1px #64626275;
-    width: 10%;
-    min-width: 20px;
-    height: 45px;
+    min-width: 16px;
+    max-width: 34px;
+    height: 40px;
     aspect-ratio: 1 / 1.3;
     user-select: none;
     flex-grow: 1;
 }
 
-.key-box.icon{
-    width: 14%;
-    aspect-ratio: 1 / 1.6;
+.key-box-icon {
+    background-color: var(--g-keyboard-bg);
+    border-bottom: solid 1px #64626275;
+    max-width: 50px;
+    height: 40px;
 }
+
 .key-box[data-valid="true"] {
     background-color: var(--box-true);
 }
@@ -77,4 +101,9 @@
 
 .key-box[data-valid="exist"] {
     background-color: var(--box-hint);
+}
+
+.game-popup{
+    background-color: rgba(var(--g-bg));
+    border: solid 1px rgba(var(--lb-br), .4);
 }

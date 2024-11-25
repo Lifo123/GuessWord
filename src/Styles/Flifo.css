@@ -220,7 +220,7 @@ p {
     left: 50%;
     transform: translate(-50%, -50%);
     z-index: 1100;
-    pointer-events: visible;
+    pointer-events: none;
     transition: background-color .2s ease, opacity .2s ease
 }
 
@@ -280,7 +280,7 @@ p {
     min-width: 330px;
     max-width: 470px;
     padding: .6rem 1rem;
-    background-color: var(--g-bg);
+    background-color: rgb(var(--g-bg));
     border: solid 1px rgba(var(--lb-br), 0.25)
 }
 
@@ -507,6 +507,11 @@ p {
     --slide-end-right: 1.2rem
 }
 
+[data-animate=custom] {
+    transition: opacity .2s ease, transform .2s ease,
+    top .2s ease, left .2s ease, right .2s ease, bottom .2s ease;
+}
+
 [data-animate=custom].delete {
     top: var(--custom-start-top, auto);
     left: var(--custom-start-left, auto);
@@ -521,7 +526,7 @@ p {
     left: var(--custom-end-left, auto);
     right: var(--custom-end-right, auto);
     bottom: var(--custom-end-bottom, auto);
-    opacity: var(--custom-opacity, 0);
+    opacity: var(--custom-opacity, 1);
     transform: var(--custom-transform, auto)
 }
 

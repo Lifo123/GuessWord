@@ -2,12 +2,12 @@ import GameIcons from "@/components/GameIcons";
 import { GameServices } from "@/services/Game.Services";
 import { _game, ManageGame } from "@/Stores/Game.Store";
 import { _setting } from "@/Stores/Settings.Store";
-import { ButtonPromise } from "@lifo123/library";
-import { toast } from "@lifo123/library/Toast";
+import type { ModeTypes } from "@/Types/Settings.Types";
+import { ButtonPromise } from "@lifo123/library/components";
 import { useStore } from "@nanostores/react";
 import React from "react";
 
-export default function Keyboard() {
+export default function Keyboard({ path }: { path: ModeTypes }) {
     const GAME = useStore(_game)
     const [isVisibleRestart, setIsVisibleRestart] = React.useState(false)
 
@@ -17,7 +17,7 @@ export default function Keyboard() {
         if (GAME.isWin !== undefined) {
             setTimeout(() => {
                 setIsVisibleRestart(true)
-            }, GAME.valid[0].length * 250)
+            }, GAME.valid[0].length * (GAME.isWin ? 350 : 230))
 
         }
     }, [GAME.isWin])
@@ -34,42 +34,45 @@ export default function Keyboard() {
                         KEYCHAR?.setAttribute('data-valid', box.state);
                     })
                 }
-            }, (GAME.valid[0].length) * 260)
+            }, (GAME.valid[0].length) * 240)
         }
     }, [GAME.currentRow]);
 
     return (
         <section className="f-col w-100 relative mt-3">
-            <div className="keyboard-container f-col g-2">
-                <div className="f-row g-2">
+            <div className="keyboard-container f-col">
+                <div className="f-row f-center">
                     {
                         'QWERTYUIOP'.split('').map((letter, i) => (
                             <KeyboardBox key={i} content={letter} onPointer={() => ManageGame.typing(letter)} />
                         ))
                     }
                 </div>
-                <div className="f-row g-2">
+                <div className="f-row f-center">
                     {
                         'ASDFGHJKL'.split('').map((letter, i) => (
                             <KeyboardBox key={i} content={letter} onPointer={() => ManageGame.typing(letter)} />
                         ))
                     }
-                    <KeyboardBox className="icon" content={<GameIcons id="backspace" />} onPointer={() => ManageGame.backspace()} />
+                    <span className="key-box-icon d-flex f-center icon w-100 br-4 pointer" onPointerDown={() => ManageGame.backspace()}>
+                        <GameIcons id="backspace" />
+                    </span>
                 </div>
-                <div className="f-row g-2">
+                <div className="f-row f-center">
                     {
-                        `${_setting.get().lang === 'es' ? 'Ñ' : ''}ZXCVBNM`.split('').map((letter, i) => (
+                        `ÑZXCVBNM`.split('').map((letter, i) => (
                             <KeyboardBox key={i} content={letter} onPointer={() => ManageGame.typing(letter)} />
                         ))
                     }
-                    <KeyboardBox className="icon" content={<GameIcons id="send" />} onPointer={() => ManageGame.enter()} />
+                    <span className="key-box-icon d-flex f-center icon w-100 br-4 f-grow pointer" onPointerDown={() => ManageGame.enter(path)}>
+                        <GameIcons id="send" />
+                    </span>
                 </div>
             </div>
             <div className={`play-again absolute d-flex f-center h-100 w-100 ${isVisibleRestart ? 'active' : ''}`}>
                 <ButtonPromise className="btn btn-primary br-6" text="Play Again" onClick={async () => {
-                    //await new Promise(resolve => setTimeout(resolve, 450));
-                    GameServices.getWord()
-                    ManageGame.restart()
+                    await new Promise(resolve => setTimeout(resolve, 500));
+                    ManageGame.restart(path)
                 }} />
             </div>
         </section>
@@ -80,7 +83,7 @@ const KeyboardBox = ({
     content, onPointer, className
 }: { content: React.ReactNode | string, onPointer: () => void, className?: string }) => {
     return (
-        <span className={`key-box br-4 d-flex f-center pointer fw-500 fs-custom-14-5 ${className || ''}`} onClick={onPointer}
+        <span className={`key-box br-4 d-flex f-center pointer fw-500 fs-2 ${className || ''}`} onClick={onPointer}
             data-letter={content}
         >
             {content}

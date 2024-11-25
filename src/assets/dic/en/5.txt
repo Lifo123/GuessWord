@@ -2204,6 +2204,7 @@ curbs
 curch
 curds
 curdy
+curve
 cured
 curer
 curet
@@ -2543,6 +2544,7 @@ dirty
 disas
 disci
 discs
+total
 dishy
 disks
 disme
@@ -7621,6 +7623,7 @@ prill
 primi
 primp
 prims
+prime
 primy
 prink
 print

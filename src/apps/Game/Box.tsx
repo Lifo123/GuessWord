@@ -12,15 +12,6 @@ export default function Box({
     const GAME = useStore(_game)
     const Box = React.useRef<HTMLSpanElement>(null)
 
-    const boxClasses = [
-        'game-box d-flex br-4 f-center',
-        currentLetter === index && 'target',
-        data.letter && 'active'
-    ]
-        .filter(Boolean)
-        .join(' ');
-    
-
     React.useEffect(() => {
         if (data.state !== undefined) {
             Box?.current?.removeAttribute('data-valid');
@@ -35,8 +26,8 @@ export default function Box({
                             Box.current?.setAttribute('data-win', 'true');
                         }, (GAME?.valid[0].length + 1) * 120);
                     }
-                }, 200);
-            }, index * 210);
+                }, 180);
+            }, index * 150);
         } else {
             Box.current?.classList.remove('active');
             Box.current?.removeAttribute('data-valid');

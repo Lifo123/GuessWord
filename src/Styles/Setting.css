@@ -1,0 +1,11 @@
+.setting-app{
+    height: 100dvh;
+    width: 100dvw;
+    background-color: rgba(var(--g-bg));
+}
+
+.setting-cont{
+    width: 90%;
+    max-width: 700px;
+    gap: .36rem;
+}
